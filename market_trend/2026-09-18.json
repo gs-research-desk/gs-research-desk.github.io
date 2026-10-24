@@ -1,0 +1,626 @@
+{
+ "date": "2026-09-18",
+ "meta": {
+  "window": "09-17 06:00~09-18 06:00 KST",
+  "engine": "Gemini(gemini-2.5-flash)",
+  "generated_at": "2026-09-18T06:35+09:00"
+ },
+ "stats": {
+  "channels": 99,
+  "messages": 1245,
+  "groups": 1165
+ },
+ "one_liner": "FOMC 금리 인상과 매파적 발언으로 시장 변동성 확대 속, AI/데이터센터 및 조선/방산 섹터에 대한 투자 기대감이 교차.",
+ "themes": [
+  {
+   "name": "FOMC 금리 인상 및 고금리 장기화 전망",
+   "narrative": "연방준비제도(Fed)가 3년 2개월 만에 기준금리를 25bp 인상하고, 점도표를 통해 2026년과 2027년 정책금리 중간값을 4.1%로 제시하며 고금리 장기화 가능성을 시사했습니다. 케빈 워시 연준 의장의 매파적 발언이 투자 심리를 위축시키며 미국 증시 하락을 주도했습니다.",
+   "status": "new",
+   "strength": 5,
+   "keywords": [
+    "중간값",
+    "기준금리 bp",
+    "의장 기자회견",
+    "연준 금리인상",
+    "인상한",
+    "BOE",
+    "연준 만장일치",
+    "인상 결정",
+    "은행주",
+    "연준 bp",
+    "만장일치",
+    "인상 시사"
+   ],
+   "evidence": [
+    {
+     "channel": "여의도스토리 Ver2.0-习近平是个狗东西",
+     "quote": "- 2026년 말 금리 전망 중간값은 3.8%에서 4.1%로 높아졌고, 위원 16명이 연내 최소 한 차례 추가 인상을 예상"
+    },
+    {
+     "channel": "epic AI - 투자 어시스턴트",
+     "quote": "Fed는 이날 FOMC에서 기준금리를 기존 3.50~3.75%에서 3.75~4.00%로 0.25%포인트 인상했습니다. 이는 2023년 7월 이후 약 3년 2개월 만의 긴축 조치로, 12명의 표결권 위원이 만장일치로 인상에 찬성했습니다. 금리 인상 자체는 시장에 이미 상당 부분 반영되어 있었으나, 워시 의장이 기자회견에서…"
+    },
+    {
+     "channel": "메리츠증권 리서치",
+     "quote": "- 잭슨홀 컨퍼런스 이후 높아진 긴축 압력, 일부 비둘기의 균형 시도에도 유가급등에 만장일치 인상 및 점도표상 연내 4.25% 추가 인상 시사"
+    }
+   ]
+  },
+  {
+   "name": "AI/데이터센터 인프라 및 반도체 소재 투자 확대",
+   "narrative": "두산이 AI 데이터센터용 CCL 생산능력 확대를 위해 9,700억원 규모의 국내외 증설 투자를 결정했으며, AI 전자소재 증설로 약 4조2000억원의 추가 매출이 가능할 것으로 전망됩니다. 하나마이크론 등 반도체 후공정 기업들도 메모리 증설 수혜 기대로 주목받고 있으며, 네비우스의 GPU 임대 가격 인상 소식은 AI 가속기 수요에 대한 자신감을 부각시켰습니다.",
+   "status": "ongoing",
+   "strength": 4,
+   "keywords": [
+    "두산",
+    "하나마이크론",
+    "네비우스",
+    "CCL",
+    "성호전자"
+   ],
+   "evidence": [
+    {
+     "channel": "epic AI - 투자 어시스턴트",
+     "quote": "두산이 9700억원을 투자해 CCL 생산능력을 확대하고 AI 데이터센터 수요 대응을 위해 국내외 증설 투자를 승인했습니다. 또한 AI 전자소재 증설로 약 4조2000억원의 추가 매출이 가능할 것으로 전망되며, 중국 창슈 법인과 국내에서 대규모 투자를 결정했습니다."
+    },
+    {
+     "channel": "빠르고 정확한 주식정보방",
+     "quote": "#하나마이크론 – 메모리 증설의 후공정 수혜"
+    },
+    {
+     "channel": "사제콩이_서상영",
+     "quote": "엔비디아(+2.54%)는 신규 이슈보다는 네비우스가 GPU 임대 가격을 최대 20% 인상하자 GPU 수요에 대한 자신감이 부각되자 상승."
+    }
+   ]
+  },
+  {
+   "name": "조선/방산 업종, UAE 방산 협력 및 수주 모멘텀 지속",
+   "narrative": "한화가 UAE 국영 방산 기업 에지(EDGE)와 통합 방공체계 구축을 위한 합작법인 설립을 추진하며 L-SAM, 천궁, 천무 등 현지 생산 및 MRO 역량 강화를 검토 중입니다. 조선 업종은 견고한 수주 모멘텀에 힘입어 HD현대중공업, 삼성중공업, 한화엔진 등이 강세를 보였습니다.",
+   "status": "ongoing",
+   "strength": 4,
+   "keywords": [
+    "한화엔진",
+    "UAE",
+    "합작법인"
+   ],
+   "evidence": [
+    {
+     "channel": "GS의 조선/기계/방산 「바담」",
+     "quote": "한화, UAE 국영 방산 '에지'와 통합 방공체계 구축…L-SAM•천궁•천무 현지 생산"
+    },
+    {
+     "channel": "DAOL 조선/기계/방산 | 최광식",
+     "quote": "• 정부 승인 절차를 거쳐 UAE 현지 합작법인 설립 및 생산·MRO 역량 강화를 단계별로 검토함"
+    },
+    {
+     "channel": "대신 전략. 돌직구",
+     "quote": "조선 업종도 견고한 수주 모멘텀이 상방 압력으로 작용. HD현대중공업(+6.1%), 삼성중공업(+6.2%), HD한국조선해양(+4.7%), 한화엔진(+10.3%) 등 강세"
+    }
+   ]
+  }
+ ],
+ "community_mood": {
+  "score": -10,
+  "summary": "투자자들은 FOMC의 금리 인상과 그에 따른 시장 변동성에 대한 불안감을 표출하는 가운데, AI 관련 기술주에 대한 관심과 함께 추석 연휴 전 포지션 정리에 대한 고민이 엿보입니다.",
+  "hot_stocks": [
+   {
+    "name": "NVIDIA",
+    "score": 70,
+    "reason": "젠슨황에 대한 긍정적 언급으로 AI 반도체 기대감 반영."
+   },
+   {
+    "name": "SK하이닉스",
+    "score": -20,
+    "reason": "장 마감 후 매도 여부에 대한 고민으로 주가 향방에 대한 우려 표출."
+   }
+  ]
+ },
+ "signals": {
+  "spikes": [
+   {
+    "term": "중간값",
+    "count": 20,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "두산",
+    "count": 19,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "기준금리 bp",
+    "count": 34,
+    "burst": 23.282403433476393,
+    "base_daily": 1.1,
+    "new": false
+   },
+   {
+    "term": "의장 기자회견",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "연준 금리인상",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "한화엔진",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "BOE",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "인상한",
+    "count": 13,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "하나마이크론",
+    "count": 13,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "UAE",
+    "count": 23,
+    "burst": 29.74973772055317,
+    "base_daily": 0.6,
+    "new": false
+   },
+   {
+    "term": "연준 만장일치",
+    "count": 12,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "합작법인",
+    "count": 12,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "인상 결정",
+    "count": 12,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "스피어",
+    "count": 12,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "은행주",
+    "count": 11,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "연준 bp",
+    "count": 11,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "역사상",
+    "count": 11,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "소각",
+    "count": 11,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "전환사채",
+    "count": 11,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "CCL",
+    "count": 11,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "성호전자",
+    "count": 11,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "만장일치",
+    "count": 30,
+    "burst": 13.969442060085838,
+    "base_daily": 1.7,
+    "new": false
+   },
+   {
+    "term": "네비우스",
+    "count": 10,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "인상 시사",
+    "count": 10,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "확대해",
+    "count": 10,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   }
+  ],
+  "top_posts": [
+   {
+    "channels": 5,
+    "channel": "AWAKE - 실시간 주식 공시 정리채널",
+    "head": "2026.09.17 17:08:17 기업명: 오름테라퓨틱(시가총액: 1조 1,555억) A475830 보고서명: 투자판단관련주요경영사항 (Bristol Myers Squibb(BMS)의 BMS-986497(ORM-6151) 임상 중단에 따른 자산양수도 계약 종료) 제목 : Bristol Myers Squibb(BMS)의…",
+    "url": "https://t.me/darthacking/153416",
+    "time_kst": "09-17 17:08"
+   },
+   {
+    "channels": 4,
+    "channel": "여의도스토리 Ver2.0-习近平是个狗东西",
+    "head": "[신한 리서치] 『올릭스(226950.KQ) - 신한 콥데이 - 오버행? 4Q 결과들 쏟아진다』 기업분석부 엄민용 ☎️ 02-3772-1546 ▶️ 신한생각: 오버행 우려 해소, 이제 올라갈 일만 남았다 5가지 긍정적 요소 기대 가능. 9월 15일 1,150억원 CPS 1년 보호 예수 해제된 165.7만주가 보통주 전환…",
+    "url": "https://t.me/YeouidoStory2/117469",
+    "time_kst": "09-17 08:13"
+   },
+   {
+    "channels": 3,
+    "channel": "키움증권 전략/시황 한지영",
+    "head": "[9/17, 장 시작 전 생각: 9월 FOMC와 증시 추세, 키움 한지영] - 다우 -1.21%, S&P500 -0.45%, 나스닥 -0.01% - 엔비디아 +0.8%, 마이크론 -0.1%, 샌디스크 -0.7% - 미 10년물 금리 5.02%, 미 30년물 금리 5.36%, WTI 101.9달러 1. 미국 증시는 매파적이…",
+    "url": "https://t.me/hedgecat0301/2942",
+    "time_kst": "09-17 07:45"
+   },
+   {
+    "channels": 3,
+    "channel": "SK증권 조선/방산 한승한",
+    "head": "[SK증권 조선/방산 한승한, 고서영] ▶️리레이팅의 조건: 데이터센터&함정 [조선주, 전형적인 낙폭과대 국면] - 조선주 주가 급락으로 12M Fwd P/E 는 상승사이클이 시작된 '23 년 4 월 이후 최저 수준까지 낮아짐. 합산 영업이익은 '28E 13.7조원으로 과거 고점의 약 2배가 예상됨 - 고수익성 선종 중심…",
+    "url": "https://t.me/SKSCyclical/1927",
+    "time_kst": "09-17 07:53"
+   },
+   {
+    "channels": 3,
+    "channel": "GS의 조선/기계/방산 「바담」",
+    "head": "[다올투자증권 조선/기계/방산 최광식] 9/17(목) 데일리뉴스 🛳 조선 [TradeWinds] War drives shipping’s biggest ever bull run as rates smash records US authorities board ship after report of cyber attack Cosc…",
+    "url": "https://t.me/c/1405984327/8111",
+    "time_kst": "09-17 08:47"
+   },
+   {
+    "channels": 3,
+    "channel": "AWAKE - 실시간 주식 공시 정리채널",
+    "head": "2026.09.17 13:46:14 기업명: 에스케이바이오팜(시가총액: 6조 1,711억) A326030 보고서명: 투자판단관련주요경영사항 제목 : 파킨슨병 치료제(c-Abl/LRRK2 이중 저해제) 신약 후보물질 라이선스(Licensing-in) 계약 * 주요내용 ※ 투자유의사항 동 계약은 조건부 계약으로서, 본 계약을…",
+    "url": "https://t.me/darthacking/153394",
+    "time_kst": "09-17 13:46"
+   },
+   {
+    "channels": 3,
+    "channel": "[다올 매크로/투자전략] 조병현/박영찬/정현하/홍록은",
+    "head": "[DAOL 9/17 Morning Brief] ▶️ 미국증시: Dow (-1.21%), S&P500 (-0.45%), Nasdaq (-0.01%) -미국증시, 정책금리 인상 결정과 연내 추가 인상 가능성을 반영하며 하락 마감. 금리 인상 영향으로 전통 산업군 위주의 다우 지수가 상대적으로 큰 하락 압력을 받은 반면, 반도…",
+    "url": "https://t.me/DaolMacro/1754",
+    "time_kst": "09-17 07:52"
+   },
+   {
+    "channels": 3,
+    "channel": "메리츠증권 리서치",
+    "head": "📮 [메리츠증권 채권전략 윤여삼] Policy Watcher: 미국 FOMC (9월): 인상 유감, 불확실성 해소가 아닌 시작 2026.9.17(목) - 잭슨홀 컨퍼런스 이후 높아진 긴축 압력, 일부 비둘기의 균형 시도에도 유가급등에 만장일치 인상 및 점도표상 연내 4.25% 추가 인상 시사 - 유가가 잡히지 않은 상황에…",
+    "url": "https://t.me/meritz_research/44644",
+    "time_kst": "09-17 07:55"
+   },
+   {
+    "channels": 3,
+    "channel": "[한투증권 김명주] 유통/화장품/생활소비재",
+    "head": "[한투증권 화장품/유통 김명주] 블랙프라이데이는 11월19~30일로 확정되었고 아마존 10월 프라임데이를 따라서 다른 유통사들도 쇼핑행사를 진행합니다. 한국 화장품 기업들은 쉴틈이없네요 ! 하반기 본격적인 쇼핑시즌 돌입입니다!",
+    "url": "https://t.me/kmj_retailcosmetics/8320",
+    "time_kst": "09-17 06:28"
+   },
+   {
+    "channels": 3,
+    "channel": "[한투증권 투자전략 김대준]",
+    "head": "원/달러 환율이 반등 중입니다. 그동안 원화 강세로 투자심리가 약화되었던 산업재(조선, 방산 등)가 반등하고 있습니다. 환에 반응하는 증시 호흡이 의외로 빠릅니다",
+    "url": "https://t.me/strategy_kis/14174",
+    "time_kst": "09-17 11:09"
+   },
+   {
+    "channels": 2,
+    "channel": "키움증권 미국주식 톡톡",
+    "head": "[키움 미국전략/주식 김승혁] 🌏US Daily (9/17) (9/16 종가기준) - 주요 지수 수익률 S&P500 7,551.81 / -0.45% NASDAQ 종합 25,978.43 / -0.01% 다우산업 51,461.90 / -1.21% 러셀2000 2,858.81 / -0.40% 필라델피아 반도체 11,246.11…",
+    "url": "https://t.me/kwusa/60790",
+    "time_kst": "09-17 07:25"
+   },
+   {
+    "channels": 2,
+    "channel": "[신한 리서치본부] IT(반도체/전기전자/디스플레이)",
+    "head": "[신한투자증권 IT팀 오강호, 김형태, 박현우, 송혜수, 김예성] 9/17(목) 🕗Daily IT 예습하기 ✅ 반도체/장비 ▶️ SK하이닉스, 인텔과 美 메모리 협력설에 \"확정된 바 없다\" (ZDNET) https://alie.kr/9BYVypk ▶️ SK하이닉스, 임단협 수정안 가결…성과급 50% 현금 (디일렉) htt…",
+    "url": "https://t.me/c/1355104422/7387",
+    "time_kst": "09-17 08:04"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (15시 08분) 기준 🌡️ 센티먼트 관망 (+5) 💡 요약 미국 금리 인상과 글로벌 경제 불확실성 속에서도 국내 기업들의 AI, 반도체, 신재생에너지 투자 및 주주환원 소식이 긍정적이나, 전반적인 시장은 관망세를 유지하고 있습니다. 🗣️ Top 키워드: 두산에너빌리티(33), AI(2…",
+    "url": "https://t.me/easobi_ai/20728",
+    "time_kst": "09-17 15:08"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 그림놀이 🚀",
+    "head": "📝 텔레그램 심층 분석 Report (11시 08분) 기준 🌡️ 센티먼트 낙관 (+75) 💡 요약 AI, HBM, 데이터센터 주도의 기술 성장 기대감과 이란-미국 간 지정학적 리스크 완화 소식에 시장 전반이 낙관적인 분위기이며, 금리 인상 이슈는 반영된 것으로 보입니다. 🗣️ Top 키워드: 데이터센터(20), AI(25…",
+    "url": "https://t.me/easobi/16718",
+    "time_kst": "09-17 11:08"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (23시 06분) 기준 🌡️ 센티먼트 기대감 상승 (+35) 💡 요약 AI/반도체 산업의 강력한 성장 기대감, 주요 기술 기업들의 혁신적 발표, 유가 및 금리 안정화 조짐이 시장의 긍정적인 분위기를 이끌고 있습니다. 일부 기업의 자금 조달 및 실적 부진 소식과 사이버보안 섹터의 고평가…",
+    "url": "https://t.me/easobi_ai/20741",
+    "time_kst": "09-17 23:06"
+   }
+  ]
+ },
+ "community_dc": {
+  "source": "DC인사이드",
+  "galleries": [
+   {
+    "id": "krstock",
+    "name": "국내주식갤러리",
+    "posts": 1317,
+    "capped": true,
+    "burst": 0.8,
+    "base_daily": 1679.0
+   },
+   {
+    "id": "stockus",
+    "name": "해외주식갤러리",
+    "posts": 2511,
+    "capped": true,
+    "burst": 0.7,
+    "base_daily": 3587.0
+   }
+  ],
+  "posts_sampled": 535,
+  "keywords": [
+   {
+    "term": "커버드콜",
+    "count": 14,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "씨발",
+    "count": 7,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "악재",
+    "count": 7,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "대체",
+    "count": 6,
+    "burst": 88.4,
+    "new": true
+   },
+   {
+    "term": "버블",
+    "count": 5,
+    "burst": 73.6,
+    "new": true
+   },
+   {
+    "term": "ai",
+    "count": 9,
+    "burst": 5.8,
+    "new": false
+   },
+   {
+    "term": "엔비",
+    "count": 6,
+    "burst": 6.8,
+    "new": false
+   },
+   {
+    "term": "국장",
+    "count": 7,
+    "burst": 6.1,
+    "new": false
+   },
+   {
+    "term": "시발",
+    "count": 8,
+    "burst": 5.1,
+    "new": false
+   },
+   {
+    "term": "애들",
+    "count": 5,
+    "burst": 6.7,
+    "new": false
+   },
+   {
+    "term": "같음",
+    "count": 5,
+    "burst": 6.7,
+    "new": false
+   },
+   {
+    "term": "내가",
+    "count": 6,
+    "burst": 5.2,
+    "new": false
+   },
+   {
+    "term": "이유",
+    "count": 11,
+    "burst": 3.4,
+    "new": false
+   },
+   {
+    "term": "금리",
+    "count": 14,
+    "burst": 2.3,
+    "new": false
+   },
+   {
+    "term": "삼성전자",
+    "count": 8,
+    "burst": 3.2,
+    "new": false
+   }
+  ],
+  "top_recommended": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "근데 지금 진지하게 롱숭이들 새로운 논리 단계 아님..??",
+    "views": 10056,
+    "recommend": 191,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17773865&exception_mode=recommend&page=1",
+    "time_kst": "09-17 10:24"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "금리인상 하니 금리인하 선택지가 생김",
+    "views": 10393,
+    "recommend": 149,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17773166&exception_mode=recommend&page=1",
+    "time_kst": "09-17 08:50"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "생각해보니 작년 금리인하하고 개쳐박았잖아???",
+    "views": 7628,
+    "recommend": 148,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17778067&exception_mode=recommend&page=1",
+    "time_kst": "09-17 21:46"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "젠슨황 왜케 착하냐?",
+    "views": 10051,
+    "recommend": 136,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17774764&exception_mode=recommend&page=1",
+    "time_kst": "09-17 13:01"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "와씨발 고소당하고 조사받으라 연락옴 ㅅㅂ",
+    "views": 10610,
+    "recommend": 128,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17773073&exception_mode=recommend&page=1",
+    "time_kst": "09-17 08:37"
+   }
+  ],
+  "top_viewed": [
+   {
+    "gallery": "국내주식갤러리",
+    "title": "다들 추석 전에 뺄거임?",
+    "views": 538,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3505984&page=4",
+    "time_kst": "09-18 02:25"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "아침 국장 예측",
+    "views": 537,
+    "recommend": 1,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3505971&page=5",
+    "time_kst": "09-18 02:13"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "야선 +3.4% 정도면 갭상후 쳐박진않겠지?",
+    "views": 515,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3505979&page=5",
+    "time_kst": "09-18 02:21"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "야선 이렇게 오르는거 올만이지?",
+    "views": 505,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3505996&page=4",
+    "time_kst": "09-18 02:42"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "야선 꼬라박네",
+    "views": 502,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3506107&page=2",
+    "time_kst": "09-18 05:05"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "하이닉스 오늘 장 끝나고 종가에 던지는게 낫냐?",
+    "views": 427,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3506105&page=2",
+    "time_kst": "09-18 05:03"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "내투자 논리론 현재는 국장에서 절대 건들기힘든 섹터3개",
+    "views": 396,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3506108&page=2",
+    "time_kst": "09-18 05:05"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "반등 ㅈ대네",
+    "views": 389,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3505963&page=5",
+    "time_kst": "09-18 02:09"
+   }
+  ]
+ }
+}
