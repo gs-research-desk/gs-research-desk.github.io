@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+/* 시스템이 라이트이고, 사용자가 다크로 고정하지 않았을 때 */
+@media (prefers-color-scheme:light){
+  :root:not([data-gs-theme="dark"]){color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+}
+/* 사용자가 고른 값은 시스템 설정을 이긴다 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",OWNER=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ var lv=level();
+ if(lv==="owner")return;                 // 주인은 전부 통과
+ if(lv==="guest"&&!OWNER)return;         // 친구는 공유 페이지만 통과
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?"이 화면은 주인 비밀번호가 필요합니다. ":"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     if(h===OH||(h===GH&&!OWNER)){set(h);location.reload();return}
+     msg.textContent=h===GH?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8"><base target="_blank">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>건설기계 브리핑 GPT판 2026-09-24</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-accent2,#e8b756);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:12.5px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<h1>🧠 글로벌 건설기계 브리핑 (GPT)</h1>
+<div class="meta">기준: 2026-09-24 (목) · 생성: Claude 예약 세션 — 웹서치 기반 2탄(기존 데일리는 RSS·확정시세 기반) · 수동 등록분은 ChatGPT 앱 산출물</div>
+<p>글로벌 건설기계 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-09-24 06:45입니다.</p>
+<p>*(GPT판 — 웹서치 기반. 확정 종가·수익률은 데일리판이 정본이며, 이 판은 수요일 시장을 움직인 재료의 배경과 구조 데이터를 웹서치로 보강합니다.)*</p>
+<h2>오늘의 핵심 요약</h2>
+<ul>
+<li><b>10년물 5.104% — 19년래 최고, 18개월래 최대 일간 급등의 배경</b>: 강한 제조업 서베이 + 연준 고위인사의 매파 발언 + 5년물 입찰 부진이 겹치며 지난주 연준 인상에 이은 '재긴축 사이클' 프라이싱이 본격화됐습니다 — 5% 돌파 후 기술적 가속까지. 금리 민감한 주택(착공 최저)·렌탈 멀티플·중소형 장비주의 공통 역풍이며, 수요일 OSK <span class="down">-5.50%</span>·Herc <span class="down">-2.49%</span>의 이탈과 같은 방향입니다. <a href="https://www.cnbc.com/2026/09/23/treasury-yields-oil-inflation-fed.html">CNBC</a> [사실/해석]</li>
+<li><b>버크셔의 주택 3연타 — Lennar $212m 추가 매수로 지분 10% 돌파</b>: D.R. Horton 보유·Taylor Morrison $6.8bn 인수 완료(7월)에 이어 사흘간 Lennar를 쓸어담아 10%를 넘겼습니다 — Lennar가 3분기 미스·4분기 가이던스 하향(금리발 구입여력 악화)을 낸 직후의 역발상 매수라는 점이 핵심. 착공 최저 국면에서 스마트머니가 주택 바닥에 베팅하는 그림으로, 소형장비(두산밥캣·스키드로더 축)의 2027년 회복 시나리오에 무게를 더합니다. <a href="https://www.cnbc.com/2026/09/22/lennar-shares-pop-as-berkshire-builds-almost-a-10percent-stake-in-beleaguered-homebuilder.html">CNBC</a> · <a href="https://247wallst.com/investing/2026/09/23/berkshire-hathaway-now-owns-over-10-of-this-beaten-down-homebuilder/">24/7 Wall St.</a> [사실/해석]</li>
+<li><b>Ashtead Technology 인수전의 실체 — Ember의 네 번째 접근, 615p·£498m($660m)</b>: 수중장비 렌탈사(Ashtead Group과 별개, AIM 상장)에 대한 인프라 PE의 4차 제안(프리미엄 12.8%)으로, 이사회는 앞선 두 번을 거부했으나 이번엔 예비 실사 자료 제공을 시작 — 영국 규정상 10/21까지 확정 제안 여부가 갈립니다. 해상풍력·오프쇼어 수명주기 자산에 대한 사모 수요가 특수 렌탈 밸류에이션의 바닥을 받치는 사례. <a href="https://www.investing.com/news/company-news/ashtead-technology-receives-615-pence-per-share-takeover-proposal-93CH-4913489">Investing.com</a> [사실]</li>
+<li><b>캐나다 딜러 사흘 랠리의 마무리 재료 — Toromont 애널 강세 전환</b>: TSX 소재·인프라 랠리 속 RBC 등 셀사이드의 긍정 시프트가 <span class="up">+6.70%</span>를 만들었고, Finning(<span class="up">+6.30%</span>)은 광산 매출 ~50%·신차 판매 증가의 실적 스토리 — 금속 현물이 조정(금 <span class="down">-1.26%</span>·은 <span class="down">-1.63%</span>)한 날에도 올랐다는 점에서 '가격 베팅'이 '실적 재평가'로 넘어간 신호입니다. <a href="https://www.tipranks.com/news/catalyst/toromont-stock-climbs-after-bullish-analyst-shift">TipRanks</a> [사실/해석]</li>
+<li><b>일본 3사의 하드 리얼리티 — 수요 정체·딜러 재고 과잉, 관세 절감이 완충</b>: Komatsu·Hitachi·Kubota는 2025~26년 수요 정체(팬데믹 특수 후 대체 지연)와 주택 축 부진·딜러 재고 과잉이 지속 — 다만 7월 미-일 관세 합의(25%→15%)로 각사 $150~200m 절감이 완충재입니다. Komatsu는 아시아 신흥시장용 20톤급 신형 굴착기 2종(PC200/210-11M2) 투입으로 볼륨존 방어. <a href="https://equipmentfinancenews.com/news/construction/japans-big-3-construction-equipment-makers-face-challenges/">Equipment Finance News</a> · <a href="https://www.marketscreener.com/news/komatsu-s-boom-faces-a-hard-reality-check-ce7f5bdfd18af420">MarketScreener</a> [사실]</li>
+</ul>
+<h2>매크로·원재료</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>지표</td><td>값(기준일)</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td></tr>
+<tr><td>미국채 10년 금리</td><td>5.104%(09/23, 웹서치 — 19년래 최고)</td><td>+13bp</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>금 (COMEX)</td><td>확인 불가(데일리판 참조)</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>은 (COMEX)</td><td>확인 불가</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>구리 (COMEX)</td><td>확인 불가</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>WTI 원유</td><td>확인 불가</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>원/달러</td><td>확인 불가</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><td>위안/달러</td><td>확인 불가</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+</table></div>
+<p>확정 수치는 데일리판 표(yfinance) 참조 — 금리 5.11%·금 <span class="down">-1.26%</span>·은 <span class="down">-1.63%</span>·구리 <span class="up">+0.29%</span>·WTI $92.70. 웹서치 보강: 금리 급등은 서베이·매파 발언·입찰 부진의 3중 — '재긴축 사이클' 프라이싱이며, 주택·렌탈·중소형의 금리 역풍과 광산·농기의 실적 스토리가 갈리는 매크로입니다. [사실/해석]</p>
+<h2>주요 주가 동향</h2>
+<p>확정치는 데일리판 참조 — 이 판은 배경 보강만.</p>
+<p><b>한국</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>HD현대건설기계 (HD Hyundai CE·Develon)</td><td><span class="down">-5.67%</span></td><td><span class="down">-3.8%</span></td><td><span class="up">+8.9%</span></td><td><span class="up">+36.7%</span></td><td>악재 없는 수급 급락 — 건설 밸류체인 전반 투매·연휴 전 현금화</td></tr>
+<tr><td>두산밥캣 (Doosan Bobcat)</td><td><span class="down">-1.03%</span></td><td><span class="down">-5.6%</span></td><td><span class="down">-6.5%</span></td><td><span class="up">+6.7%</span></td><td>버크셔-Lennar는 주택 축의 중기 바닥 신호</td></tr>
+</table></div>
+<p><b>글로벌 대형</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>John Deere</td><td><span class="up">+3.61%</span></td><td><span class="up">+9.6%</span></td><td><span class="up">+19.9%</span></td><td><span class="up">+51.1%</span></td><td>Baird 상향 이틀째 — 농기 회복 로테이션 대장</td></tr>
+<tr><td>Caterpillar</td><td><span class="down">-0.55%</span></td><td><span class="down">-1.9%</span></td><td><span class="down">-17.5%</span></td><td><span class="up">+74.1%</span></td><td>"백로그·전력 수요로 17% 저평가" 옹호 기사 병행</td></tr>
+</table></div>
+<p><b>중소형</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>Oshkosh (JLG)</td><td><span class="down">-5.50%</span></td><td><span class="down">-13.8%</span></td><td><span class="down">-2.9%</span></td><td><span class="up">+1.6%</span></td><td>개별 악재 미확인 — 금리 급등·비주택 capex 우려의 누적 이탈</td></tr>
+</table></div>
+<p><b>렌탈·딜러</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>Toromont Industries</td><td><span class="up">+6.70%</span></td><td><span class="up">+9.1%</span></td><td><span class="down">-5.1%</span></td><td><span class="up">+47.7%</span></td><td>애널 강세 전환 — '가격→실적' 재평가 전환</td></tr>
+<tr><td>Finning International</td><td><span class="up">+6.30%</span></td><td><span class="up">+14.6%</span></td><td><span class="up">+2.4%</span></td><td><span class="up">+73.3%</span></td><td>광산 실적 스토리, 사흘 누적 <span class="up">+15%</span></td></tr>
+<tr><td>Ashtead (Sunbelt)</td><td><span class="down">-4.48%</span></td><td><span class="down">-23.1%</span></td><td><span class="down">-21.0%</span></td><td><span class="down">-56.8%</span></td><td>하락 지속 — 별개사 Ashtead Technology 인수 제안과 대조</td></tr>
+</table></div>
+<p>그 외는 데일리판 표 참조.</p>
+<h2>큰 변동 분석</h2>
+<p>±10% 이상 변동 종목 없음. (±5% 이상: HD현대건설기계 <span class="down">-5.67%</span> / Oshkosh <span class="down">-5.50%</span> / Toromont <span class="up">+6.70%</span> / Finning <span class="up">+6.30%</span> — 상세는 데일리판 분석 참조)</p>
+<h2>시장별 동향</h2>
+<p><b>미국 (재긴축 프라이싱의 선별 — 금리 민감주만 이탈)</b></p>
+<p>10년물 5.1%대 급등에 주택·접근장비·렌탈이 빠지고 농기(실적 스토리)·딜러(광산 실적)는 올랐습니다 — '금리 vs 실적 가시성'의 힘겨루기에서 실적 스토리가 있는 축만 살아남는 장세입니다. 버크셔의 주택 3연타(Horton·Taylor Morrison·Lennar)는 금리 정점 이후를 보는 포지셔닝. [해석]</p>
+<p><b>캐나다 (딜러 재평가 사이클)</b></p>
+<p>금속 조정일에도 딜러가 오른 것은 백로그·서비스 매출의 이연 실현이 가격보다 후행하기 때문 — 셀사이드가 이 시차를 목표가에 반영하기 시작한 것이 사흘 랠리의 본질입니다. [해석]</p>
+<p><b>일본 (정체 속 방어전)</b></p>
+<p>수요 플랫·재고 과잉의 컨센서스 속에서 관세 절감($150~200m/사)과 신흥시장 신기종이 방어 수단 — 엔화·연휴 변수와 함께 4~9월 실적 발표(11월)까지 뚜렷한 촉매 부재. [해석]</p>
+<h2>기업 전략 동향</h2>
+<ul>
+<li><b>버크셔 — 주택 밸류체인 수직 축적</b>: 빌더 지분(Horton·Lennar)+빌더 인수(Taylor Morrison)의 3중 노출 — 주택 회복 시 자재·장비까지 이어지는 밸류체인 베팅의 신호탄. [사실/해석]</li>
+<li><b>Ember — 특수 렌탈 4차 구애</b>: 거부 2회에도 재접근·실사 진입 — 오프쇼어 에너지 수명주기 자산의 희소성 평가. 10/21 데드라인. [사실]</li>
+<li><b>Komatsu — 신흥시장 볼륨존 신기종</b>: PC200/210-11M2로 아시아 20톤급 방어 — 중국계 저가 공세에 대한 정면 대응 라인. [사실]</li>
+</ul>
+<h2>투자 시사점</h2>
+<p>1. <b>(단기) 금리 5.1%가 기준선 — 렌탈·중소형 반등 트레이드는 보류:</b> 재긴축 프라이싱이 진행 중인 구간에서는 유가 하락 순풍보다 금리 역풍이 멀티플을 지배합니다 — OSK·Herc·Ashtead의 낙폭과대 진입은 금리 안정(5% 하회 복귀) 확인 후로 미루는 것이 안전. [해석]</p>
+<p>2. <b>(중기) 버크셔 시그널 — 소형장비의 '27년 시나리오를 앞당겨 검토:</b> 스마트머니의 주택 바닥 베팅이 시작된 이상, 두산밥캣류 소형 축의 반등 논거는 '금리 인하 대기'에서 '선행 매수 추종'으로 진화합니다 — 4분기 착공·허가의 저점 형성과 빌더 재고 소진이 확인 지표. [해석]</p>
+<p>3. <b>(중기) 딜러 랠리의 다음 확인점은 실적 — 10월 말 Finning·Toromont 분기 발표:</b> '가격→실적' 재평가가 맞다면 3분기 실적에서 광산 백로그의 매출 전환이 나와야 합니다 — 미스 시 사흘 <span class="up">+15%</span>의 되돌림 리스크도 그만큼 큼. [해석]</p>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["auto","light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"auto"}catch(e){return "auto"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="auto")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

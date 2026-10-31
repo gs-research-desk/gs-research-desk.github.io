@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+/* 시스템이 라이트이고, 사용자가 다크로 고정하지 않았을 때 */
+@media (prefers-color-scheme:light){
+  :root:not([data-gs-theme="dark"]){color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+}
+/* 사용자가 고른 값은 시스템 설정을 이긴다 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",OWNER=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ var lv=level();
+ if(lv==="owner")return;                 // 주인은 전부 통과
+ if(lv==="guest"&&!OWNER)return;         // 친구는 공유 페이지만 통과
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?"이 화면은 주인 비밀번호가 필요합니다. ":"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     if(h===OH||(h===GH&&!OWNER)){set(h);location.reload();return}
+     msg.textContent=h===GH?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>글로벌 방산 브리핑</title><style>
+
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:13.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-link,#89b9ff);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:13px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+
+.bar{display:flex;gap:10px;align-items:center;max-width:860px;margin:0 auto 14px;flex-wrap:wrap}
+.bar h1{font-size:17px;margin:0;flex:1;min-width:200px}
+select,button{background:var(--gs-panel,#1c222c);color:var(--gs-ink,#c9d1dc);border:1px solid var(--gs-line-strong,#2e3a4e);border-radius:8px;
+  padding:7px 12px;font-size:13.5px;cursor:pointer}
+.bar a.trk{margin-left:auto;flex:0 0 auto;background:var(--gs-panel,#1c222c);color:var(--gs-accent2,#e8b756);border:1px solid var(--gs-line-strong,#2e3a4e);
+  border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap}
+.bar a.trk:hover{border-color:var(--gs-accent2,#e8b756)}
+.bar a.trk+a.trk{margin-left:0}
+iframe{width:100%;height:calc(100vh - 110px);border:1px solid var(--gs-line,#232e3f);border-radius:10px;background:var(--gs-bg,#161a21)}
+</style></head><body>
+<div class="bar">
+  <h1>🌍 글로벌 방산 데일리 브리핑</h1>
+  <button id="prev" title="이전 날짜">◀</button>
+  <select id="dsel"></select>
+  <button id="next" title="다음 날짜">▶</button>
+  <a class="trk" href="defense_tracker.html" target="_blank" rel="noopener"
+     title="입찰 중 프로젝트 · 국가별 예산·법안">📌 입찰·예산 트래커</a>
+  <a class="trk" href="naval_tracker.html" target="_blank" rel="noopener"
+     title="각국 해군 수상함·잠수함 수주전 추적">⚓ 수상함·잠수함 입찰</a>
+</div>
+<iframe id="frame" title="브리핑"></iframe>
+<script>
+const DATES=["2026-10-31", "2026-10-30", "2026-10-29", "2026-10-28", "2026-10-27", "2026-10-26", "2026-10-25", "2026-10-24", "2026-10-23", "2026-10-22", "2026-10-21", "2026-10-20", "2026-10-19", "2026-10-18", "2026-10-17", "2026-10-16", "2026-10-15", "2026-10-14", "2026-10-13", "2026-10-12", "2026-10-11", "2026-10-10", "2026-10-09", "2026-10-08", "2026-10-07", "2026-10-06", "2026-10-05", "2026-10-04", "2026-10-03", "2026-10-02", "2026-10-01", "2026-09-30", "2026-09-29", "2026-09-28", "2026-09-27", "2026-09-26", "2026-09-25", "2026-09-24", "2026-09-23", "2026-09-22", "2026-09-21", "2026-09-20", "2026-09-19", "2026-09-18", "2026-09-17", "2026-09-16", "2026-09-15", "2026-09-14", "2026-09-13", "2026-09-12", "2026-09-11", "2026-09-09", "2026-09-08", "2026-09-07", "2026-09-06", "2026-09-05", "2026-09-04", "2026-09-03", "2026-09-02", "2026-09-01", "2026-08-31", "2026-08-30", "2026-08-29", "2026-08-28", "2026-08-27", "2026-08-26", "2026-08-25", "2026-08-24", "2026-08-23", "2026-08-22", "2026-08-21", "2026-08-20", "2026-08-19", "2026-08-18", "2026-08-17", "2026-08-16", "2026-08-15", "2026-08-14", "2026-08-13", "2026-08-12", "2026-08-11", "2026-08-10", "2026-08-09", "2026-08-08", "2026-08-07", "2026-08-06", "2026-08-05", "2026-08-04", "2026-08-03", "2026-08-02", "2026-08-01", "2026-07-31", "2026-07-30"];
+const sel=document.getElementById('dsel'),fr=document.getElementById('frame');
+DATES.forEach(d=>{const o=document.createElement('option');o.value=d;o.textContent=d+' ('+'일월화수목금토'[new Date(d+'T00:00:00').getDay()]+')';sel.appendChild(o)});
+function load(){fr.src='defense_daily/'+sel.value+'.html'}
+sel.onchange=load;
+document.getElementById('prev').onclick=()=>{if(sel.selectedIndex<DATES.length-1){sel.selectedIndex++;load()}};
+document.getElementById('next').onclick=()=>{if(sel.selectedIndex>0){sel.selectedIndex--;load()}};
+if(DATES.length)load();
+else fr.srcdoc='<body style="background:var(--gs-bg,#161a21);color:var(--gs-muted,#8e98a8);font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">아직 생성된 브리핑이 없습니다 — 매일 아침 6시경 자동 생성됩니다.</body>';
+</script><script>
+(function(){
+ var K="gs_theme",ORDER=["auto","light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"auto"}catch(e){return "auto"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="auto")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+/* 시스템이 라이트이고, 사용자가 다크로 고정하지 않았을 때 */
+@media (prefers-color-scheme:light){
+  :root:not([data-gs-theme="dark"]){color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+}
+/* 사용자가 고른 값은 시스템 설정을 이긴다 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",OWNER=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ var lv=level();
+ if(lv==="owner")return;                 // 주인은 전부 통과
+ if(lv==="guest"&&!OWNER)return;         // 친구는 공유 페이지만 통과
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?"이 화면은 주인 비밀번호가 필요합니다. ":"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     if(h===OH||(h===GH&&!OWNER)){set(h);location.reload();return}
+     msg.textContent=h===GH?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8"><base target="_blank">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>글로벌 방산 브리핑 2026-09-19</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-link,#89b9ff);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:12.5px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<h1>🌍 글로벌 방산 데일리 브리핑</h1>
+<div class="meta">기준: 2026-09-19 07:00 KST · 생성: Gemini(gemini-2.5-flash) + 구글뉴스 RSS + yfinance 확정 시세</div>
+<p>글로벌 방산 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-09-19 07:00입니다.</p>
+<h2>오늘의 핵심 요약</h2>
+<p>미국의 미사일 공급 부족으로 동맹국에 대한 인도 지연이 경고되면서 한국 등 대체 공급처에 대한 관심이 높아지고 있습니다. Lockheed Martin (LMT)은 AIM-260 JATM 미사일 생산 확대를 합의하며 수주잔고를 강화했고, 독일은 첫 F-35 전투기를 인도받으며 NATO의 국방력 증강 흐름을 이어갔습니다. 국내에서는 LIG넥스원 (LIG Nex1)이 특별한 공시 없이 5% 이상 상승했으며, 한화시스템 (Hanwha Systems)은 AI 기반 우주상황인식체계 개발에 착수하며 미래 성장 동력을 확보했습니다. 유럽에서는 Leonardo (LDO.MI)가 Otokar와의 TULPAR 전차 포탑 통합 시험 성공으로 지상무기 분야 기술력을 입증했고, Thales (HO.PA)는 AI 기반 지휘통제 시스템 공개로 성장 동력을 부각했습니다.</p>
+<h2>주요 주가 동향</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>LIG넥스원 (LIG Nex1)</td><td>한국</td><td><span class="up">+5.08%</span></td><td>₩16.3조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Kongsberg (KOG.OL)</td><td>노르웨이</td><td><span class="up">+3.02%</span></td><td>kr283.7B</td><td>애널리스트 컨센서스 상향 조정 <a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxPMFg0SWs1Wmp3V0x3MFhUaUJQVE1lR1oxdVlQZDVyRUdaZTdxOTY4V0ZUOVd0bGZsMkZOWnROUUdBNHZ1QzVwc25BUklpeVJybHV4NXNuYmdzeDVQSVU0UmthY1liYzhYTmtzMmxPamtyOGVpb3Z3MWRoazJ3NEtTeFpqaDBLcjRzQW1lbGVhUFNHUHZwX2RRZ01vdTR5WHdBdW13V1FSTWtGWFVIOU1CUkpDTnBzeUNndzhoQkpPS0ZpOGxqNmVRdjBB?oc=5">AD HOC NEWS</a></td></tr>
+<tr><td>한화시스템 (Hanwha Systems)</td><td>한국</td><td><span class="up">+3.23%</span></td><td>₩15.0조</td><td>AI 우주상황인식체계 개발 착수 <a href="https://news.google.com/rss/articles/CBMiT0FVX3lxTE52eWxFSUx6NmtPYUpsR0UxM0VIc1poX0w3N21nREYzcjlPcE0yd2hLaUowV0JXeGZncXpfbW5OS3AwNmF1RHdZakVKdjEtSTA?oc=5">v.daum.net</a></td></tr>
+<tr><td>Saab (SAAB-B.ST)</td><td>스웨덴</td><td><span class="up">+2.34%</span></td><td>kr325.1B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Howmet Aerospace (HWM)</td><td>미국</td><td><span class="up">+1.73%</span></td><td>$91.6B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>풍산 (Poongsan)</td><td>한국</td><td><span class="up">+1.54%</span></td><td>₩2.2조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Leonardo (LDO.MI)</td><td>이탈리아</td><td><span class="up">+1.06%</span></td><td>€29.1B</td><td>Otokar와 TULPAR 전차 포탑 통합 및 실사격 시험 성공 <a href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxPVG9FM21pN080dEo5M3pTVlBVQkMzU2gxVWdrZDdDZUl3Qlctd05oanFMdUgxci1OcFpqUG11QmcwUUhyZ2phQmxiN29nVFNnUVo5NHMzZ2YwOV9OOW41ck84UTgwTG53NXNmSkNBWE1Nb3J1eTkxRXI1Y1Q1Sm1mcWNnV1lOeFRvTEFUWjRjMVhVSHo1dHhmem0ySzdqQnUxRDFIa2ZEbGhoSmV4Z0NUVjNLNURQSmFJXzFHMGRWZjVSWWxIS0JmWVdsY2xYWmg2eW9ESTJ4ZVVaU3JK?oc=5">EDR Magazine - European Defence Review</a></td></tr>
+<tr><td>Dassault Aviation (AM.PA)</td><td>프랑스</td><td><span class="up">+1.04%</span></td><td>€22.1B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Northrop Grumman (NOC)</td><td>미국</td><td><span class="up">+0.65%</span></td><td>$74.9B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Boeing (BA)</td><td>미국</td><td><span class="up">+0.61%</span></td><td>$156.7B</td><td>UMSL 학생 대상 인턴십 프로그램 시작 <a href="https://news.google.com/rss/articles/CBMigwFBVV95cUxQcC0tYml0Ymx5NVNrbm9SeDNMellPbVlReDljOUFaTU5ieUx0VEozdXRJSDFNQ3RHWDUyV3lfNUlVbnBBZEt3Zjc5SVNiOHF6clFGX0d0UkhGTHlQZ0hfMFlYemNoQlVXbThHdkp1aFJVaE1qQnVoWW9iQ1EzR2hTR3FIcw?oc=5">UMSL Blogs</a></td></tr>
+<tr><td>Thales (HO.PA)</td><td>프랑스</td><td><span class="up">+0.42%</span></td><td>€49.0B</td><td>HexaForce 및 Vietjet 계약으로 성장 동력 부각 <a href="https://news.google.com/rss/articles/CBMi0gFBVV95cUxOeXcydktMNU4zWlBpaFNFdmY4aV9TREFlZjR0NVZnWWZhODUxSjJjNFh4RU85Z0VLMTJHSkE3Z0pxLVl5emxDcmhiWWx3ZkhoQ1ZhZ3gxTWtwVnI3MDJSMU10Z0dKRVJtbHhTR3pUSl9LaEg0UWtjbmh2enNwUFh4Z3dXWnltMFVBZm02Zk1FV2luZ2JlWkdfem5YZjl0cDZPckdCbkN6ZE56MTRIYXFiZjRpck1lQ09ydndlX0lhZ1ZyQ1ExWDJJN0tDZjdXWXpOa1E?oc=5">AD HOC NEWS</a></td></tr>
+<tr><td>Lockheed Martin (LMT)</td><td>미국</td><td><span class="down">-0.88%</span></td><td>$123.1B</td><td>AIM-260 JATM 생산 확대 합의 <a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxOc0ZTcGVGTlFfMk5US1I1SnhibTJXa2FQd2F3TmhBR09fRVQ1S3RhRXJhN1pXLVktSXdsVUx6bzNlU1hmQW84MTNfakRKZ2dnbUEwajlNOV9FckxnMVc5RW9jUzVfQng4c3lGRHBCbFJjaWI3M1dIRFAzUnVKTURIM2ZUZElvRkZzdF9LOTE3OV9VZjg?oc=5">ExecutiveGov</a></td></tr>
+<tr><td>Rolls-Royce (RR.L)</td><td>영국</td><td><span class="down">-2.01%</span></td><td>£11940.1B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>AeroVironment (AVAV)</td><td>미국</td><td><span class="down">-2.10%</span></td><td>$8.1B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Renk (R3NK.DE)</td><td>독일</td><td><span class="down">-2.15%</span></td><td>€4.2B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Babcock (BAB.L)</td><td>영국</td><td><span class="down">-3.10%</span></td><td>£484.0B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+</table></div>
+<h2>큰 변동 분석</h2>
+<p>±10% 이상 변동 종목 없음. (±5% 이상: LIG넥스원 <span class="up">+5.08%</span>)</p>
+<p><b>LIG넥스원 (LIG Nex1)</b>은 지난 24시간 동안 <span class="up">+5.08%</span> 상승했으나, 주가 변동을 설명할 만한 특정 공시나 뉴스는 확인되지 않았습니다. 이는 시장 내 수급 요인에 의한 것으로 추정됩니다.</p>
+<h2>섹터별 정리</h2>
+<ul>
+<li>  <b>항공우주</b></li>
+<li>  독일이 미국으로부터 첫 F-35 전투기를 인도받았습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNWHJlRFRjTVQzUHNyRnFSTnZfcUVreUMxMl9MdnpVWUNxa3Q2WG14WTVScHNxX0c5eUlVMXJCT3dnZlhMREQ4VldsOEVnelgzSkIwbjRyRE96cW9HNjJzMU0xQWRvSV9KOVZIbFVxZ1ljVnZuVjdUSjJONWNSZ09YYjNUMDUwZXlpUHpKRjhBTGh6N2g2bDVuUkM0cFNiY1BIbHZOdlBpdTZpM2ZNREVjemd1WdIBuAFBVV95cUxQZzh1OEU0dUU2cHZLckZoREFVdXVRVW9hQzdnWGdHd0R3Ujh3OWROc1ZUYnJyMnBnY0xhTC1mWlp6d3REdm9lUFBERW5rblItdWtRczZ4eE5YbjFheklJOFVfOHNSRmJRR2hOLTRWR3lTYkdackdra1FEQnZvMTZzWUk1WlZKdTBwYXByWE5lTUlDdm5HYkw3TTZ3WmZXWkswLXNjTDlUeGROMHFtTU1vTzA3SkhmRFVx?oc=5">Al Jazeera</a>. 이는 NATO 회원국들의 국방비 증액 흐름 속에서 F-35 프로그램의 지속적인 진전을 보여주며, Lockheed Martin (LMT) 등 관련 기업에 긍정적입니다.</li>
+<li>  Lockheed Martin (LMT)이 미 국방부와 AIM-260 JATM 미사일 생산 확대를 합의했습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxOc0ZTcGVGTlFfMk5US1I1SnhibTJXa2FQd2F3TmhBR09fRVQ1S3RhRXJhN1pXLVktSXdsVUx6bzNlU1hmQW84MTNfakRKZ2dnbUEwajlNOV9FckxnMVc5RW9jUzVfQng4c3lGRHBCbFJjaWI3M1dIRFAzUnVKTURIM2ZUZElvRkZzdF9LOTE3OV9VZjg?oc=5">ExecutiveGov</a>. 차세대 공대공 미사일의 생산 가속화는 Lockheed Martin의 매출 및 수주잔고에 긍정적인 영향을 미칠 것으로 예상됩니다.</li>
+<li>  Boeing (BA)이 UMSL 학생들을 대상으로 인턴십 프로그램을 시작했습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMigwFBVV95cUxQcC0tYml0Ymx5NVNrbm9SeDNMellPbVlReDljOUFaTU5ieUx0VEozdXRJSDFNQ3RHWDUyV3lfNUlVbnBBZEt3Zjc5SVNiOHF6clFGX0d0UkhGTHlQZ0hfMFlYemNoQlVXbThHdkp1aFJVaE1qQnVoWW9iQ1EzR2hTR3FIcw?oc=5">UMSL Blogs</a>. 이는 장기적인 인재 확보 및 공급망 강화 노력의 일환으로 해석됩니다.</li>
+</ul>
+<ul>
+<li>  <b>지상무기</b></li>
+<li>  Otokar와 Leonardo (LDO.MI)가 TULPAR 전차에 HITFACT MkII 120mm 포탑을 성공적으로 통합하고 실사격 시험을 완료했습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxPVG9FM21pN080dEo5M3pTVlBVQkMzU2gxVWdrZDdDZUl3Qlctd05oanFMdUgxci1OcFpqUG11QmcwUUhyZ2phQmxiN29nVFNnUVo5NHMzZ2YwOV9OOW41ck84UTgwTG53NXNmSkNBWE1Nb3J1eTkxRXI1Y1Q1Sm1mcWNnV1lOeFRvTEFUWjRjMVhVSHo1dHhmem0ySzdqQnUxRDFIa2ZEbGhoSmV4Z0NUVjNLNURQSmFJXzFHMGRWZjVSWWxIS0JmWVdsY2xYWmg2eW9ESTJ4ZVVaU3JK?oc=5">EDR Magazine - European Defence Review</a>. 이는 Leonardo의 지상무기 시스템 기술력을 입증하며 향후 TULPAR 전차 수출 시 수혜가 기대됩니다.</li>
+</ul>
+<ul>
+<li>  <b>미사일·방공</b></li>
+<li>  미국이 미사일 부족으로 동맹국에 대한 미사일 인도 지연을 경고했습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMUxHZWtfZ0tvbldNN2VkOTlhc0lrdUdOU3ZfRlNSNkVPdzZFM2lqSGpHNjhRS1FQNGZRUThZRWYwWEs4aFhwOW1lVXV4YWY3b1R3U1Z5bTd2RVZjZUFwbDU1YndMZGdLSVhMOUFUX3RKamNodlZGbk1SUzFwbFcxdmJldW1UVkpuQUxQdzlxYWdSZVAzb1NNdlhnaWhaQk9JSEZ5a2xBRHNIbzQ?oc=5">The Straits Times</a>. 이는 글로벌 미사일 수요 증가와 생산 능력 부족이 맞물린 결과로, 한국 등 대체 공급처에 대한 관심이 증대될 가능성이 있습니다. RTX 등 미국 미사일 제조사에는 공급망 압박 요인으로 작용할 수 있습니다.</li>
+<li>  GM이 패트리어트 미사일 부품 생산에 참여합니다 (09/19) <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTFBQRW1WUjB5a3FKNXlUb1BnSm94a3R0azNuSF9XOTZDNHdQbkZrTjh0dWtqbGJBLWFGcUpTSEE1RnZqbzZfclFpcVoxNHJPRmNnTDdqb1dLUG9MaWRsOVQ0RkhFelhLTy13ZVE5NF9qRkctTDRadlhfUWpKcURBZw?oc=5">Business Insider</a>. 이는 미국 방산 공급망 강화 노력의 일환으로, RTX 등 패트리어트 미사일 관련 기업의 생산 능력 확대에 기여할 수 있습니다.</li>
+<li>  사우디아라비아가 미사일 방어 지원을 위해 4개 동맹국에 도움을 요청했습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMizwFBVV95cUxOZmlyMlpCY29hMVljN3lBOVFmYk1qNHh2dFQwRVlBeGxtUEpKNHI3U1ZodDNvOWIyZUZFVEN4cTF6bDlCSlgwNWRjY21GV2U2TmNDcTRMaGtNOUJtcF9DamE3VXNNNHJCalZnQ3lsWnlRNUxaOUZjRWowaHA0Wlc1MXhfUEh1YlJJMEVrNEJ1czIzdEZqRXNrd3lSSm0zUElkWVBaclN0bS1aQ2o4SVloTUtHelQzMEpFVHdEUUV1YjBUZUYtWzNrWWYtTFVlNnM?oc=5">Business Insider Africa</a>. 이는 미국의 미사일 요격기 부족으로 인한 중동 지역의 미사일 방어 수요 증가를 시사하며, 한국의 미사일 방어 시스템 수출 기회 확대로 이어질 수 있습니다.</li>
+</ul>
+<ul>
+<li>  <b>해군·조선</b></li>
+<li>  ‘수상함은 HD현대, 잠수함은 한화’라는 구도가 옛말이 될 수 있다는 보도가 나왔습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxQbWlfWVY0enFna3ktV0ZZMHdjU194RTdXNUNHYWIwbGh2VGJ6eTdFSnFpaDEtb1pqUDdCTHpPZ1pKOWRGQnZMUHRzeE5odDgtazFrakVVeXJ6Z3VPbThyT1U2bjQ3NzNZa2hVSmpPaXNxSkdaXzllbThmRGo4dG9rWkdUYzRmSmcwS2hSRnVTcw?oc=5">조선일보</a>. 이는 한국 조선업계 내 경쟁 심화를 시사하며, 한화오션 (Hanwha Ocean)과 HD현대중공업 (HD HHI) 간의 잠수함 및 수상함 사업 경쟁 구도 변화 가능성에 주목해야 합니다.</li>
+</ul>
+<ul>
+<li>  <b>전자·센서</b></li>
+<li>  한화시스템 (Hanwha Systems)이 AI 기반 우주상황인식체계 개발에 착수했습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMiT0FVX3lxTE52eWxFSUx6NmtPYUpsR0UxM0VIc1poX0w3N21nREYzcjlPcE0yd2hLaUowV0JXeGZncXpfbW5OS3AwNmF1RHdZakVKdjEtSTA?oc=5">v.daum.net</a>. 우주 안보 분야의 중요성 증대와 함께 한화시스템의 미래 성장 동력 확보 노력으로 평가되며, 주가에 긍정적인 영향을 미쳤습니다.</li>
+<li>  Thales (HO.PA)가 NATO 및 동맹국을 위한 AI 기반 지휘통제 시스템 'HexaForce'를 공개했습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxPdUhDMmVucVg5UGNna0ZlY0tEdmJQaWkyN1I0MjNHNEIySUpFa3R3WHRzX3hUU1hLNlB1UGtVVjM0emZUR0MtY2RpcFRpZVZLODNXTkVTb29XZjhyWUx1cUgtV1VmWGFybVlKOGVDOXhEWXJTZWNGMDRQQWQ4WTJhS0h6Ukp3OUd4M296RkpYTEg3R3JOb2FYczVOLXYxbFNBSm4wUVhHX2FxWXJTMmhhUzV5V1B5dTZlOXZqaFIyWkNuM1BjYTNGMWtRZnl1Zw?oc=5">Eurasia Review</a>. 이는 Thales의 AI 및 C4I 기술력 강화를 보여주며, NATO 국방비 증액 흐름 속에서 수주 기대감을 높일 수 있습니다.</li>
+<li>  BAE Systems (BA.L)가 개방형 아키텍처 설계의 소형 전자전(EW) 시스템을 출시했습니다 (09/19) <a href="https://news.google.com/rss/articles/CBMitgFBVV95cUxPeENOd3JUWFpEQUZMTHVkSXAxa3lwajFKTFR2VHVLVHc2LW1haUNIMnpLbGVERTQ0YjlYbVdHclR0cTVpaldPMjIya1ZpY3ZhQXVXZ0JoNVVOMUxEendmTklVaFptSkVfbWxVREJjdnRkeU9XbUdmNUREOEFTaFNiT05RT2tBbk1pUXliZy13Rm1uc3VhS3VReTMyTkFNTTFkZk9IM1B2N3VvakVhWlFCcDJUbnJoZw?oc=5">Military Embedded Systems</a>. 이는 전자전 시장의 경쟁 심화와 기술 혁신 가속화를 반영하며, BAE Systems의 시장 점유율 확대에 기여할 것으로 보입니다.</li>
+</ul>
+<h2>투자 시사점</h2>
+<ul>
+<li>  <b>미국 미사일 공급망 차질에 따른 대체 공급처 부각</b>: 미국의 미사일 생산 부족으로 동맹국에 대한 인도 지연이 현실화되면서, 한국 등 안정적인 공급 능력을 갖춘 국가의 방산 기업들이 중동 및 유럽 시장에서 미사일 및 방공 시스템 수출 기회를 확대할 수 있습니다.</li>
+<li>  <b>AI 및 우주 안보 분야 투자 확대 지속</b>: 한화시스템의 AI 우주상황인식체계 개발, Thales의 AI 기반 지휘통제 시스템 공개 등 AI와 우주 분야는 미래 국방의 핵심 기술로 부상하며 관련 기업들의 중장기 성장 동력이 될 것입니다.</li>
+<li>  <b>유럽 방산 기업들의 기술 개발 및 수출 성과 주목</b>: Leonardo의 지상무기 시스템 통합 성공, BAE Systems의 전자전 시스템 출시 등 유럽 방산 기업들이 활발한 기술 개발과 시장 확대를 추진하고 있어, 이들의 수주 성과에 따라 주가 변동성이 커질 수 있습니다.</li>
+</ul>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["auto","light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"auto"}catch(e){return "auto"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="auto")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

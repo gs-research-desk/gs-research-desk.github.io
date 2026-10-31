@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+/* 시스템이 라이트이고, 사용자가 다크로 고정하지 않았을 때 */
+@media (prefers-color-scheme:light){
+  :root:not([data-gs-theme="dark"]){color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+}
+/* 사용자가 고른 값은 시스템 설정을 이긴다 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",OWNER=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ var lv=level();
+ if(lv==="owner")return;                 // 주인은 전부 통과
+ if(lv==="guest"&&!OWNER)return;         // 친구는 공유 페이지만 통과
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?"이 화면은 주인 비밀번호가 필요합니다. ":"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     if(h===OH||(h===GH&&!OWNER)){set(h);location.reload();return}
+     msg.textContent=h===GH?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8"><base target="_blank">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude 방산 브리핑 2026-09-13</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-accent,#d6b27a);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:12.5px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+/* 모바일: 6열 표가 세로로 짓눌리므로 행을 카드로 재배치 (헤더행 기반 라벨) */
+@media (max-width:640px){
+  body{padding:20px 14px 48px}
+  .ptab.hdr, .ptab.hdr tbody, .ptab.hdr tr, .ptab.hdr td{display:block;width:100%;box-sizing:border-box}
+  .ptab.hdr tr:first-child{display:none}
+  .ptab.hdr tr{border:1px solid var(--gs-line,#232e3f);border-radius:10px;margin:10px 0;padding:9px 12px;background:var(--gs-card,#1a2029)}
+  .ptab.hdr tr:hover td{background:transparent}
+  .ptab.hdr td{border:none;padding:2px 0;display:flex;gap:10px;align-items:baseline;font-size:13.5px}
+  .ptab.hdr td::before{content:attr(data-l);color:var(--gs-muted,#8e98a8);font-size:11.5px;flex:0 0 58px}
+  .ptab.hdr td:first-child{display:block;font-weight:700;color:var(--gs-ink-strong,#e6ebf2);font-size:14.5px;
+    padding-bottom:5px;margin-bottom:4px;border-bottom:1px solid var(--gs-line-soft,#1f2834)}
+  .ptab.hdr td:first-child::before{content:none}
+}
+</style></head>
+<body><div class="wrap">
+<h1>🤖 Claude 글로벌 방산 브리핑</h1>
+<div class="meta">기준: 2026-09-13(일) · 생성: Claude(웹 검색 리서치) — Gemini 브리핑과 별도 관점의 2탄</div>
+<p>글로벌 방산 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-09-13 06:00 KST입니다. (일요일 — 전 시장 휴장, 지정학 중심의 짧은 브리핑입니다)</p>
+<h2>오늘의 핵심 요약 — 시장 임팩트 순</h2>
+<ul>
+<li><b>내일(월) 오만 살랄라에서 GCC-이란 호르무즈 회동 확정(9/12):</b> 걸프협력회의(GCC) 외무장관들과 이란·이라크가 참석하는 다자 회동 — 의제는 '해협 통제권'과 '이란의 상선 통항료 부과 허용 여부'로, 2월 말 개전 이후 봉쇄·교란돼 온 세계 원유 물동량 1/5 통로의 첫 포괄 협상입니다. 월요일 유가와 방산 지정학 프리미엄의 최대 변수입니다. <a href="https://www.aljazeera.com/news/2026/9/11/iran-says-will-discuss-strait-of-hormuz-with-gulf-states-on-monday">Al Jazeera</a> · <a href="https://www.bloomberg.com/news/articles/2026-09-11/gulf-states-may-meet-iran-next-week-to-discuss-future-of-hormuz">Bloomberg</a> [사실]</li>
+<li><b>푸틴 "유럽군 파병은 곧 러시아와의 전쟁"(9/12):</b> 인도 BRICS 정상회의에서 유럽의 우크라이나 파병 구상에 최고 수위 경고 — 같은 날 Lavrov 외무장관은 "협상엔 준비됐지만 협상 중에도 작전은 중단하지 않는다"고 밝혔습니다. 3자 회담 추진과 '안전보장(유럽군 주둔)' 논의가 러시아의 레드라인과 정면 충돌하는 구도입니다. <a href="https://www.washingtontimes.com/news/2026/sep/12/5-killed-russian-strikes-ukraine-putin-warns-europe-sending-troops/">Washington Times</a> [사실/보도]</li>
+<li><b>러시아, 우크라 전력망 겨냥 공습 지속 — 5명 사망(9/12):</b> 자포리자 주거지 드론 타격 등 하루 5명 사망 — 겨울을 앞두고 탄도미사일·제트 드론으로 방공망을 뚫는 전력망 공격이 강화되고 있어, 젤렌스키가 키이우 회담에서 요청한 '겨울 방공 지원'의 시급성을 뒷받침합니다. <a href="https://www.washingtontimes.com/news/2026/sep/12/5-killed-russian-strikes-ukraine-putin-warns-europe-sending-troops/">Washington Times</a> [사실]</li>
+<li><b>폴란드 MSPO 폐막 — K-방산 '유럽 현지화' 총력전(9/8~11):</b> 현대로템은 국내 최대 부스에 K2PL과 계열전차(교량·개척·구난)를 전시하며 2차 이행계약 현지 생산 준비를 가속했고, 한화에어로스페이스는 K9A1+무인지상차량 유·무인 복합체계와 무인수상정-천무 결합 '스트라이커-S'를 공개 — 한화의 폴란드 공장 지분 협상도 진행 중입니다. <a href="https://www.etoday.co.kr/news/view/2622739">이투데이</a> · <a href="https://www.hankyung.com/article/2026090794581">한국경제</a> · <a href="https://www.newsfreezone.co.kr/news/articleView.html?idxno=708363">뉴스프리존</a> [사실/보도]</li>
+</ul>
+<h2>주요 주가 동향</h2>
+<div style="overflow-x:auto"><table class="ptab hdr">
+<tr><td>기업</td><td>국가</td><td>기준일</td><td>등락률</td><td>시가총액</td><td>변동 요인</td></tr>
+<tr><td data-l="기업">전 시장</td><td data-l="국가">-</td><td data-l="기준일">09/12~13</td><td data-l="등락률">휴장(주말)</td><td data-l="시가총액">-</td><td data-l="변동 요인">직전 거래일(금) 동향은 전일 브리핑 참조</td></tr>
+</table></div>
+<ul>
+<li>금요일 요점: CPI 3.4% 부합·FOMC 인상 확률 ~70%, WTI $99.99(<span class="down">-2.43%</span>), 코스피 6,909.91(<span class="down">-1.76%</span>) 속 한화에어로·한화오션 역행 강세, Rheinmetall €1,034(<span class="down">-3.38%</span>). [사실]</li>
+</ul>
+<h2>큰 변동 분석</h2>
+<ul>
+<li>전 시장 휴장 — 해당 없음.</li>
+</ul>
+<h2>섹터별 정리</h2>
+<h2>항공우주</h2>
+<ul>
+<li>특이사항 없음.</li>
+</ul>
+<h2>지상무기</h2>
+<ul>
+<li><b>MSPO의 K2PL '현지화 실물' 공세</b>: 계열전차까지 갖춘 K2PL존은 폴란드 2차 이행(현지 생산)의 실행력을 보여주는 무대였고, 루마니아 등 인접국 확산의 영업 기반입니다 — 다음 확인 지점은 폴란드 현지 생산 일정과 3차 물량 논의입니다. <a href="https://www.etoday.co.kr/news/view/2622739">이투데이</a> [사실/해석]</li>
+</ul>
+<h2>미사일·방공</h2>
+<ul>
+<li><b>우크라 전력망 공습 강화 = 방공 수요의 겨울 시즌</b>: 탄도미사일+제트 드론 혼합 공격이 방공망을 소모시키는 국면 — Patriot·NASAMS 요격탄과 대드론 체계(한화 레이저 무기 포함, MSPO 전시)의 수요 논리가 계절적으로 강해집니다. <a href="https://www.washingtontimes.com/news/2026/sep/12/5-killed-russian-strikes-ukraine-putin-warns-europe-sending-troops/">Washington Times</a> [해석]</li>
+</ul>
+<h2>해군·조선</h2>
+<ul>
+<li><b>호르무즈 '통항료' 의제화</b>: 이란이 상선 통항료 부과를 협상 테이블에 올린 것은 해협 통제의 제도화 시도 — 타결 시 통항은 재개되되 '유료 해협'이라는 새 리스크 구조가 생기고, 결렬 시 해상 교전 재점화 — 어느 쪽이든 걸프 해군력(호위·소해·무인수상정) 수요의 논거는 유지됩니다. 한화의 무인수상정 '스트라이커-S' 공개는 이 수요를 겨냥한 제품 라인입니다. <a href="https://www.aljazeera.com/news/2026/9/11/iran-says-will-discuss-strait-of-hormuz-with-gulf-states-on-monday">Al Jazeera</a> [사실/해석]</li>
+</ul>
+<h2>전자·센서·C4ISR</h2>
+<ul>
+<li>특이사항 없음.</li>
+</ul>
+<h2>투자 시사점</h2>
+<p>1. <b>(주초 변수) 내일 살랄라 회동이 '유가 → 금리 → FOMC'의 첫 도미노:</b> 회동에서 통항 재개의 실마리가 나오면 유가 하락 → 인플레 우려 완화로 수요일 FOMC(인상 확률 ~70%)의 부담을 덜고, 결렬 시 유가 재상승이 인상을 굳힙니다 — 방산엔 '지정학 프리미엄 축소 vs 금리 안도'가 상쇄되는 조합이라 지수보다 개별 재료(한화오션 본계약 등)가 중요해집니다.</p>
+<p>2. <b>(중기 업황) 푸틴의 파병 경고는 유럽 재무장의 역설적 지지대:</b> '유럽군 = 전쟁' 위협은 협상이 진전돼도 유럽이 자체 억지력(탄약·방공·기갑)을 줄일 수 없음을 재확인시킵니다 — Rheinmetall 등 유럽 방산의 '휴전 디스카운트'가 과도해질 때마다 이 구조가 하방을 받쳐 온 패턴입니다.</p>
+<p>3. <b>(중기 관찰) MSPO에서 확인된 K-방산의 다음 단계는 '현지화·무인화':</b> 완제품 수출에서 현지 생산(폴란드 공장)·유무인 복합(K9+UGV, 무인수상정)으로 상품이 진화 중 — 폴란드 3차 물량, 루마니아 확산, 걸프 무인체계 수요가 4분기 이후 수주 모멘텀의 소재입니다.</p>
+<h2>향후 24~72시간 관전 포인트</h2>
+<ul>
+<li><b>내일(월) 오만 살랄라 GCC-이란 호르무즈 회동:</b> 통항 재개·통항료 의제의 향방 — 월요일 유가와 아시아 개장의 1차 변수. <a href="https://www.aljazeera.com/news/2026/9/11/iran-says-will-discuss-strait-of-hormuz-with-gulf-states-on-monday">Al Jazeera</a></li>
+<li><b>FOMC 9/15~16(화·수) — 25bp 인상 확률 약 70%:</b> 3년 만의 인상 여부, 수요일 새벽 3시(KST) 발표. [사실]</li>
+<li><b>한화오션-태국 본계약 협상·폴란드 후속 논의:</b> K-방산 개별 촉매의 진행 상황. [사실]</li>
+</ul>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["auto","light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"auto"}catch(e){return "auto"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="auto")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

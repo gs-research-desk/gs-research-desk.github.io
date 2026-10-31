@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+/* 시스템이 라이트이고, 사용자가 다크로 고정하지 않았을 때 */
+@media (prefers-color-scheme:light){
+  :root:not([data-gs-theme="dark"]){color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+}
+/* 사용자가 고른 값은 시스템 설정을 이긴다 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",OWNER=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ var lv=level();
+ if(lv==="owner")return;                 // 주인은 전부 통과
+ if(lv==="guest"&&!OWNER)return;         // 친구는 공유 페이지만 통과
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?"이 화면은 주인 비밀번호가 필요합니다. ":"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     if(h===OH||(h===GH&&!OWNER)){set(h);location.reload();return}
+     msg.textContent=h===GH?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8"><base target="_blank">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>글로벌 방산 주간정리 2026-08-24</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-link,#89b9ff);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:12.5px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<h1>🗓️ 글로벌 방산 주간 정리</h1>
+<div class="meta">기간: 08/18~08/24 · 생성: 2026-08-24 11:50 KST · Gemini(gemini-2.5-flash) + 데일리 브리핑 2종(제미나이·클로드) + yfinance 주간 시세</div>
+<p>글로벌 방산 업종의 지난 한 주(08/18~08/24) 주요 흐름을 정리해 드립니다.</p>
+<h2>주간 핵심 테마</h2>
+<p>이번 주 글로벌 방산 시장은 미사일 및 방공 시스템 수요 폭증과 무인 시스템 개발 경쟁 심화가 두드러졌습니다. RTX의 대규모 토마호크 미사일 계약, 유럽의 대탄도 방공 연합 출범, 대만의 국방 예산 증액 등은 미사일 및 방공 분야의 견조한 성장을 예고했습니다. 동시에 Saab의 무인 전투기 개념 공개와 Northrop Grumman-Kratos의 CCA 시험 성공 등 차세대 항공 플랫폼 경쟁이 가속화되었습니다. 한국 방산 기업들은 HD현대중공업의 페루 함정 진수, 한화의 미국 방산 자회사 투자 등 해외 시장 확장 및 현지화 전략을 적극적으로 추진했습니다. 그러나 중동 긴장, 우크라이나 전쟁 격화, 북한 미사일 도발, 트럼프의 UFS 축소 지시 및 종전 협상 발언 등 지정학적 불확실성이 지속되며 시장 전반의 변동성이 확대되는 한 주였습니다.</p>
+<h2>계약·수주·프로그램</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>*   RTX</td><td>Tomahawk 미사일 생산</td><td>미 해군</td><td>$22.9B (7년 계약, 연산 60발-&gt;1,000발+)</td><td>08/17</td></tr>
+<tr><td>*   Rheinmetall</td><td>FV-014 로이터링 탄약 컨테이너형 발사 시연 성공</td><td>독일군</td><td>(4월 계약, 1차 발주 약 €300M)</td><td>08/17</td></tr>
+<tr><td>*   RTX &amp; Boeing</td><td>SM-3 미사일 생산</td><td>미 국방부</td><td>금액 미상</td><td>08/18</td></tr>
+<tr><td>*   XTEND</td><td>다년 계약</td><td>NATO 회원국</td><td>$15M</td><td>08/18</td></tr>
+<tr><td>*   Lockheed Martin</td><td>SPY-7 이지스 함정 세트 첫 인도</td><td>일본 해상자위대</td><td>금액 미상</td><td>08/18</td></tr>
+<tr><td>*   Lockheed Martin</td><td>F-16 기술지원 CETS IDIQ</td><td>바레인, 모로코, 대만 등 10개국</td><td>$31.3M (~2029)</td><td>08/18</td></tr>
+<tr><td>*   Northrop Grumman &amp; Kratos Defense</td><td>Valkyrie 공중 차량 플랫폼 개발 및 인도 (시험 성공)</td><td>미국 해병대</td><td>(1월 $231.5M 계약)</td><td>08/18</td></tr>
+<tr><td>*   Rheinmetall</td><td>이동식 야전 병원 및 구호소 공급</td><td>독일 연방군</td><td>149개 (€500M+)</td><td>08/19</td></tr>
+<tr><td>*   HD현대중공업</td><td>상륙지원함 1번함 '침보테함' 진수</td><td>페루 SIMA 조선소</td><td>1번함</td><td>08/19</td></tr>
+<tr><td>*   Saab</td><td>폴란드 Orka 잠수함 프로그램 소나 시스템 공급 (Cohort의 ELAC)</td><td>폴란드</td><td>€140.7M</td><td>08/19</td></tr>
+<tr><td>*   Thales &amp; Systematic</td><td>상호 운용 가능한 방공 시스템 제공</td><td>덴마크</td><td>금액 미상</td><td>08/21</td></tr>
+<tr><td>*   Babcock</td><td>프리깃함 산업 계획 제안 (덴마크 컨소시엄과 MOU)</td><td>덴마크</td><td>금액 미상</td><td>08/21</td></tr>
+<tr><td>*   Kongsberg</td><td>Protector RS4 원격무장 시스템</td><td>캐나다 육군 ACSV</td><td>$117.8M</td><td>08/21</td></tr>
+<tr><td>*   미국</td><td>AIM-9X Sidewinder Block II FMS 승인</td><td>한국</td><td>$125M (103발+유도장치 10기)</td><td>08/22</td></tr>
+<tr><td>*   프랑스</td><td>Aster 30 미사일 인도 가속 및 라이선스 생산 허가</td><td>우크라이나</td><td>08/22</td></tr>
+<tr><td>*   Rocket Lab (RKLB)</td><td>우주 발사 및 방산 서비스</td><td>미 우주군</td><td>$266M</td><td>08/23</td></tr>
+<tr><td>*   Leonardo</td><td>'Leonardo Ukraine' 설립</td><td>우크라이나</td><td>08/23</td></tr>
+<tr><td>*   한화</td><td>미국 방산 자회사 추가 출자</td><td>한화디펜스USA, 한화퓨처프루프</td><td>₩4,150억 ($299M)</td><td>08/23</td></tr>
+</table></div>
+<h2>주간 주가 리뷰</h2>
+<p>지난 한 주간 글로벌 방산 섹터는 전반적인 하락세를 보였습니다. 특히 한국, 일본 기업들과 드론 관련 미국 기업들의 낙폭이 컸습니다.</p>
+<p><b>주간 하락 상위 종목 (±15% 이상):</b></p>
+<ul>
+<li>  <b>AeroVironment (AVAV)</b> | 미국 | <span class="down">-18.18%</span> ⚠️: Space Force SCAR 프로그램 관련 $89M 영업권 재작성 및 내부통제 약점 공시, 애널리스트 목표가 하향 여파가 지속되며 하락했습니다 (08/18 Claude). 드론 테마 그룹 청산 및 금리 부담도 작용했습니다 (08/21 Claude).</li>
+<li>  <b>Kratos Defense (KTOS)</b> | 미국 | <span class="down">-16.15%</span> ⚠️: Northrop Grumman과의 무인기 플랫폼 개발 소식에도 불구하고 차익실현 및 드론 테마 그룹 청산, 금리 부담으로 하락했습니다 (08/19 Claude, 08/21 Claude).</li>
+</ul>
+<p><b>주간 하락 상위 종목 (±7% 이상):</b></p>
+<ul>
+<li>  <b>한화오션 (Hanwha Ocean)</b> | 한국 | <span class="down">-12.94%</span> ●: 국내 시장 폭락에 동반 하락했으며, 연중 상승 폭이 컸던 종목일수록 낙폭이 컸던 흐름을 보였습니다 (08/20 Claude).</li>
+<li>  <b>한화시스템 (Hanwha Systems)</b> | 한국 | <span class="down">-12.70%</span> ●: 국내 방산 전반의 급락에 동반 하락했습니다 (08/22 Claude).</li>
+<li>  <b>LIG넥스원 (LIG Nex1)</b> | 한국 | <span class="down">-12.02%</span> ●: 악재성 공시 없이 우크라이나 종전 기대 헤드라인, 연중 급등에 따른 고평가 차익실현 등 밸류에이션 민감도가 가장 큰 국내 방산주로 재확인되며 급락했습니다 (08/22 Claude, 08/24 Claude).</li>
+<li>  <b>IHI</b> | 일본 | <span class="down">-11.54%</span> ●: 개별 악재 없이 연중 급등 후 밸류에이션 조정이 이어졌습니다 (08/21 Claude).</li>
+<li>  <b>한국항공우주 (KAI)</b> | 한국 | <span class="down">-10.72%</span> ●: 국내 시장 폭락에 동반 하락했으며, 연중 상승 폭이 컸던 종목일수록 낙폭이 컸습니다 (08/20 Claude).</li>
+<li>  <b>HD현대중공업 (HD HHI)</b> | 한국 | <span class="down">-10.69%</span> ●: 페루 함정 진수 호재에도 불구하고 국내 시장 폭락에 동반 하락했습니다 (08/20 Claude).</li>
+<li>  <b>PLUS K방산 ETF</b> | 한국 | <span class="down">-9.34%</span> ●: 국내 방산주 전반의 급락세를 반영하며 하락했습니다 (08/22 Claude).</li>
+<li>  <b>Renk (R3NK.DE)</b> | 독일 | <span class="down">-9.23%</span> ●: 기록적인 수주잔고에도 불구하고 주당순이익(EPS) 하락 소식에 주가가 하락했습니다 (08/19 Gemini).</li>
+<li>  <b>Hensoldt (HAG.DE)</b> | 독일 | <span class="down">-9.05%</span> ●: 2분기 강력한 성장과 100억 유로 규모의 수주잔고를 기록했으나, 시장의 차익 실현 등으로 주가는 하락세를 보였습니다 (08/19 Gemini, 08/21 Gemini).</li>
+<li>  <b>미쓰비시중공업 (MHI)</b> | 일본 | <span class="down">-9.08%</span> ●: 개별 악재 없이 연중 급등 후 밸류에이션 조정이 이어졌습니다 (08/21 Claude).</li>
+<li>  <b>가와사키중공업 (KHI)</b> | 일본 | <span class="down">-9.30%</span> ●: 개별 악재 없이 연중 급등 후 밸류에이션 조정이 이어졌습니다 (08/21 Claude).</li>
+<li>  <b>Howmet Aerospace (HWM)</b> | 미국 | <span class="down">-8.93%</span> ●: 특이 재료 없이 시장 전반의 하락세에 동반 하락했습니다 (08/20 Gemini).</li>
+<li>  <b>현대로템 (Hyundai Rotem)</b> | 한국 | <span class="down">-8.65%</span> ●: K2 전차 대드론 요격 시스템 업데이트 소식에도 불구하고 국내 방산 전반의 급락에 동반 하락했습니다 (08/23 Gemini, 08/22 Claude).</li>
+<li>  <b>Leonardo (LDO.MI)</b> | 이탈리아 | <span class="down">-8.27%</span> ●: 키이우 사무소 개설 소식에도 불구하고 시장 전반의 하락세에 동반 하락했습니다 (08/21 Gemini).</li>
+<li>  <b>Babcock (BAB.L)</b> | 영국 | <span class="down">-8.11%</span> ●: 덴마크 프리깃함 산업 계획 제안 소식에도 불구하고 시장 전반의 하락세에 동반 하락했습니다 (08/19 Gemini, 08/21 Gemini).</li>
+<li>  <b>GE Aerospace (GE)</b> | 미국 | <span class="down">-7.47%</span> ●: 특이 재료 없이 시장 전반의 하락세에 동반 하락했습니다 (08/20 Gemini).</li>
+<li>  <b>Huntington Ingalls (HII)</b> | 미국 | <span class="down">-7.45%</span> ●: 핵 잠수함 건조 테마 부각 소식에도 불구하고 시장 전반의 하락세에 동반 하락했습니다 (08/21 Gemini).</li>
+<li>  <b>Rheinmetall (RHM.DE)</b> | 독일 | <span class="down">-7.31%</span> ●: 5억 유로 이상 야전 병원 계약 체결 등 견조한 수주잔고에도 불구하고 독일 국방 프로젝트 지연 소식 및 납품 실행 능력 우려로 하락했습니다 (08/20 Gemini, 08/22 Gemini, 08/24 Claude).</li>
+<li>  <b>Saab (SAAB-B.ST)</b> | 스웨덴 | <span class="down">-7.17%</span> ●: 무인 전투기 개념 공개, Gripen-Taurus 미사일 시험 성공 등 긍정적 뉴스에도 불구하고 시장 전반의 하락세에 동반 하락했습니다 (08/22 Gemini, 08/24 Gemini).</li>
+<li>  <b>iShares US Aerospace &amp; Defense ETF (ITA)</b> | 미국 | <span class="down">-7.09%</span> ●: 미 방산주 전반의 하락세를 반영했습니다 (08/18 Claude).</li>
+</ul>
+<h2>섹터별 정리</h2>
+<h2>항공우주</h2>
+<ul>
+<li>  <b>Boeing (BA)</b>은 육군 아파치 헬기 추락 및 훈련 비행 전면 중단(08/18), Archer Aviation에 방산 사업부 매각(08/18), 캐나다 AEW&amp;C 사업에서 Saab GlobalEye에 밀려 E-7 Wedgetail 선정 불발(08/20), 노조 계약 제안 부결 및 파업 준비(08/23) 등 여러 악재에 직면했습니다.</li>
+<li>  <b>Rolls-Royce (RR.L)</b>는 파워 시스템 수요 급증으로 목표주가 상향과 함께 14년 만에 최고가를 기록했으며(08/18), 인도 Reliance와 AMCA 엔진 개발 협력을 발표했습니다(08/18). 그러나 United Airlines CEO와의 $175M 분쟁 소식도 있었습니다(08/23).</li>
+<li>  <b>L3Harris (LHX)</b>는 크리스 쿠바식 CEO가 사내 행동 강령 위반으로 해임되고 샘 메타가 후임으로 임명되면서 주가가 크게 하락했습니다(08/18).</li>
+<li>  <b>Northrop Grumman (NOC)</b>은 Kratos Defense와 미국 해병대용 Valkyrie CCA(Collaborative Combat Aircraft) 시험 성공을 공개하며 무인 협동전투기 프로그램의 실행 단계 진입을 알렸습니다(08/18).</li>
+<li>  <b>Saab (SAAB-B.ST)</b>는 캐나다 AEW&amp;C 사업에서 GlobalEye를 선정하며 Boeing을 제쳤고(08/20), 저피탐 무인 전투기(CCA) 'A3-01' 콘셉트를 첫 공개하며 유럽의 차세대 공중전력 개발 경쟁에 참여를 선언했습니다(08/22). 스웨덴 Gripen 전투기의 Taurus KEPD 350 순항 미사일 발사 시험도 성공적으로 완료되었습니다(08/24).</li>
+<li>  <b>Rocket Lab (RKLB)</b>은 미 우주군으로부터 2.66억 달러 규모의 우주 발사 및 방산 서비스 계약을 수주하며 우주 방산 분야의 성장세를 입증했습니다(08/23).</li>
+</ul>
+<h2>지상무기</h2>
+<ul>
+<li>  <b>Rheinmetall (RHM.DE)</b>은 독일 연방군에 149개의 이동식 야전 병원 및 구호소를 공급하는 €500M+ 규모의 계약을 체결했으며(08/19), FV-014 로이터링 탄약의 컨테이너형 발사 시연에도 성공했습니다(08/17). 그러나 독일 국방 프로젝트 지연 소식과 납품 실행 능력에 대한 우려가 제기되며 주가에 혼조세를 보였습니다(08/22, 08/24).</li>
+<li>  <b>한화에어로스페이스 (Hanwha Aerospace)</b>는 육군에 첫 모바일 캐논 시제품을 올 가을 인도할 예정이며(08/20), 한화디펜스USA가 미 육군 MTC(기동전술포) 시제품 개발 계약을 확보하고 K9MH(차륜형 K9) 기반의 미 시장 진출을 추진하는 등 미국 현지화 전략을 가속화했습니다(08/24).</li>
+<li>  <b>현대로템 (Hyundai Rotem)</b>의 K2 전차에 대드론 요격 시스템이 업데이트되었다는 소식은 한국 지상무기 기술의 발전을 보여줍니다(08/23).</li>
+<li>  <b>Kongsberg (KOG.OL)</b>는 캐나다 육군 ACSV(장갑전투지원차량)용 Protector RS4 원격무장 시스템 약 $117.8M 후속 계약을 수주했습니다(08/21).</li>
+</ul>
+<h2>미사일·방공</h2>
+<ul>
+<li>  <b>RTX (RTX)</b>는 미 해군으로부터 229억 달러 규모의 토마호크 미사일 생산 계약을 수주했으며(08/17), Boeing과 함께 SM-3 미사일 생산 계약도 체결했습니다(08/18).</li>
+<li>  <b>Lockheed Martin (LMT)</b>은 일본 해상자위대의 새로운 미사일 방어함에 탑재될 SPY-7 이지스 함정 세트의 첫 번째 인도를 완료했습니다(08/18).</li>
+<li>  미국은 한국에 1.25억 달러 규모의 AIM-9X Sidewinder Block II 공대공미사일 판매를 승인했으며(08/22), 프랑스는 우크라이나에 대한 Aster 30 미사일 공급을 가속화하고 현지 라이선스 생산을 허가하는 등 유럽 방공망의 중요성이 부각되었습니다(08/22).</li>
+<li>  우크라이나와 유럽 9개국은 대탄도 방공연합 'FREYJA'를 출범시키며 유럽판 통합 방공 아키텍처의 수주 파이프라인을 열었습니다(08/21).</li>
+<li>  대만은 기록적인 350억 달러 규모의 국방 예산을 제안하며 미사일 방어 역량 강화에 중점을 둘 것으로 보입니다(08/22).</li>
+<li>  북한은 평양 일대에서 단거리 탄도미사일 약 10발을 무더기로 발사했으며(08/22), 북한 미사일 발사 부대의 러시아 재배치 소식도 전해져 북·러 군사협력이 미사일 실전 운용 단계로 깊어지고 있음을 시사했습니다(08/24).</li>
+</ul>
+<h2>해군·조선</h2>
+<ul>
+<li>  <b>HD현대중공업 (HD HHI)</b>은 페루 SIMA 조선소에서 상륙지원함 1번함 '침보테함'을 성공적으로 진수하며 K-함정 최초의 해외 현지 공동건조 결실을 맺었습니다(08/19).</li>
+<li>  <b>BAE Systems Australia</b>는 AUKUS 협정에 따라 호주의 핵잠수함 생산을 위한 산업 기반을 확장하고 있습니다(08/20).</li>
+<li>  <b>Babcock (BAB.L)</b>은 덴마크 컨소시엄과 함께 덴마크 프리깃함 산업 계획을 제안하며 현지 협력을 강화했습니다(08/21).</li>
+<li>  독일의 <b>TKMS</b>와 스페인의 <b>Navantia</b>는 연말까지 잠수함 공동 프레임워크 구축을 추진하여 생산 능력을 확대하고 향후 글로벌 해군 수주 경쟁력을 강화할 계획입니다(08/24). 이는 K-잠수함 수출 경쟁 강도 심화를 예고합니다.</li>
+</ul>
+<h2>전자·센서·C4ISR</h2>
+<ul>
+<li>  <b>L3Harris (LHX)</b>는 미 육군 Link 16, 전자전, 대드론 C2 네트워크 계약을 수주하며 사업 역량을 강화했습니다(08/23).</li>
+<li>  <b>한화시스템 (Hanwha Systems)</b>은 재밍에도 끊기지 않는 '공중통신 무인기'를 개발하고 있으며, 오스트리아 Schiebel과 협력을 확대하는 등 첨단 기술 개발에 주력하고 있습니다(08/19). 또한, 한화 계열사들의 미국 방산 시장 공략 가속화의 일환으로 미국 방산 자회사에 4,150억 원을 투자했습니다(08/24).</li>
+<li>  <b>Hensoldt (HAG.DE)</b>는 2분기 강력한 성장과 100억 유로 규모의 수주잔고를 기록하며 긍정적인 실적을 발표했습니다(08/19).</li>
+<li>  <b>Thales (HO.PA)</b>는 덴마크 Systematic과 방공 솔루션 전략 파트너십을 체결하며 덴마크의 방공 조달 확대에 대응하는 현지화 행보를 보였습니다(08/21).</li>
+</ul>
+<h2>정책·지정학</h2>
+<ul>
+<li>  <b>미국 국방 예산</b>은 펜타곤의 1.45조 달러 예산 요구와 미사일 방어 프로그램에 대한 상당한 자금 증액이 예상되며, FY27 미사일 조달은 <span class="up">+188%</span>($70.5B) 요구안이 담겼습니다(08/20).</li>
+<li>  <b>우크라이나 전쟁</b>은 러시아의 개전 이후 최대급 드론 공습(08/18)과 키이우 대공습(08/20)으로 격화되었으며, 젤렌스키 대통령은 Patriot 요격탄 재보급을 호소했습니다(08/21). 우크라이나 독립기념일(8/24)을 앞두고 러시아의 공격이 지속되며 경계가 최고조에 달했습니다(08/24).</li>
+<li>  <b>중동 지역</b>에서는 UAE가 이란의 탄도미사일 공격을 주장하며 무기한 전면 무역 중단을 선언했고(08/20), NATO는 이란의 위협에 대한 대응 준비 태세를 밝혔습니다(08/20). 이란은 미국-이스라엘과의 전쟁에 대비해 신형 공격 및 방어 시스템을 배치했다고 밝혔습니다(08/24).</li>
+<li>  <b>한반도 지정학</b>은 트럼프 전 대통령의 UFS 연합훈련 '대폭 축소' 지시(08/19)와 8/21 조기 종료 확정(08/20)으로 한미동맹 재조정 리스크가 부상했습니다. 북한은 UFS 조기 종료 직전 단거리 탄도미사일 약 10발을 무더기로 발사하며 무력시위를 지속했고(08/22), 북한 미사일 부대의 러시아 재배치 소식도 전해졌습니다(08/24).</li>
+<li>  <b>대만</b>은 기록적인 350억 달러 규모의 국방 예산을 제안하며 중국의 군사적 압박에 대응하는 모습을 보였습니다(08/22).</li>
+<li>  <b>유럽</b>에서는 우크라이나와 유럽 9개국이 대탄도 방공연합 'FREYJA'를 출범시키고(08/21), 독일이 약 140억 달러 규모의 신형 장거리 미사일 도입 계획을 추진하는 등 국방 현대화 노력이 이어졌습니다(08/23).</li>
+</ul>
+<h2>한국 방산 종합</h2>
+<p>지난 한 주간 한국 방산 기업들은 전반적으로 큰 폭의 주가 하락을 경험했습니다. LIG넥스원(<span class="down">-12.02%</span>), 한국항공우주(<span class="down">-10.72%</span>), 한화시스템(<span class="down">-12.70%</span>), 한화오션(<span class="down">-12.94%</span>), HD현대중공업(<span class="down">-10.69%</span>), 현대로템(<span class="down">-8.65%</span>), 한화에어로스페이스(<span class="down">-4.74%</span>) 등이 모두 하락했습니다. 이는 주로 트럼프의 '종전 협상' 발언에 따른 '종전 기대 헤드라인', 연중 급등에 따른 '고평가 부담', 그리고 시장 전반의 '차익실현'이 복합적으로 작용한 결과로 분석됩니다(08/19, 08/22 Claude).</p>
+<p>그럼에도 불구하고 한국 방산 기업들은 해외 시장에서 의미 있는 진전을 보였습니다. HD현대중공업은 페루에서 상륙지원함 1번함 '침보테함'을 진수하며 K-함정 최초의 해외 현지 공동건조 모델을 성공시켰고(08/19), 페루 1,500톤급 차세대 잠수함 기본설계도 진행 중입니다. 한화 그룹은 미국 방산 자회사(한화디펜스USA, 한화퓨처프루프)에 4,150억 원($299M)을 추가 출자하며 미국 시장 현지화 전략을 가속화했습니다. 한화디펜스USA는 미 육군 MTC(기동전술포) 시제품 개발 계약을 확보하고 K9MH(차륜형 K9) 기반의 미 시장 진출을 추진 중입니다(08/24). 한화시스템은 재밍에도 끊기지 않는 '공중통신 무인기'를 개발하고 오스트리아 Schiebel과 협력을 확대하는 등 첨단 기술 개발 역량을 보여주었습니다(08/19). 현대로템의 K2 전차에 대드론 요격 시스템이 업데이트된 소식도 한국 지상무기 기술의 발전을 시사합니다(08/23).</p>
+<p>수주 파이프라인 측면에서는 미국으로부터 AIM-9X Sidewinder Block II 공대공미사일 $125M 판매가 승인되어 한국 공군 전력 강화에 기여할 예정입니다(08/22). 폴란드 잠수함 사업 등 대형 프로젝트에 대한 기대감도 여전히 유효합니다. 전반적으로 한국 방산은 주가 변동성이 컸으나, 해외 현지 생산 및 기술 협력 모델, 미국 시장 침투 전략, 첨단 무기체계 개발 등 중장기적인 성장 동력은 견조하게 유지되고 있습니다. '종전 헤드라인'에 대한 민감도가 높지만, 아시아 군비 확장 및 유럽 방산 수요는 지속될 전망입니다.</p>
+<h2>다음 주 관전 포인트</h2>
+<ul>
+<li>  <b>Jackson Hole 심포지엄 (08/27~08/29):</b> Warsh 연준 의장의 첫 기조연설이 8/28(금)에 예정되어 있어, 금리 경로 및 시장 전반의 밸류에이션에 큰 영향을 미칠 수 있습니다 (08/21 Claude).</li>
+<li>  <b>NVIDIA 실적 발표 (미 현지 08/26 수):</b> AI 섹터는 물론 시장 전반의 투자 심리에 중요한 변수가 될 것입니다 (08/24 Claude).</li>
+<li>  <b>펜타곤 증산 계획 제출 시한 (8월 말):</b> Feinberg 메모에 따른 21일 시한이 도래하며, 방산 업체들의 증산 및 설비투자 계획 발표가 이어질 수 있습니다 (08/23 Claude).</li>
+<li>  <b>우크라이나 독립기념일(08/24) 후 러시아의 추가 공습 여부 및 북한의 대미 메시지 후속:</b> 지정학적 긴장 지속 여부와 이에 따른 방산 수요 헤드라인 변화를 주시해야 합니다 (08/21 Claude, 08/24 Claude).</li>
+<li>  <b>UAE-이란 사태 전개:</b> 걸프국들의 추가 대응(무역·방공 조달)과 이란의 반응은 중동 방산 수요에 중요한 변수가 될 것입니다 (08/20 Claude).</li>
+</ul>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["auto","light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"auto"}catch(e){return "auto"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="auto")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

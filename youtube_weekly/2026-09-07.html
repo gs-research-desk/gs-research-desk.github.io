@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+/* 시스템이 라이트이고, 사용자가 다크로 고정하지 않았을 때 */
+@media (prefers-color-scheme:light){
+  :root:not([data-gs-theme="dark"]){color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+}
+/* 사용자가 고른 값은 시스템 설정을 이긴다 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",OWNER=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ var lv=level();
+ if(lv==="owner")return;                 // 주인은 전부 통과
+ if(lv==="guest"&&!OWNER)return;         // 친구는 공유 페이지만 통과
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?"이 화면은 주인 비밀번호가 필요합니다. ":"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     if(h===OH||(h===GH&&!OWNER)){set(h);location.reload();return}
+     msg.textContent=h===GH?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>방산 유튜브 주간 모음 2026-09-07</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-link,#89b9ff);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+ul{margin:10px 0;padding-left:24px}
+li{margin:4px 0}
+li .when{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin-left:6px}
+.copybox{margin:26px 0 0}
+.copybox textarea{width:100%;box-sizing:border-box;height:190px;background:var(--gs-panel,#1c222c);color:var(--gs-ink,#c9d1dc);
+  border:1px solid var(--gs-line-strong,#2e3a4e);border-radius:10px;padding:12px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px;line-height:1.65;resize:vertical}
+.copybox .row{display:flex;gap:10px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.copybox h2{margin:0;border:none;padding:0;flex:1;min-width:180px}
+button{background:var(--gs-panel,#1c222c);color:var(--gs-ink,#c9d1dc);border:1px solid var(--gs-line-strong,#2e3a4e);border-radius:8px;
+  padding:7px 12px;font-size:13.5px;cursor:pointer}
+button:hover{border-color:var(--gs-line-strong,#2e3a4e)}
+.hint{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin:8px 0 0}
+</style></head><body>
+<div class="wrap">
+<h1>📺 방산 유튜브 주간 모음 · 2026-09-07</h1>
+<p class="meta">채널 5개 · 영상 19건 · 2026-08-31 ~ 2026-09-07 (KST)</p>
+<h2>샤를세환</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=jK1TAeNL9u8" target="_blank" rel="noopener">[이슈점검-특파원대담] 4세대 F-16이 4.5세대 Su-35를 격추?#우크라이나F-16#러시아Su-35격추#AIM-120AMRRAM#샤를세환#이세환</a><span class="when">08-31 12:00</span></li>
+<li><a href="https://www.youtube.com/watch?v=Q5p2yM8WXzQ" target="_blank" rel="noopener">[이슈점검-특파원대담] K 해양방산, 드디어 잭팟! 동남아 전투함 싹쓸이?#태국차세대호위함우선협상자단독선정#한화오션#4,000톤급#샤를세환#이세환</a><span class="when">09-03 12:00</span></li>
+<li><a href="https://www.youtube.com/watch?v=AwOjwx8KhGc" target="_blank" rel="noopener">[클래식 무기고] 독일 티거 I 전차 -2부- 연합군에 극강의 공포를 안겨주다! #샤를세환 #샤를의군사연구소 #이세환 #티거전차</a><span class="when">09-05 12:00</span></li>
+<li><a href="https://www.youtube.com/watch?v=lcT58ovb3lc" target="_blank" rel="noopener">[밀리터리 토크] 취사장이라는 전쟁터 (feat. 정** 셰프) #샤를의군사연구소 #취사병 #짬밥 #군대썰</a><span class="when">09-06 12:00</span></li>
+</ul>
+<h2>KKMD</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=e7oCSdw9eiM" target="_blank" rel="noopener">[외신번역] K-방산은 이제 “존경의 영역” K9MH 미국 진출에 부러움 쏟아낸 일본? (993화)</a><span class="when">09-02 10:45</span></li>
+<li><a href="https://www.youtube.com/watch?v=0ofGKkbOxkc" target="_blank" rel="noopener">[USNI번역] “100년 원칙” 깬 미국, 한국•일본 호위함 도입까지 검토: 난데없이 터키는 왜? (994화)</a><span class="when">09-05 14:03</span></li>
+</ul>
+<h2>까치살모</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=QU4a5rqckw8" target="_blank" rel="noopener">K9MH 차륜형 자주포 신속시범사업으로 예비군용 자주포 사업시작</a><span class="when">09-01 20:00</span></li>
+<li><a href="https://www.youtube.com/watch?v=UwUQSbhTTIs" target="_blank" rel="noopener">미국이 드디어 궤도형 자주포 사업을 시작했는데 이건 뭐 사실상 우리 K9 자주포로 정해두고 하는 사업이네요.</a><span class="when">09-03 20:00</span></li>
+<li><a href="https://www.youtube.com/watch?v=fUqK_IR5fj0" target="_blank" rel="noopener">미국은 튀르키예의 이스탄불급이나 일본의 모가미급이 아닌 우리 충남급을 선택할것이다.</a><span class="when">09-05 20:00</span></li>
+</ul>
+<h2>슈퍼소닉</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=DAnykElAzBk" target="_blank" rel="noopener">30년치 탄약을 3년만에 쏟아부은 이스라엘, 지금 이것을 준비하고 있다</a><span class="when">08-31 08:23</span></li>
+<li><a href="https://www.youtube.com/watch?v=tdzHvj5RPRY" target="_blank" rel="noopener">🇵🇭 필리핀 대한민국 KF-21 전투기 20대에서 40대로 구매 확대</a><span class="when">08-31 16:04</span></li>
+<li><a href="https://www.youtube.com/watch?v=R-9URG48Kyg" target="_blank" rel="noopener">미국 진출하는 K9MH 차륜형자주포 한국 군에 역진출? 사실은?</a><span class="when">09-01 11:27</span></li>
+<li><a href="https://www.youtube.com/watch?v=6XGZNqKKRmw" target="_blank" rel="noopener">변속기 문제 최종 합의로 최종 결정된 스페인 K9자주포 진출</a><span class="when">09-02 12:14</span></li>
+<li><a href="https://www.youtube.com/watch?v=sPPE-auu2MY" target="_blank" rel="noopener">한화 또 일내나? 이번엔 K9 궤도형 자주포로 미 육군 사업 진출한다</a><span class="when">09-04 12:16</span></li>
+<li><a href="https://www.youtube.com/watch?v=3CARYPRdKVc" target="_blank" rel="noopener">&quot;또 터졌다!&quot; 🇭🇷크로아티아로 &#x27;천무 18문 수출 확정&#x27; 오는 8일 계약식</a><span class="when">09-05 20:33</span></li>
+</ul>
+<h2>KFN+</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=DwLGQvV9NBw" target="_blank" rel="noopener">해병대 창군이래 첫 함정 !  &#x27;청새치가 가져올 변화는? [곧이슈] EP.26 @kfnplus</a><span class="when">08-31 17:31</span></li>
+<li><a href="https://www.youtube.com/watch?v=73RliUpppE0" target="_blank" rel="noopener">&quot;격발 소리부터 다릅니다&quot; 베일에 싸인 K17 &#x27;최초 실사격&#x27; 현장 공개★리얼웨폰K94회@kfnplus</a><span class="when">09-01 17:00</span></li>
+<li><a href="https://www.youtube.com/watch?v=dWrGPC62Zt8" target="_blank" rel="noopener">&quot;AI가 스스로 쏜다!&quot; 전장을 지배하는 피지컬 AI 기술 탐구│밀사친 탐구생활75회 @kfnplus</a><span class="when">09-03 17:00</span></li>
+<li><a href="https://www.youtube.com/watch?v=Xnyt10Hpaak" target="_blank" rel="noopener">휴전선 환승연애 : 북한 MZ의 연애 썰을 듣고 놀란 남한 MZ [마이크 온 에어] EP.27 @KFNPLUS</a><span class="when">09-04 18:27</span></li>
+</ul>
+<div class="copybox">
+<div class="row">
+<h2>주소만 — NotebookLM 소스에 붙여넣기</h2>
+<button id="copy">전체 복사</button>
+<a href="2026-09-07.md" download>⬇ .md</a>
+</div>
+<textarea id="urls" readonly>[샤를세환]
+https://www.youtube.com/watch?v=jK1TAeNL9u8
+https://www.youtube.com/watch?v=Q5p2yM8WXzQ
+https://www.youtube.com/watch?v=AwOjwx8KhGc
+https://www.youtube.com/watch?v=lcT58ovb3lc
+
+[KKMD]
+https://www.youtube.com/watch?v=e7oCSdw9eiM
+https://www.youtube.com/watch?v=0ofGKkbOxkc
+
+[까치살모]
+https://www.youtube.com/watch?v=QU4a5rqckw8
+https://www.youtube.com/watch?v=UwUQSbhTTIs
+https://www.youtube.com/watch?v=fUqK_IR5fj0
+
+[슈퍼소닉]
+https://www.youtube.com/watch?v=DAnykElAzBk
+https://www.youtube.com/watch?v=tdzHvj5RPRY
+https://www.youtube.com/watch?v=R-9URG48Kyg
+https://www.youtube.com/watch?v=6XGZNqKKRmw
+https://www.youtube.com/watch?v=sPPE-auu2MY
+https://www.youtube.com/watch?v=3CARYPRdKVc
+
+[KFN+]
+https://www.youtube.com/watch?v=DwLGQvV9NBw
+https://www.youtube.com/watch?v=73RliUpppE0
+https://www.youtube.com/watch?v=dWrGPC62Zt8
+https://www.youtube.com/watch?v=Xnyt10Hpaak</textarea>
+<p class="hint">NotebookLM은 자막이 있는 공개 영상만 소스로 받습니다. 자막 없는 영상은 추가 단계에서 거절됩니다.</p>
+</div>
+</div>
+<script>
+document.getElementById('copy').onclick=function(){
+  var t=document.getElementById('urls');t.select();
+  document.execCommand('copy');
+  this.textContent='복사됨 ✓';var b=this;setTimeout(function(){b.textContent='전체 복사'},1500);
+};
+</script>
+<script>
+(function(){
+ var K="gs_theme",ORDER=["auto","light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"auto"}catch(e){return "auto"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="auto")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

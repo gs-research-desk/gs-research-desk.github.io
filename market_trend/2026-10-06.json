@@ -1,0 +1,680 @@
+{
+ "date": "2026-10-06",
+ "meta": {
+  "window": "10-05 06:00~10-06 06:00 KST",
+  "engine": "Gemini(gemini-2.5-flash)",
+  "generated_at": "2026-10-06T06:35+09:00"
+ },
+ "stats": {
+  "channels": 50,
+  "messages": 446,
+  "groups": 427
+ },
+ "one_liner": "브라질 대선 이변과 중동 지정학적 리스크 부각 속 AI 및 데이터센터 투자 지속, 글로벌 M&A 소식이 시장의 주요 관심사로 떠올랐다.",
+ "themes": [
+  {
+   "name": "브라질 대선 — 보우소나루 예상 밖 선전",
+   "narrative": "브라질 대선 1차 투표에서 여론조사 예측을 뒤엎고 우파 보우소나루 후보가 선전하며 시장의 기대감을 높였다. 이에 브라질 헤알화와 증시가 급등하는 등 긍정적인 반응을 보였다.",
+   "status": "new",
+   "strength": 5,
+   "keywords": [
+    "보우소나루",
+    "룰라",
+    "대선",
+    "브라질",
+    "브라질 대선",
+    "우파"
+   ],
+   "evidence": [
+    {
+     "channel": "사제콩이_서상영",
+     "quote": "라질 헤알화는 달러 대비 4% 이상 급등, 브라질 증시도 8% 넘게 급등. 전일 1차 대통령 선거에서 보우소나루 후보가 약 47%, 룰라 대통령이 약 45%를 기록해 예상과 달리 1위를 차지한 영향."
+    },
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "브라질 대선 1차 투표에서 우파 보우소나루 후보가 예상을 뒤엎고 선전한 점을 분석하며, 보우소나루 승리 시 재정 긴축 기대감으로 브라질 채권에 우호적인 환경이 조성될 수 있다고 전망합니다."
+    }
+   ]
+  },
+  {
+   "name": "글로벌 M&A — 슈나이더 일렉트릭의 PTC 인수",
+   "narrative": "프랑스 슈나이더 일렉트릭이 소프트웨어 그룹 PTC를 200억 달러 규모에 인수하는 딜이 임박하거나 발표되어 PTC 주가가 폭등했다. 이는 산업 소프트웨어 분야의 대형 M&A 움직임을 보여준다.",
+   "status": "new",
+   "strength": 4,
+   "keywords": [
+    "PTC",
+    "일렉트릭",
+    "슈나이더",
+    "인수하"
+   ],
+   "evidence": [
+    {
+     "channel": "사제콩이_서상영",
+     "quote": "PTC(+33.49%는 프랑스 슈나이더 일렉트릭이 주당 205달러 전액 현금으로 인수한다고 발표하자 폭등."
+    },
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "소프트웨어 그룹 PTC를 200억 달러에 인수하는 딜 근접"
+    }
+   ]
+  },
+  {
+   "name": "중동 지정학적 리스크 — 예멘 후티 반군 충돌 격화",
+   "narrative": "예멘 정부군과 후티 반군 간의 대규모 공세가 북부, 서부, 남부 3개 전선에서 시작되었으며, 사우디 주도 연합군이 공중 지원에 나섰다. 특히 전략적 요충지인 바브엘만데브 해협 인근의 통제권을 두고 충돌이 격화되고 있어 홍해 항로의 지정학적 리스크가 부각되고 있다.",
+   "status": "ongoing",
+   "strength": 5,
+   "keywords": [
+    "후티",
+    "바브엘만데브 해협",
+    "바브엘만데브",
+    "폭격기"
+   ],
+   "evidence": [
+    {
+     "channel": "미국 주식 인사이더 🇺🇸 (US Stocks Insider)",
+     "quote": "예멘 정부군이 후티 반군을 상대로 북부·서부·남부 3개 전선에서 대규모 공세에 착수. 사우디 주도 연합군은 전투기 100대를 투입해 324개의 고가치 표적을 공격하고 바브엘만데브 해협에 대한 공중 보호를 제공한다고 발표."
+    },
+    {
+     "channel": "미국 주식 인사이더 🇺🇸 (US Stocks Insider)",
+     "quote": "사우디 주도 연합군과 후티 간 충돌이 확대되며 홍해·바브엘만데브 항로의 지정학적…"
+    }
+   ]
+  },
+  {
+   "name": "AI 및 데이터센터 — 전력 용량 확대 및 협력 강화",
+   "narrative": "AI 관련 산업의 성장 기대감과 함께 데이터센터 전력 수요가 급증할 것으로 전망되며, 테라울프는 데이터센터 전력 용량을 1GW로 확대하고 장기적으로 2GW까지 검토 중이다. 또한 폭스콘은 NVIDIA와 AI 로봇 개발 협력을 통해 수주 동력을 확대할 것으로 기대된다.",
+   "status": "ongoing",
+   "strength": 4,
+   "keywords": [
+    "폭스콘",
+    "폭스콘 AI",
+    "최대 GW",
+    "주도하"
+   ],
+   "evidence": [
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "폭스콘과 AI 로봇 개발 협력으로 수주 동력 확대 전망"
+    },
+    {
+     "channel": "미국 주식 인사이더 🇺🇸 (US Stocks Insider)",
+     "quote": "테라울프는 켄터키 AI·HPC 데이터센터의 계약 전력을 1GW로 확대하고 장기적으로 최대 2GW 확장 검…"
+    }
+   ]
+  },
+  {
+   "name": "유가 시장 — 사우디 아람코 아시아향 OSP 대폭 인하",
+   "narrative": "사우디 아람코가 11월 아시아향 Arab Light 원유 공식판매가격을 오만·두바이 벤치마크 대비 배럴당 5달러 할인으로 책정하며 2020년 이후 가장 큰 폭의 인하를 단행했다. 이는 아시아 시장 점유율 확대를 위한 움직임으로 보이며, 수요 우려를 부각시켰다.",
+   "status": "new",
+   "strength": 3,
+   "keywords": [
+    "사우디 아람코",
+    "공식판매가격",
+    "벤치마크"
+   ],
+   "evidence": [
+    {
+     "channel": "미국 주식 인사이더 🇺🇸 (US Stocks Insider)",
+     "quote": "사우디 아람코는 11월 아시아향 Arab Light 공식판매가격을 오만·두바이 벤치마크 대비 배럴당 5달러 할인으로 책정."
+    },
+    {
+     "channel": "사제콩이_서상영",
+     "quote": "사우디 아람코가 11월 아시아향 공식판매가격을 두바이 가격 대비 배럴당 5달러 할인으로 책정해 2020년 이후 가장 큰…"
+    }
+   ]
+  },
+  {
+   "name": "한국 조선 — LNG선 수주 지속 및 방산 수출 기대",
+   "narrative": "한국 조선사들이 LNG선 6척을 추가 수주하며 신조선가지수 상승세를 이어가고 있다. 또한 필리핀에 첨단 장보고-III 잠수함과 100% 양도성 차관을 제시하는 등 방산 수출 확대 기대감도 나타나고 있다.",
+   "status": "ongoing",
+   "strength": 3,
+   "keywords": [
+    "한국 LNG선",
+    "장보고-III",
+    "한화오션"
+   ],
+   "evidence": [
+    {
+     "channel": "GS의 조선/기계/방산 「바담」",
+     "quote": "🛳 한국 LNG선 6척 수주. Alaska, LNG Canada ph2 수주POOL 또 쌓임"
+    },
+    {
+     "channel": "GS의 조선/기계/방산 「바담」",
+     "quote": "⚓️ 필리핀에 제안 업그레이드, 한국 첨단 장보고-III 잠수함 및 100% 양도성 차관 제시"
+    }
+   ]
+  }
+ ],
+ "community_mood": {
+  "score": -10,
+  "summary": "커뮤니티는 엔비디아 실적 발표에 대한 높은 기대와 관심을 보이지만, 동시에 일부 종목의 어닝쇼크 가능성과 미국 중소형주 분위기 악화에 대한 우려도 나타내고 있다.",
+  "hot_stocks": [
+   {
+    "name": "엔비디아",
+    "score": 70,
+    "reason": "실적 발표에 대한 높은 기대와 관심."
+   },
+   {
+    "name": "모더나",
+    "score": 20,
+    "reason": "커뮤니티 내 언급 증가."
+   },
+   {
+    "name": "펩시코",
+    "score": 20,
+    "reason": "커뮤니티 내 언급 증가."
+   },
+   {
+    "name": "빅테크",
+    "score": 50,
+    "reason": "AI 낙관론과 미국 증시 강세에 대한 관심."
+   },
+   {
+    "name": "삼하샌마",
+    "score": -40,
+    "reason": "증권가에서 어닝쇼크 가능성을 언급하며 우려가 제기됨."
+   }
+  ]
+ },
+ "signals": {
+  "spikes": [
+   {
+    "term": "보우소나루",
+    "count": 14,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "룰라",
+    "count": 13,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "대선",
+    "count": 13,
+    "burst": 66.40481766477083,
+    "base_daily": 0.4,
+    "new": false
+   },
+   {
+    "term": "브라질",
+    "count": 26,
+    "burst": 17.540895232203614,
+    "base_daily": 3.7,
+    "new": false
+   },
+   {
+    "term": "폭스콘",
+    "count": 10,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "PTC",
+    "count": 9,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "브라질 대선",
+    "count": 9,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "후티",
+    "count": 18,
+    "burst": 20.761804034146706,
+    "base_daily": 2.1,
+    "new": false
+   },
+   {
+    "term": "일렉트릭",
+    "count": 8,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "슈나이더",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "인수하",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "바브엘만데브 해협",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "바브엘만데브",
+    "count": 8,
+    "burst": 57.21030444964872,
+    "base_daily": 0.3,
+    "new": false
+   },
+   {
+    "term": "우파",
+    "count": 8,
+    "burst": 57.21030444964872,
+    "base_daily": 0.3,
+    "new": false
+   },
+   {
+    "term": "폭스콘 AI",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "폭격기",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "최대 GW",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "개가",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "벤치마크",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "강경파",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "검찰개혁",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "사우디 아람코",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "공식판매가격",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "은행들",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "주도하",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   }
+  ],
+  "top_posts": [
+   {
+    "channels": 3,
+    "channel": "GS의 조선/기계/방산 「바담」",
+    "head": "🛳 한국 LNG선 6척 수주. Alaska, LNG Canada ph2 수주POOL 또 쌓임 ☞ http://bit.ly/DOS842 ⚓️ 주시 뉴스 💲 선가, 실적, 캐파 △ 신조선가지수 3주 연속 상승. 중고선가지수 5P나 오른 223P 🌏 그린쉽: N/A 🌪 LNG △ 삼성중공업의 LNG선 2척 수주 공시 발주처는…",
+    "url": "https://t.me/c/1405984327/8209",
+    "time_kst": "10-05 17:06"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (23시 08분) 기준 🌡️ 센티먼트 긍정 (+50) 💡 요약 AI 관련 산업의 성장 기대감과 주요 기업들의 긍정적인 계약 및 투자 소식이 시장을 주도하고 있으나, 일부 거시경제 지표 및 지정학적 리스크는 관망세를 유발합니다. 🗣️ Top 키워드: AI(273), 데이터센터(255),…",
+    "url": "https://t.me/easobi_ai/21854",
+    "time_kst": "10-05 23:08"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (07시 07분) 기준 🌡️ 센티먼트 관망 (-35) 💡 요약 미국 증시의 견조한 상승세와 AI 관련 기업들의 긍정적인 전망에도 불구하고, 연준의 금리인상 가능성, 해외 VC의 한국 투자 감소, 국내 공공기관의 비효율 및 경기 부진 우려가 복합적으로 작용하며 전체적인 시장 분위기는 관망…",
+    "url": "https://t.me/easobi_ai/21830",
+    "time_kst": "10-05 07:07"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (11시 07분) 기준 🌡️ 센티먼트 긍정 (+40) 💡 요약 금리 인상 우려 완화, AI 산업 전반의 긍정적 전망, 아시아 증시 (대만, 일본) 강세 🗣️ Top 키워드: AI(528), 반도체(308), NVIDIA(137), 비트코인(94), ETF(79) 🔥 주목받는 종목 📈 S…",
+    "url": "https://t.me/easobi_ai/21841",
+    "time_kst": "10-05 11:07"
+   },
+   {
+    "channels": 2,
+    "channel": "하나증권 리서치",
+    "head": "[자산배분의 창(窓)] 반복되는 프랑스 예산안 트라우마, 프랑스만의 문제일까? 하나 자산배분/해외크레딧 이영주(T.3771-7788) ▶ 자료: https://bit.ly/4i2LmpV ▶ 채널: https://t.me/hanaallocation > 에너지발 물가 상승, 다시 어려워진 유럽의 선택 - 중동 분쟁 이후 에너…",
+    "url": "https://t.me/HanaResearch/20560",
+    "time_kst": "10-05 16:15"
+   },
+   {
+    "channels": 2,
+    "channel": "하나증권/에너지화학/윤재성",
+    "head": "[하나/에너지화학/윤재성] Weekly Monitor: 사우디 OSP, 또 내렸다 ▶ 보고서: https://bit.ly/3Vx6pbo [총평] ▶ WTI 91.1$(-1%), Dubai 108.8$ (-4%). 정제마진 37.4$(WoW +5.3$) ▶ 석유화학 강보합세. LLDPE/BDO +5%, PET +4%/SM…",
+    "url": "https://t.me/energy_youn/3277",
+    "time_kst": "10-05 15:51"
+   },
+   {
+    "channels": 2,
+    "channel": "GS의 조선/기계/방산 「바담」",
+    "head": "⚓️ Upgrade Tawaran ke Filipina, Korea Selatan Sodorkan Kapal Selam Canggih Jangbogo-III dan Pinjaman Lunak 100% ⚓️ 필리핀에 제안 업그레이드, 한국 첨단 장보고-III 잠수함 및 100% 양도성 차관 제시 출처: IndoMiliter…",
+    "url": "https://t.me/c/1405984327/8210",
+    "time_kst": "10-05 18:18"
+   },
+   {
+    "channels": 2,
+    "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+    "head": "* 美 고용 둔화에 亞 증시 상승…日 닛케이, 대만 가권지수 2%대 급등 - 5일 오전 일본 닛케이 평균은 2.43% 오른 6만9967을 기록하며 상승 중이다. 전자 및 기계 업종이 상승을 주도 중이다. 어드밴테스트가 4%, 미쓰비시중공업이 2.5% 올랐다. 같은 시각 대만 가권지수도 2.03%대 상승한 4만9460을 기…",
+    "url": "https://t.me/INSIGHTVALUELEE/10399",
+    "time_kst": "10-05 13:11"
+   },
+   {
+    "channels": 2,
+    "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+    "head": "* 日증시, AI주 상승에 닛케이 2.4%↑…장중 7만선 회복 - 니혼게이자이신문에 따르면 이날 닛케이225지수(닛케이평균주가)는 전 거래일보다 1637포인트(2.40%) 오른 6만9946.86에 거래를 마쳤다. 장중에는 7만엔을 넘어 지난 7월 6일 이후 약 3개월 만에 7만선을 회복했다. 지난 2일 미국 증시에서 금리…",
+    "url": "https://t.me/INSIGHTVALUELEE/10403",
+    "time_kst": "10-05 16:04"
+   },
+   {
+    "channels": 2,
+    "channel": "GS의 조선/기계/방산 「바담」",
+    "head": "[한화오션 국내 최대 1,800톤급 골리앗 크레인 강재절단식] • 한화오션이 거제조선소 1도크 도입 목적으로 발주한 국내 조선소 육상 골리앗 크레인 중 최대 규모인 1,800톤급 갠트리 크레인 강재절단식 진행 • 제작사는 중국 장쑤 레인보우중공업 자회사인 난퉁 레인보우 인텔리전트 이퀴프먼트(RIEC) • 고하중·대경간 설…",
+    "url": "https://t.me/c/1405984327/8208",
+    "time_kst": "10-05 11:34"
+   },
+   {
+    "channels": 2,
+    "channel": "GS의 조선/기계/방산 「바담」",
+    "head": "[2040년까지 현역 軍병력 13만명 감축…육해공군 지휘부 동의] • 2040년까지 현역 군 병력 13만 명 감축하는 국방개혁 기본계획에 육·해·공군 지휘부 동의 • 현역 병력을 현 48만 명에서 35만 명 수준으로 단계적 감축하고 상비예비군·민간 인력 확충으로 총인력 50만 명 유지 구상 • 병역자원 급감 대응 위해 간…",
+    "url": "https://t.me/c/1405984327/8207",
+    "time_kst": "10-05 11:30"
+   },
+   {
+    "channels": 2,
+    "channel": "한투증권 미국/중국전략 정정영",
+    "head": "미국 주식펀드 2주 연속 자금 순유입. AI 낙관론이 금리 우려 완화 • 9/30 기준 미국 주식펀드 2주 연속 자금 순유입 기록 • AI에 대한 지속적인 수요 및 예상보다 낮은 인플레이션 수치로 국채 금리 상승에 대한 시장 우려 완화되었기 때문 • 이번 주 미국주식 펀드 206억달러 규모 순매. 지난주는 374.9억달러…",
+    "url": "https://t.me/G2strategy/33515",
+    "time_kst": "10-05 10:30"
+   },
+   {
+    "channels": 2,
+    "channel": "[삼성 이영진] 글로벌 AI/SW",
+    "head": "오픈AI, 향후 28일간 Codex·Work ‘매일 개선’ 예고 : 오픈AI 제품 책임자 Tibo는 향후 28일 동안 매일 Codex·Work 사용자 대부분에게 체감되는 명확한 개선 사항을 하나씩 출시하거나, 한도를 리셋하겠다고 예고 : 앞서 개발 리소스를 제품 단순화, 사용량 확대를 위한 효율성 개선, 획기적 신규 기능…",
+    "url": "https://t.me/Samsung_Global_AI_SW/4711",
+    "time_kst": "10-05 08:04"
+   },
+   {
+    "channels": 2,
+    "channel": "우주방산AI로봇 아카이브",
+    "head": "ㄴ닛케이 지수가 2% 이상 상승하고 있습니다. TDK, 르네사스, 교세라, 도쿄일렉트론, 디스코가 모두 5% 안팎 급등하며 전기전자와 반도체주가 강세를 주도하고 있습니다. 지난주 미국 고용 둔화로 금리인상 우려가 낮아지고 테크주들이 강하게 반등한 흐름이 일본 증시로 이어지는 모습입니다. 특정 AI 종목에만 매기가 몰린다기…",
+    "url": "https://t.me/defence_24/6321",
+    "time_kst": "10-05 10:03"
+   }
+  ]
+ },
+ "community_dc": {
+  "source": "DC인사이드",
+  "galleries": [
+   {
+    "id": "krstock",
+    "name": "국내주식갤러리",
+    "posts": 1129,
+    "capped": true,
+    "burst": 0.9,
+    "base_daily": 1326.3
+   },
+   {
+    "id": "stockus",
+    "name": "해외주식갤러리",
+    "posts": 2440,
+    "capped": true,
+    "burst": 0.8,
+    "base_daily": 3005.0
+   }
+  ],
+  "posts_sampled": 531,
+  "keywords": [
+   {
+    "term": "모더나",
+    "count": 8,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "펩시코",
+    "count": 7,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "빅테크",
+    "count": 7,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "엔비디아",
+    "count": 7,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "한번",
+    "count": 6,
+    "burst": 86.5,
+    "new": true
+   },
+   {
+    "term": "결국",
+    "count": 6,
+    "burst": 86.5,
+    "new": true
+   },
+   {
+    "term": "뭐냐",
+    "count": 5,
+    "burst": 72.1,
+    "new": true
+   },
+   {
+    "term": "엔화",
+    "count": 5,
+    "burst": 72.1,
+    "new": true
+   },
+   {
+    "term": "삼하샌마",
+    "count": 5,
+    "burst": 72.1,
+    "new": true
+   },
+   {
+    "term": "스엑",
+    "count": 19,
+    "burst": 16.1,
+    "new": false
+   },
+   {
+    "term": "양전",
+    "count": 6,
+    "burst": 7.9,
+    "new": false
+   },
+   {
+    "term": "지금",
+    "count": 8,
+    "burst": 4.6,
+    "new": false
+   },
+   {
+    "term": "삼닉",
+    "count": 8,
+    "burst": 4.6,
+    "new": false
+   },
+   {
+    "term": "구글",
+    "count": 13,
+    "burst": 2.7,
+    "new": false
+   },
+   {
+    "term": "금리",
+    "count": 8,
+    "burst": 3.3,
+    "new": false
+   }
+  ],
+  "top_recommended": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "곧 엔디비아 실적발표 현장 예상.gif",
+    "views": 12808,
+    "recommend": 330,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17908176&exception_mode=recommend&page=1",
+    "time_kst": "10-05 14:57"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "휴일인데 왜 장이 열림?",
+    "views": 10515,
+    "recommend": 162,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17906345&exception_mode=recommend&page=1",
+    "time_kst": "10-05 09:30"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "와씨발 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+    "views": 10846,
+    "recommend": 84,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17907604&exception_mode=recommend&page=1",
+    "time_kst": "10-05 13:02"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "미붕아,.. 미붕아,.. 미붕아",
+    "views": 9803,
+    "recommend": 82,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17908266&exception_mode=recommend&page=1",
+    "time_kst": "10-05 15:15"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "응 송유관 정상이야 ㅋㅋ",
+    "views": 10012,
+    "recommend": 60,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17909287&exception_mode=recommend&page=1",
+    "time_kst": "10-05 17:50"
+   }
+  ],
+  "top_viewed": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "현금 관망하던 분들은 참고해야할 글.txt",
+    "views": 1014,
+    "recommend": 15,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17913110&page=5",
+    "time_kst": "10-06 04:17"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "증권가 \"삼닉 실발 어닝쇼크 터진다\"",
+    "views": 730,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3590856&page=2",
+    "time_kst": "10-06 03:06"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "미국도 중소형주 분위기 안좋음",
+    "views": 514,
+    "recommend": 3,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3590739&page=4",
+    "time_kst": "10-06 00:52"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "얘 별로 안좋아하는데 이사진은 레전드네",
+    "views": 481,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3590805&page=3",
+    "time_kst": "10-06 01:44"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "반도체 왜오른거냐 설명좀",
+    "views": 386,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3590921&page=1",
+    "time_kst": "10-06 05:55"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "아니 이게 어케 남자임",
+    "views": 386,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3590733&page=4",
+    "time_kst": "10-06 00:49"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "엔비디아 실적 발표회",
+    "views": 373,
+    "recommend": 3,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3590848&page=2",
+    "time_kst": "10-06 02:51"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "남자는 여자볼때 얼굴이냐? 몸매냐?",
+    "views": 370,
+    "recommend": 1,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3590776&page=4",
+    "time_kst": "10-06 01:21"
+   }
+  ]
+ }
+}
