@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+/* 시스템이 라이트이고, 사용자가 다크로 고정하지 않았을 때 */
+@media (prefers-color-scheme:light){
+  :root:not([data-gs-theme="dark"]){color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+}
+/* 사용자가 고른 값은 시스템 설정을 이긴다 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",OWNER=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ var lv=level();
+ if(lv==="owner")return;                 // 주인은 전부 통과
+ if(lv==="guest"&&!OWNER)return;         // 친구는 공유 페이지만 통과
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?"이 화면은 주인 비밀번호가 필요합니다. ":"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     if(h===OH||(h===GH&&!OWNER)){set(h);location.reload();return}
+     msg.textContent=h===GH?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><base target="_blank"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude 방산 브리핑 2026-08-13</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-accent,#d6b27a);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:12.5px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+/* 모바일: 6열 표가 세로로 짓눌리므로 행을 카드로 재배치 (헤더행 기반 라벨) */
+@media (max-width:640px){
+  body{padding:20px 14px 48px}
+  .ptab.hdr, .ptab.hdr tbody, .ptab.hdr tr, .ptab.hdr td{display:block;width:100%;box-sizing:border-box}
+  .ptab.hdr tr:first-child{display:none}
+  .ptab.hdr tr{border:1px solid var(--gs-line,#232e3f);border-radius:10px;margin:10px 0;padding:9px 12px;background:var(--gs-card,#1a2029)}
+  .ptab.hdr tr:hover td{background:transparent}
+  .ptab.hdr td{border:none;padding:2px 0;display:flex;gap:10px;align-items:baseline;font-size:13.5px}
+  .ptab.hdr td::before{content:attr(data-l);color:var(--gs-muted,#8e98a8);font-size:11.5px;flex:0 0 58px}
+  .ptab.hdr td:first-child{display:block;font-weight:700;color:var(--gs-ink-strong,#e6ebf2);font-size:14.5px;
+    padding-bottom:5px;margin-bottom:4px;border-bottom:1px solid var(--gs-line-soft,#1f2834)}
+  .ptab.hdr td:first-child::before{content:none}
+}
+</style></head>
+<body><div class="wrap">
+<h1>🤖 Claude 글로벌 방산 브리핑</h1>
+<div class="meta">기준: 2026-08-13(목) · 생성: Claude(웹 검색 리서치) — Gemini 브리핑과 별도 관점의 2탄</div>
+<p>글로벌 방산 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-08-13 06:00 KST입니다.</p>
+<h2>오늘의 핵심 요약 — 시장 임팩트 순</h2>
+<ul>
+<li><b>Golden Dome 예산 절벽 경고:</b> 프로그램 책임자 Guetlein 대장이 SMD 심포지엄에서 "이르면 10월 자금이 끊길 수 있다"고 공개 경고 — FY26 $24bn이 국방 기본예산이 아닌 조정법안(reconciliation)으로 편성돼, FY27이 잠정예산(CR)으로 시작되면 기준선이 없다는 구조적 문제입니다. [사실]</li>
+<li><b>국내 증시 급등 속 방산 반등:</b> KOSPI가 반도체 주도(외국인 2조8,357억원 순매수, 매수 사이드카 발동)로 <span class="up">+3.68%</span> 급등한 6,579.04에 마감했고, <b>한화에어로스페이스(Hanwha Aerospace)</b>는 <span class="up">+5.28%</span>(1,156,000원)로 전일 방산 급락분을 되돌렸습니다. [사실]</li>
+<li><b>미사일방어 '저비용 믹스' 공식화:</b> 미 육군 Rafferty 중장이 "hit-to-kill 요격체는 생산보다 소모가 빠르다 — 고가·저가 요격체 혼합이 미래"라고 발언, 전일 Boeing 초저가 시커 공개와 같은 흐름입니다. [사실]</li>
+<li><b>유럽 구조조정 진행:</b> Rheinmetall은 독일 F126 취소 여파로 2026 가이던스를 €300M 하향(상반기 매출 <span class="up">+39%</span>·이익 <span class="up">+74%</span>는 견조)했고, Leonardo 군용트럭 사업 인수전엔 Rheinmetall 외 경쟁 후보가 등장했다는 보도가 나왔습니다. [사실/보도]</li>
+<li><b>중동 리스크 지속:</b> 이란전이 재확전 양상(후티 홍해 봉쇄 선언, 이란계 프록시의 사우디 공격)을 보이며 미군 탄약 재고 소진 이슈가 다시 부각되고 있습니다. [보도]</li>
+</ul>
+<h2>주요 주가 동향</h2>
+<div style="overflow-x:auto"><table class="ptab hdr">
+<tr><td>기업</td><td>국가</td><td>기준일</td><td>등락률</td><td>시가총액</td><td>변동 요인</td></tr>
+<tr><td data-l="기업">한화에어로스페이스</td><td data-l="국가">한국</td><td data-l="기준일">08/12</td><td data-l="등락률"><span class="up">+5.28%</span></td><td data-l="시가총액">확인 불가</td><td data-l="변동 요인">시장 급등 동반 반등, KAI 지분(15.89%) 이슈 지속</td></tr>
+<tr><td data-l="기업">KODEX 방산TOP10 ETF</td><td data-l="국가">한국</td><td data-l="기준일">08/11</td><td data-l="등락률"><span class="down">-6.99%</span></td><td data-l="시가총액">-</td><td data-l="변동 요인">국내 방산 차익실현 (대시보드 수집 데이터)</td></tr>
+<tr><td data-l="기업">PLUS 글로벌방산 ETF</td><td data-l="국가">한국</td><td data-l="기준일">08/11</td><td data-l="등락률"><span class="up">+1.20%</span></td><td data-l="시가총액">-</td><td data-l="변동 요인">해외 방산 혼조 반영 (대시보드 수집 데이터)</td></tr>
+<tr><td data-l="기업">iShares ITA ETF</td><td data-l="국가">미국</td><td data-l="기준일">08/11</td><td data-l="등락률"><span class="up">+0.31%</span></td><td data-l="시가총액">-</td><td data-l="변동 요인">$251.90 마감, 08/12 장중 약보합</td></tr>
+<tr><td data-l="기업">Rheinmetall</td><td data-l="국가">독일</td><td data-l="기준일">08/06주</td><td data-l="등락률">확인 불가</td><td data-l="시가총액">-</td><td data-l="변동 요인">가이던스 €300M 하향 후 변동성 지속</td></tr>
+</table></div>
+<ul>
+<li>미국 주요 종목(LMT·NOC·BA·RTX 등)의 08/12(수) 종가 등락률은 이번 실행 시점에 확인 불가 — ITA 기준 장중 <span class="down">-0.19%</span>로 특이 변동 없었던 것으로 보입니다. [미확인]</li>
+<li>LIG넥스원·현대로템·한화오션의 08/12 개별 종가는 확인 불가. KOSPI 전체는 <span class="up">+3.68%</span>, 외국인 +2조8,357억·기관 +5,277억·개인 -3조1,911억(대시보드 수집 데이터). [사실]</li>
+</ul>
+<h2>큰 변동 분석</h2>
+<ul>
+<li>확인 범위 내 ±10% 이상 변동 종목 없음.</li>
+<li><b>KODEX 방산TOP10 | 한국 | 08/11 <span class="down">-6.99%</span></b>: 화요일 국내 방산주 전반의 급락(전일 Gemini 브리핑의 PLUS K방산 <span class="down">-6.96%</span>와 일치)은 연중 급등에 따른 차익실현으로 해석되며 [해석], 수요일 시장 급등과 함께 한화에어로스페이스 <span class="up">+5.28%</span> 등 반등이 확인됐습니다. 외국인의 방산 ETF 순매수 신호는 아직 중립(대시보드 수집 데이터).</li>
+</ul>
+<h2>섹터별 정리</h2>
+<h2>항공우주</h2>
+<ul>
+<li><b>한화에어로스페이스</b>의 KAI(Korea Aerospace Industries) 지분 확대(15.89%) 및 인수전 구도(현대차그룹 변수) 보도가 이어지며 지배구조 이벤트가 주가 변수로 유지되고 있습니다. [보도]</li>
+</ul>
+<h2>지상무기</h2>
+<ul>
+<li><b>Leonardo</b>의 군용트럭 사업 매각 협상에 <b>Rheinmetall</b> 외 복수의 인수 후보가 등장 — 유럽 지상장비 구조조정(통합)이 진행형입니다. <a href="https://www.marketscreener.com/news/rival-suitors-emerge-for-rheinmetall-in-leonardo-s-military-truck-business-talks-ce7f50dbd08ff625">MarketScreener</a> [보도]</li>
+</ul>
+<h2>미사일·방공</h2>
+<ul>
+<li><b>Golden Dome</b>: Guetlein 대장이 10월 자금 단절 리스크를 경고 — FY26 $24bn이 조정법안 편성이라 CR 시 기준예산이 없습니다. 수혜주(센서·요격체) 모멘텀의 최대 변수가 '기술'이 아니라 '세출 절차'로 이동했습니다. <a href="https://breakingdefense.com/2026/08/will-money-run-out-for-golden-dome/">Breaking Defense</a> [사실]</li>
+<li>미 육군 Rafferty 중장: "고가 요격체는 소모 속도가 생산을 앞선다 — 고·저가 믹스로 간다." 저가 요격체·시커 공급망(상용부품) 투자가 뒤따를 전망입니다. [해석]</li>
+<li><b>Leidos</b>는 Sierra Space의 미사일 추적위성 18기(AMDT3 Tracking Layer)에 적외선 센서 페이로드 공급자로 선정된 바 있어(8/4 발표), Golden Dome 센서층 수주 사슬이 구체화되고 있습니다. <a href="https://www.leidos.com/insights/leidos-selected-provide-flight-proven-infrared-sensors-sierra-space-missile-defense">Leidos IR</a> [사실]</li>
+</ul>
+<h2>해군·조선</h2>
+<ul>
+<li>콜롬비아 해군이 <b>HD현대중공업·한화오션</b>을 방문해 군함·잠수함 현대화 사업을 논의했다는 단독 보도 — 남미 시장 개척(전일 브리핑)의 후속 움직임입니다. <a href="https://www.theguru.co.kr/news/article.html?no=87814">더구루</a> [미확인-단일보도]</li>
+<li>양사는 올해 미 해군 MRO를 각 2건씩 총 4건 수주하며 작년 연간 실적을 3개월 만에 초과 — 미국발 협력 기대가 조선주 강세의 바탕입니다. [보도]</li>
+</ul>
+<h2>전자·센서·C4ISR</h2>
+<ul>
+<li>특이사항 없음 (Elbit Systems 2Q 실적은 전일 브리핑 참조).</li>
+</ul>
+<h2>투자 시사점</h2>
+<p>1. <b>(단기 촉매) Golden Dome은 '예산 이벤트' 구간 진입:</b> 10월 CR 여부가 관련주(센서·SRM·요격체 밸류체인) 모멘텀의 스위치입니다. FY27 세출 협상 뉴스플로를 계약 발표보다 먼저 봐야 하는 시기입니다.</p>
+<p>2. <b>(중기 업황) 저비용 대량 생산으로의 축 이동:</b> '고가 요격체 소모전 불가' 인식이 공식화되면서, 상용부품 기반 시커·저가 순항미사일·SRM 증설 등 '양산성'을 가진 업체의 상대 매력이 높아지고 있습니다.</p>
+<p>3. <b>(단기 수급) 국내 방산은 차익실현 vs 반등의 갈림길:</b> 화요일 <span class="down">-7%</span> 급락 후 수요일 반등이 나왔지만 방산 ETF 수급 신호는 중립입니다. 시장 전체(반도체 주도) 대비 상대 강도를 확인하며 진입 시점을 재는 것이 유효합니다.</p>
+<h2>향후 24~72시간 관전 포인트</h2>
+<ul>
+<li><b>SMD 심포지엄 폐막(8/13, 헌츠빌):</b> 마지막 날 Golden Dome·우주 센서 관련 추가 발표 여부. <a href="https://spa.com/event/smd2026/">SPA</a></li>
+<li><b>미 FY27 세출/CR 논의:</b> Golden Dome 기준예산 편입 여부를 둘러싼 의회 발언이 관련주 방향성 변수. <a href="https://breakingdefense.com/2026/08/will-money-run-out-for-golden-dome/">Breaking Defense</a></li>
+</ul>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["auto","light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"auto"}catch(e){return "auto"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="auto")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

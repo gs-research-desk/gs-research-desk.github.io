@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+/* 시스템이 라이트이고, 사용자가 다크로 고정하지 않았을 때 */
+@media (prefers-color-scheme:light){
+  :root:not([data-gs-theme="dark"]){color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+}
+/* 사용자가 고른 값은 시스템 설정을 이긴다 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",OWNER=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ var lv=level();
+ if(lv==="owner")return;                 // 주인은 전부 통과
+ if(lv==="guest"&&!OWNER)return;         // 친구는 공유 페이지만 통과
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?"이 화면은 주인 비밀번호가 필요합니다. ":"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     if(h===OH||(h===GH&&!OWNER)){set(h);location.reload();return}
+     msg.textContent=h===GH?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><base target="_blank"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>글로벌 건설기계 브리핑 2026-08-22</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-accent2,#e8b756);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:12.5px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<h1>🏗️ 글로벌 건설기계 데일리 브리핑</h1>
+<div class="meta">기준: 2026-08-22 06:00 KST · 생성: Gemini(gemini-2.5-flash) + 구글뉴스 RSS + yfinance 확정 시세·매크로</div>
+<p>글로벌 건설기계 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-08-22 06:00입니다.</p>
+<h2>오늘의 핵심 요약</h2>
+<p>중국 부동산 시장은 에버그란데(Evergrande) 창업주의 종신형 선고로 투자 심리가 더욱 위축되었으나, 상하이(Shanghai)의 주택 계약금 인하 등 일부 부양책도 발표되었습니다. 미국에서는 주요 건설기계 기업들이 자국 내 제조에 대한 투자를 확대하고 있다는 소식이 전해졌습니다. 한편, 금과 구리 등 원자재 가격이 상승하며 광산 장비 수요에 긍정적인 신호를 보냈습니다. 국내 건설기계 3사 중 HD현대건설기계는 5% 이상 하락했으며, 두산밥캣도 소폭 하락했습니다.</p>
+<h2>매크로·수요 지표</h2>
+<p>미국채 10년 금리는 4.74%로 전일 대비 <span class="up">+0.89%</span> 상승하며 건설 투자 심리에 부정적인 영향을 미칠 수 있습니다. 금(COMEX)은 4,661.60$/oz로 <span class="up">+3.22%</span>, 구리(COMEX)는 6.58$/lb로 <span class="up">+1.86%</span> 상승하여 광산 투자 확대 및 대형 건설기계 수요 증가에 긍정적인 신호입니다. WTI 원유는 86.64$/bbl로 <span class="down">-1.35%</span> 하락했으며, 원/달러 환율은 1,385.98원으로 <span class="down">-0.25%</span> 하락했습니다. 위안/달러 환율도 6.71위안으로 <span class="down">-0.26%</span> 하락했습니다.</p>
+<p>중국 해관총서 데이터에 따르면 2026년 7월 중국 건설기계 수출입 현황이 발표되었습니다. (<a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxOUE5URXZyYk51VThYWUxtVWZaM3hwWUJQWGRadzMxeXFBeWtuNXFqRVJfUzM0VVZrUm1wWnBpTlBZX09jV0VEZElyWEVOeFJGTjlaLTZfb1BncndqejRPNDFqRjNiQWl2bm5IRUl3VWwzTHMzcHVUa0ZGWWlvX092ZVJ5bE41MnR4YklDeGZBc05tWnVXSWR0WWp4MGtsS3hHTzNvWjkyOTdsOWJadWNJNUF2Yw?oc=5">Shanghai Metals Market</a> 08/21 15:01 KST)</p>
+<h2>주요 주가 동향</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>HD현대건설기계 (HD Hyundai CE)</td><td>한국</td><td><span class="down">-5.25%</span></td><td>₩5.5조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>HD현대인프라코어 (HD Hyundai Infracore)</td><td>한국</td><td>조회실패</td><td>-</td><td>조회실패</td></tr>
+<tr><td>두산밥캣 (Doosan Bobcat)</td><td>한국</td><td><span class="down">-1.53%</span></td><td>₩5.5조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Caterpillar</td><td>미국</td><td><span class="up">+1.53%</span></td><td>$380.6B</td><td>미국 내 제조 투자 소식 및 시장 전반의 긍정적 흐름</td></tr>
+<tr><td>John Deere</td><td>미국</td><td><span class="up">+4.27%</span></td><td>$174.9B</td><td>미국 내 제조 투자 소식 및 시장 전반의 긍정적 흐름</td></tr>
+<tr><td>CNH Industrial</td><td>미국</td><td><span class="up">+8.40%</span></td><td>$19.1B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Terex</td><td>미국</td><td><span class="up">+3.55%</span></td><td>$7.6B</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>Oshkosh (JLG)</td><td>미국</td><td><span class="up">+2.85%</span></td><td>$9.7B</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>Manitowoc</td><td>미국</td><td><span class="up">+3.09%</span></td><td>$0.7B</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>United Rentals</td><td>미국</td><td><span class="up">+0.30%</span></td><td>$68.4B</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>Herc Holdings</td><td>미국</td><td><span class="up">+0.15%</span></td><td>$5.4B</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>Volvo Group (Volvo CE)</td><td>스웨덴</td><td><span class="up">+0.82%</span></td><td>kr697.1B</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>Epiroc</td><td>스웨덴</td><td><span class="up">+1.82%</span></td><td>kr317.4B</td><td>금·구리 가격 상승에 따른 광산 장비 수요 기대</td></tr>
+<tr><td>Sandvik</td><td>스웨덴</td><td><span class="up">+3.28%</span></td><td>kr477.7B</td><td>금·구리 가격 상승에 따른 광산 장비 수요 기대</td></tr>
+<tr><td>Wacker Neuson</td><td>독일</td><td><span class="up">+1.20%</span></td><td>€1.4B</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>Manitou</td><td>프랑스</td><td><span class="down">-0.70%</span></td><td>€0.8B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>고마쓰 (Komatsu)</td><td>일본</td><td><span class="up">+0.23%</span></td><td>¥6.3조</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>히타치건기 (Hitachi CM)</td><td>일본</td><td><span class="up">+0.14%</span></td><td>¥1.2조</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>구보타 (Kubota)</td><td>일본</td><td><span class="up">+2.38%</span></td><td>¥3.1조</td><td>시장 전반의 긍정적 흐름</td></tr>
+<tr><td>싸니중공업 (SANY)</td><td>중국</td><td><span class="down">-1.31%</span></td><td>¥172.9B</td><td>중국 부동산 시장 악화 우려</td></tr>
+<tr><td>쉬공기계 (XCMG)</td><td>중국</td><td><span class="down">-1.23%</span></td><td>¥93.8B</td><td>중국 부동산 시장 악화 우려</td></tr>
+<tr><td>중롄중커 (Zoomlion)</td><td>중국</td><td><span class="down">-0.85%</span></td><td>¥60.2B</td><td>중국 부동산 시장 악화 우려</td></tr>
+<tr><td>류공 (LiuGong)</td><td>중국</td><td><span class="down">-0.25%</span></td><td>¥16.4B</td><td>중국 부동산 시장 악화 우려</td></tr>
+</table></div>
+<h2>큰 변동 분석</h2>
+<ul>
+<li>  <b>HD현대건설기계 (HD Hyundai CE)</b>: <span class="down">-5.25%</span> 하락. 관련 공시나 뉴스는 확인되지 않았으며, 수급 요인에 의한 변동으로 추정됩니다.</li>
+<li>  <b>CNH Industrial</b>: <span class="up">+8.40%</span> 상승. 관련 공시나 뉴스는 확인되지 않았으며, 수급 요인에 의한 변동으로 추정됩니다.</li>
+<li>  <b>John Deere</b>: <span class="up">+4.27%</span> 상승. 미국 내 제조 투자 소식 및 전반적인 시장의 긍정적 흐름에 영향을 받은 것으로 보입니다.</li>
+</ul>
+<h2>시장별 동향</h2>
+<ul>
+<li>  <b>미국</b>: 주요 건설기계 기업들이 미국 내 제조에 대규모 투자를 진행하고 있다는 소식이 전해졌습니다. 이는 미국 시장의 견조한 수요와 공급망 안정화 노력의 일환으로 해석되며, Caterpillar, John Deere 등 미국 기반 기업들에게 긍정적입니다. (<a href="https://news.google.com/rss/articles/CBMi2wFBVV95cUxPcGxScHM5YnhWMjVqLU9uMG1VWmlPZGY2MEVFcmJ2eXU4YTZPTzRXZ05SV0dnc29xdS1MWUJBSGFKU1lRQUJMdDJQbTZGNUk2TlhNUWpYLXJ4cVNGMFpJWWFOSlNlX0NzNTFmNUVoS0xxWUNKT2hBYlN0Mkx3SkZGdmF0clVmeFVfU1NUb2U0dzEycjV2S3RoRWpudG1SdW4wMjhoMnRvSkQtV2pzU2lNczR4d29HSl9PTmpSMndyenRxSDNXbmdpY3ljanF1MVJXMjVmMXI1VjFqUGs?oc=5">constructionequipment.com</a> 08/22 02:42 KST)</li>
+<li>  <b>중국</b>: 중국 최대 부동산 개발업체인 에버그란데(Evergrande)의 창업주가 종신형을 선고받으며 부동산 시장의 불확실성이 더욱 커졌습니다. 이는 중국 건설기계 수요에 부정적인 영향을 미칠 것으로 예상됩니다. (<a href="https://news.google.com/rss/articles/CBMiekFVX3lxTE1YWEg2QWpVaDBrbzU2d1JIbWM0aFdaSHozeHZJeTZOUzYtbTNFdEd1YXFwTEt4OVBwM0kwN3lLN3I3WEF3ek54RW84OEtqcnJ2LXJUdGRjalNuRWVsb0xHZnpxREw5WGY0bGVQTEJWaTZRenB2M0loUTl3?oc=5">WBUR</a> 08/22 01:15 KST, <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxNNzljTVFWWmRlZDliQVNCUEZzekRCeGhhTlhycldkUWlYSENrX1kycm0tbDBkWUJzUkJLcHRUWVNFNFJPT2ZidXBocTJsZ2lVOVgtQTczUVlXREg4bXFWOVdiQmVmTURGUDJ5VUlCTXJwQTU4aDZxTGVZdVdmTzJJckVyYUJMSXVlQVdvNHk1bEZfNzVkZG1QR1ZlNmxNMWFVd2ZlWVBHd2o0OEZ4RGJmX9IBtgFBVV95cUxPOWJacVV4V25VbEpndFRzamFkZjFPUnVpQnFac1k4aTBkQ3RfaHpCUW9kQlNZcXh5OExXZVNiTzhQZTgyNDV0MEhjcW02a04yc25NMTRNa0dHRFpGbV92QlB3d0lJUi0wMUxTUXZuVWcydVVtSzFzNU5TNVd4S19fd0FiT18yNnlSdEpheDhremg0WjhVUWFkMW1NWGxibF9QNjFvN0tpbGkydjhDZ2pEMUZUblY4QQ?oc=5">boldnewsonline.com</a> 08/21 15:20 KST)</li>
+<li>  다만, 상하이(Shanghai)는 주택 계약금 비율을 낮추고 주택 기금 사용 범위를 확대하는 등 부동산 시장 활성화를 위한 정책을 발표했습니다. (<a href="https://news.google.com/rss/articles/CBMi5gFBVV95cUxPVjEwTC0wODRXUnFTclptR3FoVWNxSWZGZldmNXpCaERKZTkxbkR6MkUzYnZ2dWI1Mm00Q1lvWTVtS2M3UnhtSUFQcmVhZnpCa29wT2tvbnZrVFBHMmc3ZWpYbGcxaWNaV1BzZlJWOTRrZFNVZUt6blFZYXBIa1dyR1hXak1DTHRfNjRCaEhxNkVWc0FQUWluXzUtVkR3NDRpbk45aFRGX3BhdHk0YjlQdTRaZmF1c3VFVHZaX0NlSmg5SzZfYU1SVnFuQzF4bUdjdWIxak1Bc1BvX2pLNlUtLVZBS0ZyQQ?oc=5">citynewsservice.cn</a> 08/21 12:23 KST, <a href="https://news.google.com/rss/articles/CBMiZEFVX3lxTE1lTXEteG1XcGpjVWpONkRKNkp6ZXpRbXA5a2o4bnFLVTVCWlZOTTdpMjFGeUsxeFZLMFRYUVNLaWl6dnJPZFBZbWNXNERTZEtDR1RwMFpUaVhOVTRNQVMwNFE5MXA?oc=5">People's Daily Online</a> 08/21 09:15 KST)</li>
+<li>  <b>자원국·광산</b>: 금과 구리 가격의 상승은 글로벌 광산 기업들의 투자 확대(capex)로 이어질 가능성이 높습니다. 이는 광산 장비 전문 기업인 Epiroc, Sandvik뿐만 아니라 대형 굴착기 및 광산 트럭을 생산하는 Caterpillar, HD현대건설기계, HD현대인프라코어 등 종합 건설기계 업체에도 긍정적인 영향을 미칠 수 있습니다.</li>
+</ul>
+<h2>기업 전략 동향</h2>
+<ul>
+<li>  <b>생산·공장</b>: 주요 건설기계 기업들이 미국 내 제조 시설에 적극적으로 투자하고 있습니다. 이는 공급망 안정화 및 지역별 수요 대응 역량 강화를 위한 전략으로 보입니다. 이러한 투자는 미국 시장에 강점을 가진 기업들의 경쟁력을 더욱 높일 수 있습니다. (<a href="https://news.google.com/rss/articles/CBMi2wFBVV95cUxPcGxScHM5YnhWMjVqLU9uMG1VWmlPZGY2MEVFcmJ2eXU4YTZPTzRXZ05SV0dnc29xdS1MWUJBSGFKU1lRQUJMdDJQbTZGNUk2TlhNUWpYLXJ4cVNGMFpJWWFOSlNlX0NzNTFmNUVoS0xxWUNKT2hBYlN0Mkx3SkZGdmF0clVmeFVfU1NUb2U0dzEycjV2S3RoRWpudG1SdW4wMjhoMnRvSkQtV2pzU2lNczR4d29HSl9PTmpSMndyenRxSDNXbmdpY3ljanF1MVJXMjVmMXI1VjFqUGs?oc=5">constructionequipment.com</a> 08/22 02:42 KST)</li>
+</ul>
+<h2>투자 시사점</h2>
+<p>1.  <b>중국 부동산 시장의 불확실성 지속</b>: 에버그란데 창업주의 종신형 선고는 중국 부동산 시장의 구조적 문제를 다시 한번 부각시키며, 단기적인 정책 부양책에도 불구하고 중국 건설기계 수요 회복에는 상당한 시간이 소요될 것으로 예상됩니다. 이는 중국 시장 의존도가 높은 한국 건설기계 업체들에게 지속적인 부담으로 작용할 수 있습니다.</p>
+<p>2.  <b>광산 장비 수요 회복 기대</b>: 금과 구리 등 주요 원자재 가격의 상승세는 글로벌 광산 기업들의 설비 투자(capex) 확대로 이어질 가능성이 높습니다. 이는 대형 굴착기 및 광산 장비 부문에서 경쟁력을 가진 HD현대건설기계, HD현대인프라코어, Caterpillar, Epiroc, Sandvik 등에 긍정적인 단기 촉매가 될 수 있습니다.</p>
+<p>3.  <b>미국 시장의 견조한 흐름과 현지화 전략</b>: 미국 내 제조 투자 확대 소식은 북미 시장의 견조한 수요와 기업들의 현지화 전략을 보여줍니다. 이는 소형 장비 시장에서 강점을 가진 두산밥캣(Doosan Bobcat)과 같은 기업들에게 안정적인 성장 기반을 제공하며, 미국 인프라 투자 확대 기조와 맞물려 중기적인 업황 개선을 기대할 수 있습니다.</p>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["auto","light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"auto"}catch(e){return "auto"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="auto")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>
