@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+/* 시스템이 라이트이고, 사용자가 다크로 고정하지 않았을 때 */
+@media (prefers-color-scheme:light){
+  :root:not([data-gs-theme="dark"]){color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+}
+/* 사용자가 고른 값은 시스템 설정을 이긴다 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",OWNER=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ var lv=level();
+ if(lv==="owner")return;                 // 주인은 전부 통과
+ if(lv==="guest"&&!OWNER)return;         // 친구는 공유 페이지만 통과
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?"이 화면은 주인 비밀번호가 필요합니다. ":"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     if(h===OH||(h===GH&&!OWNER)){set(h);location.reload();return}
+     msg.textContent=h===GH?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8"><base target="_blank">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>글로벌 방산 브리핑 2026-09-09</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:12.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-link,#89b9ff);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:12.5px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<h1>🌍 글로벌 방산 데일리 브리핑</h1>
+<div class="meta">기준: 2026-09-09 07:00 KST · 생성: Gemini(gemini-2.5-flash) + 구글뉴스 RSS + yfinance 확정 시세</div>
+<p>글로벌 방산 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-09-09 07:00입니다.</p>
+<h2>오늘의 핵심 요약 — 시장에 가장 중요한 이슈 3~5개를 3~5줄로</h2>
+<ul>
+<li>  <b>한화오션 (Hanwha Ocean)</b>이 6,833억 원 규모의 태국 차세대 호위함 사업 우선협상대상자로 선정되며 아시아 시장 내 경쟁력을 입증했습니다. 이는 향후 수조원대 호위함 시장 진출의 교두보가 될 것으로 기대됩니다.</li>
+<li>  미국은 해군 함정에 대한 미사일 공격 시도에 대응하여 이란 유조선 5척을 파괴했다고 발표하며 중동 지역의 지정학적 긴장이 고조되고 있습니다. 이는 미사일 방어 및 해군력 강화에 대한 지속적인 수요를 시사합니다.</li>
+<li>  <b>록히드마틴 (Lockheed Martin)</b>이 <b>L3해리스 (L3Harris)</b>에 47억 달러 규모의 PAC-3 MSE 미사일 추진체 계약을 발주하며 주요 방산 프로그램의 공급망 협력이 강화되고 있음을 보여주었습니다.</li>
+<li>  <b>노스롭그루먼 (Northrop Grumman)</b>은 새로운 추진체 혁신 센터를 개소하고 UBS로부터 목표주가 상향 조정을 받으며 긍정적인 모멘텀을 확보했습니다.</li>
+</ul>
+<h2>주요 주가 동향 — 기업명 | 국가 | 종가 기준 등락률 | 시총 또는 업종 내 중요도 | 변동 요인. 변동폭이 크거나 뉴스가 있는 종목 위주로 15개 내외. 각 행은 "기업명 | 국가 | +x.xx% | 시총 | 요인" 형태의 일반 텍스트 줄로 쓰세요 (마크다운 표 문법 |---| 사용 금지).</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>Howmet Aerospace (HWM)</td><td>미국</td><td><span class="down">-10.70%</span></td><td>$92.3B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>AeroVironment (AVAV)</td><td>미국</td><td><span class="up">+2.86%</span></td><td>$7.6B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>풍산 (Poongsan)</td><td>한국</td><td><span class="up">+2.48%</span></td><td>₩2.1조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Lockheed Martin (LMT)</td><td>미국</td><td><span class="up">+2.07%</span></td><td>$123.7B</td><td>L3Harris에 PAC-3 MSE 추진체 계약 발주</td></tr>
+<tr><td>LIG넥스원 (LIG Nex1)</td><td>한국</td><td><span class="up">+1.06%</span></td><td>₩14.5조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Airbus (AIR.PA)</td><td>프랑스</td><td><span class="up">+0.99%</span></td><td>€158.9B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Kratos Defense (KTOS)</td><td>미국</td><td><span class="up">+0.79%</span></td><td>$9.0B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Elbit Systems (ESLT)</td><td>이스라엘</td><td><span class="up">+0.74%</span></td><td>$33.2B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Northrop Grumman (NOC)</td><td>미국</td><td><span class="up">+0.70%</span></td><td>$73.7B</td><td>추진체 혁신 센터 개소, UBS 목표주가 상향</td></tr>
+<tr><td>Huntington Ingalls (HII)</td><td>미국</td><td><span class="up">+0.61%</span></td><td>$11.3B</td><td>AI 기반 무인 함정 ROMULUS 151 선체 건조 완료</td></tr>
+<tr><td>Textron (TXT)</td><td>미국</td><td><span class="up">+0.59%</span></td><td>$13.7B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Kongsberg (KOG.OL)</td><td>노르웨이</td><td><span class="up">+0.39%</span></td><td>kr264.9B</td><td>호주 글로벌 공급망 프로그램 2주년</td></tr>
+<tr><td>RTX (RTX)</td><td>미국</td><td><span class="down">-0.99%</span></td><td>$267.9B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>한화에어로스페이스 (Hanwha Aerospace)</td><td>한국</td><td><span class="down">-1.15%</span></td><td>₩52.8조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>한국항공우주 (KAI)</td><td>한국</td><td><span class="down">-1.24%</span></td><td>₩12.5조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>한화시스템 (Hanwha Systems)</td><td>한국</td><td><span class="down">-1.27%</span></td><td>₩13.0조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>한화오션 (Hanwha Ocean)</td><td>한국</td><td><span class="down">-1.37%</span></td><td>₩26.4조</td><td>태국 호위함 사업 우선협상대상자 선정 (긍정적 뉴스에도 불구하고 주가는 하락, 시장 미반영 또는 다른 요인 추정)</td></tr>
+<tr><td>TransDigm (TDG)</td><td>미국</td><td><span class="down">-1.46%</span></td><td>$63.3B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Rheinmetall (RHM.DE)</td><td>독일</td><td><span class="down">-3.38%</span></td><td>€49.1B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>가와사키중공업 (KHI)</td><td>일본</td><td><span class="down">-4.12%</span></td><td>¥2.1조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+</table></div>
+<h2>큰 변동 분석 — ±10% 이상 종목은 반드시 별도 표기하고 배경을 뉴스·실적·수급·정책 요인으로 구분해 구체적으로 설명. 해당 없으면 "±10% 이상 변동 종목 없음. (±5% 이상: ...)"으로 처리</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>**Howmet Aerospace (HWM)</td><td>미국</td><td><span class="down">-10.70%</span></td><td>엔진·부품**</td></tr>
+</table></div>
+<ul>
+<li>  <b>변동 요인:</b> 관련 공시·뉴스 미확인 (수급 요인 추정)</li>
+<li>  <b>설명:</b> Howmet Aerospace의 주가는 전일 대비 10.70% 하락했으나, 현재까지 주가 변동을 설명할 만한 구체적인 공시나 뉴스는 확인되지 않았습니다. 이는 시장의 수급 요인에 의한 변동으로 추정됩니다.</li>
+</ul>
+<h2>섹터별 정리 — 항공우주 / 지상무기 / 미사일·방공 / 해군·조선 / 전자·센서 순으로 핵심 이슈</h2>
+<p><b>항공우주 (Aerospace)</b></p>
+<ul>
+<li>  <b>노스롭그루먼 (Northrop Grumman)</b>은 새로운 추진체 혁신 센터를 개소하여 미래 항공우주 및 미사일 시스템 개발 역량을 강화할 계획입니다 (09/09). <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxNSkk1V05pNHNUUklTMmFpY2lLYTV3alFWLWhCc0pQSl91UVIxVWZkMTNmQXdIR0JuT3B4dkwtMUpmTjE5cW5YZU1TSDBzd2FUQ0JNVUtPNnFsejk5SFdoZVl4RW4wbmxvbkRDRWx6bTFBQ2F6WnIwTmo0VUc1NUZ1R0FSUXVoazZIdzhyUjJpX3ZFUlZIVWhNVlFBN0dGcGxvUXQ3YjhDZEI0QQ?oc=5">WMAR 2 News Baltimore</a></li>
+<li>  <b>록히드마틴 (Lockheed Martin)</b>은 독일 최초의 F-35A 전투기가 미국 내에서 예정된 인도 및 공군 훈련에 앞서 첫 비행을 성공적으로 완료했다고 밝혔습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMiggJBVV95cUxOakRqc1pUWThzN3JlVmlmWE5PeHlNNkJ5cUtkNzVUenFGUjl3Qi1fYm5YYUstdWduUG92VWVQT05kbHRkMnV0eWZzT201YTR2OXdTZ2FYaDgxMlU3czVFd3JhZXdnVng1b0dIZXF0MEVfWThqd1VSbHRsbTB4MXd4YnhmNG0yV041VnNzQmpBZGlPN1hZM1hMVWNQMXdrcF9rUDZXTVp4M3Frb3c3WUpmaGx1VFlGOW5GWktjRFVxQVNxSHRrNDFxRDlFQ1NSZExIRnQ3UHJ4NHZxd3o5WUxyR3E5MTcwNFdFNUhrandubnk5SzJ0OTF5cndaOWRiWDNKbWc?oc=5">Defence Industry Europe</a></li>
+<li>  <b>한국항공우주 (KAI)</b>의 '주인 없는 KAI' 상황과 전략적 주주의 필요성에 대한 분석 기사가 보도되었습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMiakFVX3lxTFBndVhnSEFDckJyQlA5Ry1zSE1JWnhwbVIyQnlEYVpBVkpyNmV0ZUxDazQ2cDNGMkNLaGh2QWJfbDRjT0ZKN1poQ1doRmotQWtlOEdOYjFCV1hKZDBFTjF4TlR0VHZqdWQ4Vmc?oc=5">월요신문</a></li>
+</ul>
+<p><b>지상무기 (Land Systems)</b></p>
+<ul>
+<li>  <b>현대로템 (Hyundai Rotem)</b>은 폴란드형 K2 전차를 처음으로 공개했습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMia0FVX3lxTE5mMnpzVWlveW93RkZSbHpibU1zWVMyb19VelFielQtTUFrZkFqcVhlMGdmcGpIVEROR2xBUDdrOFd4bHpDWnVsQnk5TkFYcXNQZkZST1VPQTJRUmpBYjZCajNzSldOTEJNQlNJ0gFUQVVfeXFMT0xJS2o1RzF1QlRlMF9uWFJOOUpGSnUyYVBnTEtZR3hDeEhfR2haR2x2NTdNdWgwUXRQT3dWOHBmNm13c05ocEhnRHBCVkdramNGc0ow?oc=5">세계일보</a></li>
+</ul>
+<p><b>미사일·방공 (Missiles &amp; Air Defense)</b></p>
+<ul>
+<li>  미국은 해군 함정에 대한 미사일 공격 시도에 대응하여 이란 유조선 5척을 파괴했다고 밝혔습니다. 이란은 요르단 내 미군 기지에 대한 미사일 공격 주장을 재차 제기하며 중동 지역의 긴장이 고조되고 있습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxONmI2c05UV3BYVE1idWdGcS1vSmhhaGIyamhyNDd1S1RObENYelkwRmpzdGJIN05NeWVCSEhGNlRpeTZGU3hIdi01Y2NmRUtfajRfQnUzNm5fNEFWd19VVXh3NGVEbU1fSFY1T1A0cjhIR1RObW1HbU1KSmJ3RHh0U2dlRmZLeVdPTDZ4ZmdWbllYQ2NMZXFEb0JnUExqcl9uT3NGS0NoWV85VHNSMWxsYQ?oc=5">BNO News</a></li>
+<li>  <b>록히드마틴 (Lockheed Martin)</b>은 <b>L3해리스 (L3Harris)</b>에 47억 달러 규모의 PAC-3 MSE 미사일 추진체 계약을 발주했습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOQl9aMDhmb0N5d2ZqZmtac1JVV1RsSDFKM2ZTTVJJWGN4X090VUF2WkVFYU9sd0t1QVBXeWgtRWpkNTZKYWpyMUFsQm9tdlJkcFpMVWQwRm1fWkVPaXlHbF9fRlI3RWVYVEdPMF9vRUJldFJBN2ExNFUzcy1ZRjU4T0o1eFNBVWpxRjhaWE1GTUlXQXF3SWIxVTVhVkIxUGs3cTQ3UnlTTVJqMGtqUkZzR0VYLW9mb2tLU1hF?oc=5">Defense Daily</a></li>
+<li>  우크라이나 국방부 장관은 동맹국들로부터 약 1,000기의 패트리어트 미사일을 계약하고 있다고 밝혔습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMi0wFBVV95cUxPbl9tbUR6b3BGWjVMaGtvUGtLeFVKNmpQckk0VDE2djhfTV8wNVREU2VKYUY3MEtHaUVLRlNwQUxrYzkxRjJRVmFNa0hJdHRzZ0tNa2pqUFo4endxQWpFR3REVG1pNTF2VE1KQW1kdkRzX054dmdZS3BpdW4xakJ6ejY0LWE2YzdJVm53WVFBVGRCcm5VeUowTFpoNVVzWFRBMWlOWmEzT1JwYzlNRHdEcVN3V3J2eTJjcGdsY3N3aXNESk02Q2NmRFlhMm9BLVgtMnR3?oc=5">Reuters</a></li>
+<li>  <b>MBDA</b>는 폴란드에 미사일 지원 및 기술 센터를 개소했습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxOYnY0bWJtQ29jc0U3RDJpTjR3OFVuVkI1djAxNjZ3dnZybnQyN1RlU1ZMY2lxajZBNHRWNDY0YU04am5DS3E4WlZER05FS3NRdmtXQnI2Q3pBR2wtWmFqSVlNZzNzZjE0OHFvZms4Vlc0ODVTTG0wZ2ZFSE01eVpGSGsta3hzNFBJZzZjZEhqckdGTDFrQzBjbjhjRDgxWFFkNzdKbQ?oc=5">aviationweek.com</a></li>
+<li>  미 우주군은 중궤도(MEO) 기반 미사일 경고 위성에서 새로운 이정표를 달성했습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMipgFBVV95cUxQejVhY0owVVdBVENQMmpfMVc5OEQxcjhIWnRzQ0lWQ1YxQ0NOUExJM3lBUTBMa2hycWFhcHdNVk14UDkyZlVSUmJYN2phVmVxSF9jYVZ4TEF2WEJTNHUwZ0pVMmtoRUY1dXd6U2t1eDItY3VWUzRhOUJLN2xnSTFERUVsdzBkT2lTeFJuUnFFVG1PeFZLX0RHSm1EQllmRUNNbUVvbEln?oc=5">aviationweek.com</a></li>
+</ul>
+<p><b>해군·조선 (Naval &amp; Shipbuilding)</b></p>
+<ul>
+<li>  <b>한화오션 (Hanwha Ocean)</b>이 6,833억 원 규모의 태국 차세대 호위함 사업 우선협상대상자로 선정되었습니다. 이는 태국 해군의 노후 함정 교체 사업의 일환으로, 본 계약 협상에 착수할 예정입니다 (09/09). <a href="https://news.google.com/rss/articles/CBMiZkFVX3lxTE5HSC1UU0g3UzJWby1wLUw0dGk3d25vNGNLbmVEeXVVNXJGbHk2SkJKWmY2TFlyN0JWbV9LZTlhaTN5cFUyLWNfMnhVbjlSWmxVejZUU0hGUlJiZVBpVU1xODZYRlhiZw?oc=5">디일렉</a></li>
+<li>  <b>헌팅턴 잉걸스 (Huntington Ingalls Industries)</b>는 미 해군을 위한 5척의 AI 기반 무인 함정 중 첫 번째 ROMULUS 151 선체 건조를 완료했습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMi7wFBVV95cUxNOXNLVU5RMXlxZnR4UjhXTHJlQVNKTnlqbHlOOGxGT09rUk1xLUlIVEtSd3VXMXV0ejhPUk9oOHp3SDNvWmhSME9DYVBoU2ZFUDc2SjcyVnk3X3A2Q1RmVDBLZWZJeVlhaTE1aWhDMVNSVXByVGFYMkFrcS1RaW4zR1FzSlNpeDlqZm9jUVRrbmd2czZjcmwyc0ZmczI4ckVybE5HcGVObWNzcFB4WEpvS1JXNlIzMjA3bGFBTk9wV1FfRWQxMzYwWE12cl9FYnFkbWNVSmg4cjlVYlhRdWd3SWtodVlmaWN2V2lFTTllYw?oc=5">Defence Industry Europe</a></li>
+<li>  <b>HD현대중공업 (HD HHI)</b>에 대해 국민연금이 지분을 8.02%로 확대했다는 소식과 함께 잇단 사망사고에 대한 종합대책 필요성이 제기되었습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE1qOG1ocVFLQlJaSnZxd0pKXzN3RVJVQUdPVnZoTWR3OWtGektRajNlMDlFRjlaODhxQkZRMS1VWVdEMU92d2JQMTRLRFFDN2dHVDlaeUFSaHVfQQ?oc=5">한국경제</a>, <a href="https://news.google.com/rss/articles/CBMiT0FVX3lxTFA0VjNUMUluV0tWMjVZY2NTOU05YlVfMncwQXJvOFQtMjRmNk5TZlZ5LVVBY3FtMEFtQTVlajZ0V25XX0dVOXVQOGx5ekhvOUk?oc=5">v.daum.net</a></li>
+</ul>
+<p><b>전자·센서 (Electronics &amp; Sensors)</b></p>
+<ul>
+<li>  <b>L3해리스 (L3Harris)</b>는 <b>록히드마틴 (Lockheed Martin)</b>으로부터 PAC-3 MSE 미사일 추진체 관련 47억 달러 규모의 계약을 수주했습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxOQl9aMDhmb0N5d2ZqZmtac1JVV1RsSDFKM2ZTTVJJWGN4X090VUF2WkVFYU9sd0t1QVBXeWgtRWpkNTZKYWpyMUFsQm9tdlJkcFpMVWQwRm1fWkVPaXlHbF9fRlI3RWVYVEdPMF9vRUJldFJBN2ExNFUzcy1ZRjU4T0o1eFNBVWpxRjhaWE1GTUlXQXF3SWIxVTVhVkIxUGs3cTQ3UnlTTVJqMGtqUkZzR0VYLW9mb2tLU1hF?oc=5">Defense Daily</a></li>
+<li>  <b>탈레스 (Thales)</b>가 방산 분야에서 저평가되어 있다는 분석 기사가 보도되었습니다 (09/09). <a href="https://news.google.com/rss/articles/CBMilgFBVV95cUxPTG1nUDllYUEtX0NxbExxc3ROcjdVZHBiNThZUzNOQkxxMlowd1JKcm93SFZwT1FxR0prMU9xeTd4T2ppUGM0SWVkVHdtbGxucGZyZFxlak1qaWdFdjlGejgtc2NLSGlyU09GY1dBSzBwWVRvZFA0Nl9saXJWbTlhQlpucVVwVS1Va1BSN2VhU200N2Jld1E?oc=5">Seeking Alpha</a></li>
+</ul>
+<h2>투자 시사점 — 단기 촉매와 중기 업황·수주잔고 관점 3개 이내</h2>
+<ul>
+<li>  <b>한화오션 (Hanwha Ocean)의 태국 호위함 수주:</b> 6,833억 원 규모의 태국 호위함 사업 우선협상대상자 선정은 한화오션의 해외 수주 경쟁력을 다시 한번 입증하는 중요한 이정표입니다. 이는 단기적으로는 주가에 긍정적인 촉매로 작용할 수 있으며, 중장기적으로는 동남아시아 및 기타 지역의 함정 시장 추가 수주 가능성을 높여 수주잔고 확대에 기여할 것으로 예상됩니다.</li>
+<li>  <b>지정학적 긴장 고조 및 미사일 방어 수요 증가:</b> 미국과 이란 간의 군사적 충돌은 중동 지역의 불안정성을 심화시키고 있으며, 이는 전 세계적인 국방 예산 증가와 미사일 방어 시스템 및 해군 자산에 대한 수요를 자극할 수 있습니다. <b>록히드마틴 (Lockheed Martin)</b>, <b>L3해리스 (L3Harris)</b> 등 미사일 및 방공 시스템 관련 기업들의 중장기적인 수혜가 기대됩니다.</li>
+<li>  <b>주요 방산 프로그램의 공급망 협력 강화:</b> <b>록히드마틴 (Lockheed Martin)</b>이 <b>L3해리스 (L3Harris)</b>에 대규모 PAC-3 MSE 추진체 계약을 발주한 것은 주요 방산 프로그램의 안정적인 생산을 위한 공급망 내 협력의 중요성을 보여줍니다. 이는 핵심 부품 및 시스템을 공급하는 기업들에게 지속적인 사업 기회를 제공할 것입니다.</li>
+</ul>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["auto","light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"auto"}catch(e){return "auto"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="auto")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>
