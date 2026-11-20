@@ -1,0 +1,222 @@
+{
+ "source": "DC인사이드",
+ "galleries": [
+  {
+   "id": "krstock",
+   "name": "국내주식갤러리",
+   "posts": 643,
+   "capped": true,
+   "burst": 0.6,
+   "base_daily": 1056.7
+  },
+  {
+   "id": "stockus",
+   "name": "해외주식갤러리",
+   "posts": 13772,
+   "capped": true,
+   "burst": 4.3,
+   "base_daily": 3187.9
+  }
+ ],
+ "posts_sampled": 477,
+ "keywords": [
+  {
+   "term": "스엑",
+   "count": 7,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "상장",
+   "count": 7,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "미장",
+   "count": 6,
+   "burst": 92.6,
+   "new": true
+  },
+  {
+   "term": "슨피",
+   "count": 6,
+   "burst": 92.6,
+   "new": true
+  },
+  {
+   "term": "에서",
+   "count": 5,
+   "burst": 77.1,
+   "new": true
+  },
+  {
+   "term": "이렇게",
+   "count": 5,
+   "burst": 77.1,
+   "new": true
+  },
+  {
+   "term": "앤트로픽",
+   "count": 27,
+   "burst": 9.3,
+   "new": false
+  },
+  {
+   "term": "야선",
+   "count": 13,
+   "burst": 9.5,
+   "new": false
+  },
+  {
+   "term": "이유",
+   "count": 9,
+   "burst": 10.7,
+   "new": false
+  },
+  {
+   "term": "엔트로픽",
+   "count": 12,
+   "burst": 8.8,
+   "new": false
+  },
+  {
+   "term": "그래",
+   "count": 6,
+   "burst": 8.4,
+   "new": false
+  },
+  {
+   "term": "국장",
+   "count": 15,
+   "burst": 4.7,
+   "new": false
+  },
+  {
+   "term": "구글",
+   "count": 5,
+   "burst": 5.9,
+   "new": false
+  },
+  {
+   "term": "시발",
+   "count": 5,
+   "burst": 2.9,
+   "new": false
+  },
+  {
+   "term": "지금",
+   "count": 10,
+   "burst": 1.6,
+   "new": false
+  }
+ ],
+ "top_recommended": [
+  {
+   "gallery": "해외주식갤러리",
+   "title": "철학없는 나라의 비극.",
+   "views": 14707,
+   "recommend": 315,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18454097&exception_mode=recommend&page=1",
+   "time_kst": "11-19 15:55"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "리트냥이가 운지한건 가축이 주인인척해서 그럼",
+   "views": 10300,
+   "recommend": 212,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18452447&exception_mode=recommend&page=1",
+   "time_kst": "11-19 14:18"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "\"너희들만큼은 이 허상으로 점철된 시스템에서 도망쳐라\"",
+   "views": 9501,
+   "recommend": 186,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18453856&exception_mode=recommend&page=1",
+   "time_kst": "11-19 15:33"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "진우씨 심경 이해는 되는게 나도 서울대 다닌적 있는데",
+   "views": 12307,
+   "recommend": 182,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18452768&exception_mode=recommend&page=1",
+   "time_kst": "11-19 14:30"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "아니 뭐 휴대폰 22명 적발했다. 이러는데 어이없다.",
+   "views": 8515,
+   "recommend": 182,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18450036&exception_mode=recommend&page=1",
+   "time_kst": "11-19 11:22"
+  }
+ ],
+ "top_viewed": [
+  {
+   "gallery": "해외주식갤러리",
+   "title": "\"코스피 9000에서 5000으로\"…개미들 손실 563조원 추정",
+   "views": 1165,
+   "recommend": 14,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18466070&page=10",
+   "time_kst": "11-20 05:47"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "외국인 입장에서는 ㅈㄴ 좋았겠다ㅋㅋ",
+   "views": 687,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932460&page=5",
+   "time_kst": "11-20 03:34"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "반도체가 아니라 걍 시장 자체가 무너지네",
+   "views": 599,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932486&page=4",
+   "time_kst": "11-20 04:12"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "외궈들 5천밑으로는 가급적 안팔려고 하더라",
+   "views": 449,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932449&page=5",
+   "time_kst": "11-20 03:26"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "어쩐지 외인들 아까 삼닉을 팔더라니..",
+   "views": 443,
+   "recommend": 2,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932438&page=5",
+   "time_kst": "11-20 03:20"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "주식 하지 말걸",
+   "views": 440,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932455&page=5",
+   "time_kst": "11-20 03:29"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "코스피 개미들 손실 600조 돌파 예정",
+   "views": 375,
+   "recommend": 6,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932539&page=3",
+   "time_kst": "11-20 05:17"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "미국 반도치 2퍼정도 빠졌더만",
+   "views": 368,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932550&page=3",
+   "time_kst": "11-20 05:26"
+  }
+ ]
+}

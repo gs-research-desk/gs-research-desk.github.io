@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+/* 사용자가 토글로 고른 값 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",TH="466f2167513403c0b21bd9bc77f62789f19195656f686edba4adaede4ee93c80",OWNER=false,TEAMOK=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===TH?"team":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ // 팀 비번이 통하는 곳: 대시보드 본체를 수명 피드백 항목 링크로 연 집중 화면뿐.
+ function teamHere(){return TEAMOK&&/[?&]focus=/.test(location.search)&&/^#tasklist:/.test(location.hash)}
+ function pass(l){return l==="owner"||((l==="guest"||l==="team")&&!OWNER)||(l==="team"&&teamHere())}
+ var lv=level();
+ if(pass(lv)){window.__GS_LEVEL__=lv;return}   // app.js 가 등급을 읽어 팀 화면을 좁힌다
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ window.__GS_GATED__=1;                  // 아직 안 풀림 — app.js 가 서버 데이터를 받아 두지 않게
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?(teamHere()?"주인 또는 팀 비밀번호로 열립니다. ":"이 화면은 주인 비밀번호가 필요합니다. "):"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     var l=h===OH?"owner":h===TH?"team":h===GH?"guest":null;
+     if(pass(l)){set(h);location.reload();return}
+     msg.textContent=l==="guest"?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                    :l==="team"?"팀 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8"><base target="_blank">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude 방산 브리핑 2026-11-18</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:13.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-accent,#d6b27a);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:13px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+/* 모바일: 6열 표가 세로로 짓눌리므로 행을 카드로 재배치 (헤더행 기반 라벨) */
+@media (max-width:640px){
+  body{padding:20px 14px 48px}
+  .ptab.hdr, .ptab.hdr tbody, .ptab.hdr tr, .ptab.hdr td{display:block;width:100%;box-sizing:border-box}
+  .ptab.hdr tr:first-child{display:none}
+  .ptab.hdr tr{border:1px solid var(--gs-line,#232e3f);border-radius:10px;margin:10px 0;padding:9px 12px;background:var(--gs-card,#1a2029)}
+  .ptab.hdr tr:hover td{background:transparent}
+  .ptab.hdr td{border:none;padding:2px 0;display:flex;gap:10px;align-items:baseline;font-size:14.5px}
+  .ptab.hdr td::before{content:attr(data-l);color:var(--gs-muted,#8e98a8);font-size:11.5px;flex:0 0 58px}
+  .ptab.hdr td:first-child{display:block;font-weight:700;color:var(--gs-ink-strong,#e6ebf2);font-size:15.5px;
+    padding-bottom:5px;margin-bottom:4px;border-bottom:1px solid var(--gs-line-soft,#1f2834)}
+  .ptab.hdr td:first-child::before{content:none}
+}
+</style></head>
+<body><div class="wrap">
+<h1>🤖 Claude 글로벌 방산 브리핑</h1>
+<div class="meta">기준: 2026-11-18(수) · 생성: Claude(웹 검색 리서치) — Gemini 브리핑과 별도 관점의 2탄</div>
+<p>글로벌 방산 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-11-18 06:10 KST입니다.</p>
+<p>*(미국·유럽은 11/17(화) 확정 종가(대시보드 수집 데이터)다. 한국·일본 개별 종목은 수집 데이터가 하루 늦어 11/16 종가까지만 확정이고, 11/17 움직임은 언론 보도와 PLUS K방산 ETF 확정치로만 적었다.)*</p>
+<h2>오늘의 핵심 요약</h2>
+<ul>
+<li><b>우크라이나, 크림대교 도로 구간 붕괴시켜 — 러시아의 키이우 교량 타격 몇 시간 뒤</b>: 11/17 새벽 이틀 연속 공격으로 케르치 해협 항로 위 도로 아치가 바다로 무너졌다. 젤렌스키와 우크라이나 보안국(SBU)은 한 달에 걸친 7단계 작전이었다고 밝혔고, 러시아는 '손상'을 인정하고 조사에 착수했다[사실 — 보도 인용]. 자국산 FP-5 Flamingo 순항미사일을 썼다는 주장은 제조사 공동창업자의 영상과 내무장관 보좌관 발언에 근거한 것으로 공식 확인은 아니다[미확인]. <a href="https://kyivindependent.com/ukrainian-forces-reportedly-strike-crimean-bridge-after-russian-missiles-hit-kyiv-bridges/">Kyiv Independent</a> · <a href="https://www.kyivpost.com/post/90298">Kyiv Post</a></li>
+<li><b>미 국방부 "우크라이나 종심 타격은 효과 없다" — 독일 국방장관 "어리석은 말"</b>: 11/17 브뤼셀 우크라이나 방위연락그룹 회의에서 콜비 미 국방차관은 지원국들에 전선 장비와 중거리 타격에 집중하라고 요구했다. 피스토리우스 독일 국방장관은 이 비판을 "꽤 어리석은 말"이라고 받아쳤고 영국도 종심 타격을 옹호했다[사실 — 보도 인용]. <a href="https://www.usnews.com/news/world/articles/2026-11-17/us-urges-ukraine-backers-to-prioritize-front-line-gear-warns-deep-strikes-are-not-working">U.S. News</a></li>
+<li><b>미군, 이란 케슘섬 혁명수비대 미사일 발사 기지 타격 — 이달 세 번째</b>: 이란이 바레인 셰이크 이사 공군기지의 레이더를 드론으로 공격한 데 대한 '자위적' 대응이다. 미 중부사령부는 드론을 모두 요격했고 피해가 없다고 밝혔다. 양측 타격이 이어지지만 사실상의 휴전은 깨지지 않았다는 평가다[사실 — 보도 인용]. <a href="https://www.jpost.com/middle-east/iran-news/article-915235">The Jerusalem Post</a> · <a href="https://bloomberg.com/news/articles/2026-11-17/iran-says-us-attacked-qeshm-island-in-latest-exchange-of-strikes">Bloomberg</a></li>
+<li><b>미 상원 세출위, FY27 국방세출안 약 $1.1조 공개 — 재정조정 요청분 중 $690억을 일반 예산으로 흡수</b>: Golden Dome $94억(방공·미사일방어 전체 $356억), 조선 $420억(DDG-51 2번함 추가 $19억), 탄약 $472억이 담겼다. 백악관 요구($1.15조 + 재정조정 $3,500억)에는 못 미친다[사실 — 상원 세출위 요약·보도 인용]. 재정조정 $3,500억은 표결 일정이 없고 튠 원내대표는 표가 있는지 확신하지 못한다고 했다[사실 — 보도 인용]. <a href="https://www.appropriations.senate.gov/imo/media/doc/def_fy27_bill_summary.pdf">상원 세출위 요약</a> · <a href="https://thehill.com/homenews/senate/6224030-senate-gop-defense-appropriations-bill/">The Hill</a></li>
+<li><b>Elbit Systems <span class="up">+5.85%</span> — 3분기 실적, 수주잔고 $330억 사상 최대</b>: 11/17 발표. 매출 약 $22.5억(전년 대비 약 <span class="up">+17%</span>), 비GAAP 주당순이익 $4.36(전년 $3.35), 수주잔고의 74%가 이스라엘 밖 주문이다[사실 — 회사 발표·보도 인용]. <a href="https://en.globes.co.il/en/article-elbit-systems-beats-analysts-order-book-reaches-new-peak-1001563733">Globes</a> · <a href="https://www.tipranks.com/news/company-announcements/elbit-systems-reports-third-quarter-2026-revenue-growth-and-33-billion-backlog">TipRanks</a></li>
+<li><b>K방산 11/17 급락 — PLUS K방산 ETF <span class="down">-4.97%</span>, 코스피는 9개월 만에 5,000선 아래</b>: 코스피는 <span class="down">-2.59%</span>(4,968.48)로 마감했고 외국인이 약 1.5조원을 순매도했다. 조선·방산주도 약세였다[사실 — 보도 인용]. 한화시스템은 장중 <span class="down">-5.64%</span>였다[사실 — 장중 보도, 종가 미확정]. <a href="https://www.nocutnews.co.kr/news/6608242">노컷뉴스</a> · <a href="https://www.sisajournal-e.com/news/articleView.html?idxno=425108">시사저널e</a> · <a href="https://www.job-post.co.kr/news/articleView.html?idxno=239004">잡포스트</a></li>
+</ul>
+<h2>주요 주가 동향</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업</td><td>국가</td><td>기준일</td><td>등락률</td><td>시가총액</td><td>변동 요인</td></tr>
+</table></div>
+<div style="overflow-x:auto"><table class="ptab hdr">
+<tr><td>Elbit Systems</td><td>이스라엘</td><td>11/17</td><td><span class="up">+5.85%</span></td><td>$33.8B</td><td>3분기 실적 · 수주잔고 $330억 사상 최대</td></tr>
+<tr><td data-l="Elbit Systems">RTX</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="up">+1.59%</span></td><td data-l="$33.8B">$267.2B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">케슘섬 타격·요격전 지속 · 상원 세출안(방공 $356억)</td></tr>
+<tr><td data-l="Elbit Systems">Northrop Grumman</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="up">+1.40%</span></td><td data-l="$33.8B">$78.6B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">상원 세출안 · 전일 PAC-3 모터 $16억 주문</td></tr>
+<tr><td data-l="Elbit Systems">Lockheed Martin</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="up">+0.86%</span></td><td data-l="$33.8B">$136.4B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">상원 세출안(탄약 $472억)</td></tr>
+<tr><td data-l="Elbit Systems">Renk</td><td data-l="이스라엘">독일</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="up">+0.43%</span></td><td data-l="$33.8B">€3.3B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">특이사항 없음</td></tr>
+<tr><td data-l="Elbit Systems">L3Harris</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-0.39%</span></td><td data-l="$33.8B">$48.5B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">전일 <span class="down">-3.91%</span> 뒤 약보합</td></tr>
+<tr><td data-l="Elbit Systems">General Dynamics</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-1.12%</span></td><td data-l="$33.8B">$96.1B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">개별 재료 미확인</td></tr>
+<tr><td data-l="Elbit Systems">Rheinmetall</td><td data-l="이스라엘">독일</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-1.14%</span></td><td data-l="$33.8B">€35.5B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">장중 €738.70 52주 신저가 뒤 낙폭 축소</td></tr>
+<tr><td data-l="Elbit Systems">Huntington Ingalls</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-1.55%</span></td><td data-l="$33.8B">$11.7B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">개별 재료 미확인</td></tr>
+<tr><td data-l="Elbit Systems">Saab</td><td data-l="이스라엘">스웨덴</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-1.72%</span></td><td data-l="$33.8B">kr331.7B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">유럽 방산 약세</td></tr>
+<tr><td data-l="Elbit Systems">Hensoldt</td><td data-l="이스라엘">독일</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-2.05%</span></td><td data-l="$33.8B">€9.2B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">유럽 방산 약세</td></tr>
+<tr><td data-l="Elbit Systems">AeroVironment</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-4.64%</span></td><td data-l="$33.8B">$5.3B</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">이틀 연속 급락 · 개별 악재 미확인</td></tr>
+<tr><td data-l="Elbit Systems">한화에어로스페이스</td><td data-l="이스라엘">한국</td><td data-l="11/17">11/16</td><td data-l="+5.85%"><span class="up">+1.25%</span></td><td data-l="$33.8B">₩32.1조</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">11/16 확정 · 11/17 종가 미확정</td></tr>
+<tr><td data-l="Elbit Systems">한화시스템</td><td data-l="이스라엘">한국</td><td data-l="11/17">11/16</td><td data-l="+5.85%"><span class="down">-2.97%</span></td><td data-l="$33.8B">₩9.2조</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">11/16 확정 · 11/17 장중 <span class="down">-5.64%</span>(보도)</td></tr>
+<tr><td data-l="Elbit Systems">한화오션</td><td data-l="이스라엘">한국</td><td data-l="11/17">11/16</td><td data-l="+5.85%"><span class="down">-3.21%</span></td><td data-l="$33.8B">₩13.7조</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">11/16 확정 · 11/17 종가 미확정</td></tr>
+<tr><td data-l="Elbit Systems">가와사키중공업</td><td data-l="이스라엘">일본</td><td data-l="11/17">11/16</td><td data-l="+5.85%"><span class="down">-3.14%</span></td><td data-l="$33.8B">¥1.5조</td><td data-l="3분기 실적 · 수주잔고 $330억 사상 최대">11/16 확정 · 연중 최저 경신</td></tr>
+</table></div>
+<ul>
+<li>그 밖(11/17): BAE Systems <span class="down">-2.54%</span>·Babcock <span class="down">-1.52%</span>·Thales <span class="down">-1.13%</span>·Leonardo <span class="up">+0.18%</span>·Dassault Aviation <span class="down">-0.52%</span>·Airbus <span class="down">-1.49%</span>·Kongsberg <span class="down">-0.93%</span>·Boeing <span class="down">-0.77%</span>·GE Aerospace <span class="up">+0.36%</span>·Howmet <span class="up">+1.12%</span>·TransDigm <span class="down">-1.36%</span>·Kratos <span class="down">-1.90%</span> / ITA <span class="down">-0.17%</span>·PPA <span class="down">-0.12%</span>·SHLD <span class="down">-0.39%</span>·EUAD <span class="down">-0.61%</span>·PLUS K방산 ETF <span class="down">-4.97%</span>.</li>
+<li>한국 그 밖(11/16 확정): KAI <span class="up">+2.98%</span>·LIG디펜스앤에어로스페이스(LIG D&amp;A) <span class="up">+1.42%</span>·현대로템 <span class="down">-1.82%</span>·HD현대중공업 <span class="down">-0.37%</span>·풍산 <span class="down">-0.39%</span>. 일본(11/16 확정): 미쓰비시중공업 <span class="down">-0.70%</span>·IHI <span class="down">-0.73%</span>.</li>
+</ul>
+<h2>큰 변동 분석</h2>
+<p>±10% 이상 변동 종목 없음. ±5% 이상은 Elbit Systems(<span class="up">+5.85%</span>) 한 곳이고 원인은 3분기 실적과 사상 최대 수주잔고다[사실]. PLUS K방산 ETF(<span class="down">-4.97%</span>)는 5% 문턱 바로 아래다 — 코스피 <span class="down">-2.59%</span> 급락과 외국인 대량 매도가 겹친 날이고, 방산 개별 악재는 찾지 못했다[미확인]. 미국 예산 쪽은 상원 세출안이 오히려 요격탄·조선 예산을 일반 예산으로 확보하는 방향이어서 정책 악재로 보기 어렵다[해석]. AeroVironment는 이틀간 <span class="down">-6.82%</span>·<span class="down">-4.64%</span>로 급락했으나 개별 재료를 확인하지 못했다[미확인].</p>
+<h2>섹터별 정리</h2>
+<ul>
+<li><b>항공우주</b>: 특이사항 없음.</li>
+<li><b>지상무기</b>: Rheinmetall이 장중 €738.70으로 52주 신저가를 다시 쓴 뒤 €760.90(<span class="down">-1.14%</span>)으로 마감했다. 종전 외교 일정이 방산주를 누른다는 해석이 나온다[사실 — 보도 인용]. <a href="https://aktiencheck.de/artikel/rheinmetall-aktie-dax-verlierer-neues-52-wochen-tief-dann-zaeher-konter-wird-der">aktiencheck</a></li>
+<li><b>미사일·방공</b>: 케슘섬 타격과 바레인 요격(위 핵심 요약). 상원 세출안은 방공·미사일방어에 $356억, 탄약 조달·증산에 $472억을 배정했다[사실]. 미 방산 가운데 RTX·Northrop Grumman·Lockheed Martin만 오른 배경으로 본다[해석].</li>
+<li><b>해군·조선</b>: 상원 세출안의 조선 예산은 $420억이고 DDG-51 구축함 2번함 추가분 $19억이 들어 있다[사실]. Huntington Ingalls는 <span class="down">-1.55%</span>로 반응하지 않았다[사실].</li>
+<li><b>전자·센서·C4ISR</b>: Elbit Systems 3분기 실적(위 핵심 요약). CEO는 10%대 후반 매출 성장과 마진 확대가 이어진다고 밝혔다[사실 — 보도 인용].</li>
+</ul>
+<h2>투자 시사점</h2>
+<p>1. <b>(단기 촉매) 종전 협상과 확전이 같은 날 진행 — 방산주는 '협상' 쪽만 반영 중</b>: 크림대교 붕괴·키이우 교량 타격·케슘섬 타격이 한꺼번에 나왔는데 유럽 방산은 내렸다. 시장이 종전 일정을 더 크게 본다는 뜻이고, 협상이 틀어지면 되돌림 폭도 클 수 있다[해석].</p>
+<p>2. <b>(중기 업황) 미 예산은 '재정조정 $3,500억'에서 '세출 $1.1조 + $690억 흡수'로 기준선 이동</b>: 요격탄·조선·Golden Dome 일부가 일반 예산으로 들어가면 재정조정이 무산돼도 핵심 사업은 살아남는다. 미사일·방공 종목(RTX·Lockheed Martin·Northrop Grumman)에 상대적으로 유리하다[해석].</p>
+<p>3. <b>(관찰) K방산은 수급에 끌려가는 구간</b>: ETF <span class="down">-4.97%</span>는 방산 재료보다 코스피 5,000선 붕괴와 외국인 매도의 결과로 보인다. Elbit Systems의 사상 최대 수주잔고는 글로벌 수요 자체는 꺾이지 않았다는 반증이다[해석].</p>
+<h2>향후 24~72시간 관전 포인트</h2>
+<ul>
+<li>11/19(목) 베를린 우크라이나 협상 — 개최 여부와 유럽 참여 형식(독일 매체 보도 기준, 공식 확인 필요)</li>
+<li>상원 공화당의 추수감사절 전 국방 예산 처리 시도 / 12/11 CR 만료</li>
+<li>이란의 추가 대응 여부, 11/20 LIG디펜스앤에어로스페이스(LIG D&amp;A) 입찰 제한 임시 집행정지 만료</li>
+</ul>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"light"}catch(e){return "light"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="light")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

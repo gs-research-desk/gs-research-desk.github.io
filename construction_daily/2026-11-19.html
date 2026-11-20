@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+/* 사용자가 토글로 고른 값 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",TH="466f2167513403c0b21bd9bc77f62789f19195656f686edba4adaede4ee93c80",OWNER=false,TEAMOK=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===TH?"team":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ // 팀 비번이 통하는 곳: 대시보드 본체를 수명 피드백 항목 링크로 연 집중 화면뿐.
+ function teamHere(){return TEAMOK&&/[?&]focus=/.test(location.search)&&/^#tasklist:/.test(location.hash)}
+ function pass(l){return l==="owner"||((l==="guest"||l==="team")&&!OWNER)||(l==="team"&&teamHere())}
+ var lv=level();
+ if(pass(lv)){window.__GS_LEVEL__=lv;return}   // app.js 가 등급을 읽어 팀 화면을 좁힌다
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ window.__GS_GATED__=1;                  // 아직 안 풀림 — app.js 가 서버 데이터를 받아 두지 않게
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?(teamHere()?"주인 또는 팀 비밀번호로 열립니다. ":"이 화면은 주인 비밀번호가 필요합니다. "):"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     var l=h===OH?"owner":h===TH?"team":h===GH?"guest":null;
+     if(pass(l)){set(h);location.reload();return}
+     msg.textContent=l==="guest"?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                    :l==="team"?"팀 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8"><base target="_blank">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>글로벌 건설기계 브리핑 2026-11-19</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:13.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-accent2,#e8b756);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:13px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<h1>🏗️ 글로벌 건설기계 데일리 브리핑</h1>
+<div class="meta">기준: 2026-11-19 06:00 KST · 생성: Claude 리서치 데스크 + 구글뉴스 RSS + yfinance 확정 시세·매크로</div>
+<p>글로벌 건설기계 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-11-19 06:00입니다.</p>
+<p>*(미국·유럽·캐나다는 11/18(수) 종가다. 한국·일본·중국·인도는 시세표 기준일이 11/17로 하루 늦다 — 해당 행에 기준일을 적었다.)*</p>
+<h2>오늘의 핵심 요약</h2>
+<ul>
+<li><b>구리 <span class="down">-5.07%</span>·은 <span class="down">-4.77%</span>·금 <span class="down">-3.42%</span> — 금속이 하루에 무너졌고 광산장비주가 가장 크게 내렸다</b>: 구리는 파운드당 5.67달러로 1개월 <span class="down">-13.6%</span>, 금은 온스당 3,731.90달러로 1개월 <span class="down">-9.9%</span>다. Sandvik <span class="down">-4.00%</span>, Epiroc <span class="down">-3.66%</span>다[사실]. 수집 목록에 급락 원인을 다룬 기사는 없다[미확인].</li>
+<li><b>10월 미 주택착공 <span class="up">+9.9%</span>(연율 130.9만 호, 예상 124.5만 호) — 늘어난 것은 다가구, 허가는 <span class="down">-7.4%</span></b>: 단독주택 착공도 반등했지만 추세는 여전히 약하다는 평가다[사실]. 허가가 줄었다는 것은 몇 달 뒤 착공이 다시 꺾일 수 있다는 뜻이다[해석]. <a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxNOHNvWXhTdjFvTnd2ZWpsdjVvM29QLWdyUzZOMWFTTjdHUEdTazZZMGxPWFdtZk9TdVZ5WlhJb2FPbmtQbURFd1pTWUlnSS1LTk54Wk1RY2FSRWJ5cGdHOGl3NEVBaEZlcWlJVW1LblcySGxZVjUtdFNuMUlNbmhiNHJiM2tYZUZpdHg2LVdiS3dTZ1RmVjZqZzlhaXJua2JMc2FORFdFMTlNZTRSTUZpbWFIMExWdnM?oc=5">Reuters</a> (11/19 03:51) · <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxQZV9qcUlDaXl1M0d5QjlXVW1FWFJNWWx3NUtURGRjUmxlZmJrc1BfcThuNkpMdmhSa1hlX1JIUFFfaTZrOWZlMkJ2QnVXNkZycG5SdTVKdFpiVmFUeW5YcGpJNUtpbUpzWmx3eFhsZUNXUkd3OTJ4OVR1WmRqMjZOcHFUODhGOG9kRzRTYmlEdFZveUc4TlFMZzZqRWQ5MFZqWC1sV3puYkxaMTJqOEphN2ZxUQ?oc=5">Bloomberg</a> (11/18 23:33) · <a href="https://news.google.com/rss/articles/CBMihAFBVV95cUxNeHhoLTFUUHQ4QUVhVXFxdGJOdV9MSHp4emV3TW5HWmpaZVk4cVc5MDdhSEVZNzdLTTVkVGppcjZKcVJnRFhVWmU4YlQ1bEFzMkFMN09GQU4zOU9XS1AxTXlmSEN5cjNZUWNaMmpiQ0d1UXVZdXJKR2FIYlk1alE1Mk8xdm4?oc=5">investingLive</a> (11/18 22:30) · <a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxNRXREYm85LTRrQUdrclNDaFJrYms2djZpNkg5ZWplTW1iVWlicDhiX1Y0LTVYQ0c5MmluV3dCSlNuN1Z1Qm84UUhMQVdjMjhPY2FfODI3QkJiN3R3c2RHVmxEUkRQVWJQeVdXTk5tYWMyamhIRjlnWFZJYXlpRHU1VzJwU1RNUndrSjNGT1VtY0MybXFCN3VoaV9lN18wQjB2aVBnMlZKM1hDNmJBQXRZTXhXelRNd2c0bTVR?oc=5">Kitco</a> (11/18 22:30)</li>
+<li><b>Caterpillar <span class="down">-2.10%</span> — 1개월 <span class="down">-22.9%</span>, 3개월 <span class="down">-31.5%</span></b>: 이번 주 <span class="down">-4.98%</span>, <span class="up">+0.08%</span>에 이어 다시 내렸다. 주가와 별개로 본사 인근 이스트피오리아 공장은 기계공 200명을 뽑고 있다[사실]. <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxNTTBjNzkzcE9VOHNQbk5PbEpzSVZIamZtX1otbmtDOVg5T1JqTjZGQjFONGZ6OUpVWTBxVkdnc1BKcUJodEVRSTFnakU0UjdKdkpnek1PUGYwam1waldFSG1McFBtYk40cUtXaklEalg4WU5UdmxvNHVSc2czRUNNTk0yS292VmdSdEtNQ3FneXZ2QTNvakpBZjdKaVI1cWfSAbMBQVVfeXFMTnFZbEtvenU0NjBodVhPdGhzNGtHWmxJQUNVbGlxSW5oak5kR29yX0RYdFdtbVR0Q0FxQ0h0N0NQTlMtSFhGZl82akJCVkZZc2pOYmlVaWRvUkkwcy1JeTRmZ3piS3VEUFRZanZWWTJ0NXdLRHJMMTJMLTVMZTF4b1pPeF9CeW1tNTd0VVEwcGVHMlp5NHY5SlhGVkpuVGRUVnBxNnNhZzBHdUhTS0RnVXMwMGc?oc=5">WEEK 25 News Now</a> (11/18 10:34)</li>
+<li><b>미국 렌탈·중소형은 소폭 반등 — Terex <span class="up">+1.28%</span>, Oshkosh <span class="up">+0.99%</span>, United Rentals <span class="up">+0.45%</span></b>: 인프라 ETF(PAVE)도 <span class="up">+0.75%</span>다[사실]. 착공 지표 반등과 같은 날이지만 직접 연결한 기사는 없다[미확인].</li>
+<li><b>HD현대, HD건설기계 임원 인사와 1톤급 로봇 첫 판매</b>: HD건설기계 임형택 부사장 등이 포함된 대규모 인사가 났다. HD현대의 1톤급 로봇은 건설기계를 넘어 조선·자동차 쪽으로 공급된다는 보도다[사실 — 제목 기준]. 한국 2사 주가는 11/17 기준 HD건설기계 <span class="down">-2.53%</span>, 두산밥캣 <span class="down">-1.54%</span>다[사실]. <a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE1BdGk2T2tKZ2J6cXY1eURVNFpyQUpfMXZDSlBGWVBXdk1CQ3NKdXhrWm9oV0o4Mjc0MHNLZnM1RzdhRUl6bkMyZzdpVFFrSGNGVkM2V0k1LXEzQXBhQmlEUUMzVk5lMzdI?oc=5">대한건설기계신문</a> (11/18 10:32) · <a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTFBncVNtNXB3akx5UnZLWlhDdmJYR25DZmRoUVNSbXZ3Wmg5cG9VSEZQYlNxWDFKZC03aHkyYkVDTml2ZkIzVllOX2d3TG1pQ3g5QWlVaWRQZG1lQQ?oc=5">파이낸셜뉴스</a> (11/18 15:00)</li>
+</ul>
+<h2>매크로·원재료</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>지표</td><td>값(기준일)</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td></tr>
+<tr><td>미국채 10년 금리</td><td>5.07%(11/18)</td><td><span class="down">-0.73%</span></td><td><span class="down">-1.0%</span></td><td><span class="up">+7.9%</span></td><td><span class="up">+22.6%</span></td></tr>
+<tr><td>금 (COMEX)</td><td>3,731.90$/oz(11/18)</td><td><span class="down">-3.42%</span></td><td><span class="down">-9.9%</span></td><td><span class="down">-18.4%</span></td><td><span class="down">-8.4%</span></td></tr>
+<tr><td>은 (COMEX)</td><td>45.03$/oz(11/18)</td><td><span class="down">-4.77%</span></td><td><span class="down">-22.0%</span></td><td><span class="down">-33.8%</span></td><td><span class="down">-11.1%</span></td></tr>
+<tr><td>구리 (COMEX)</td><td>5.67$/lb(11/18)</td><td><span class="down">-5.07%</span></td><td><span class="down">-13.6%</span></td><td><span class="down">-12.2%</span></td><td><span class="up">+13.5%</span></td></tr>
+<tr><td>WTI 원유</td><td>81.92$/bbl(11/18)</td><td><span class="down">-4.76%</span></td><td><span class="down">-19.5%</span></td><td><span class="down">-6.7%</span></td><td><span class="up">+36.7%</span></td></tr>
+<tr><td>원/달러</td><td>1,332.28₩(11/18)</td><td><span class="down">-0.25%</span></td><td><span class="up">+0.2%</span></td><td><span class="down">-4.2%</span></td><td><span class="down">-9.4%</span></td></tr>
+<tr><td>위안/달러</td><td>6.67¥(11/18)</td><td><span class="up">+0.04%</span></td><td><span class="down">-0.4%</span></td><td><span class="down">-0.8%</span></td><td><span class="down">-5.8%</span></td></tr>
+</table></div>
+<p>(구리·은·금·원유가 같은 날 3~5% 내렸다[사실]. 금은 12개월 수익률까지 마이너스(<span class="down">-8.4%</span>)로 돌아섰고 은은 3개월 <span class="down">-33.8%</span>다 — 금광·은광의 신규 투자 결정이 늦어질 수 있는 가격 흐름이고, 광산장비 수요에는 시차를 두고 부담이다[해석]. 구리는 12개월로는 아직 <span class="up">+13.5%</span>다[사실]. 미국채 10년 금리는 5.07%로 조금 내렸지만 3개월 전보다 여전히 높아 장비 할부·렌탈 업체 조달 비용 부담은 그대로다[해석].)</p>
+<h2>주요 주가 동향</h2>
+<p><b>[한국]</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>두산밥캣</td><td><span class="down">-1.54%</span></td><td><span class="down">-1.0%</span></td><td><span class="down">-21.3%</span></td><td><span class="down">-14.7%</span></td><td>기준일 11/17 — 관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>HD건설기계</td><td><span class="down">-2.53%</span></td><td><span class="down">-6.0%</span></td><td><span class="down">-36.6%</span></td><td><span class="down">-5.8%</span></td><td>기준일 11/17 — 임원 인사 보도(11/18) · 주가 원인 기사 없음</td></tr>
+</table></div>
+<p><b>[글로벌 대형]</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>CNH Industrial</td><td><span class="down">-0.49%</span></td><td><span class="down">-2.6%</span></td><td><span class="up">+2.7%</span></td><td><span class="up">+15.2%</span></td><td>특이사항 없음</td></tr>
+<tr><td>Volvo</td><td><span class="down">-0.53%</span></td><td><span class="down">-0.8%</span></td><td><span class="down">-7.2%</span></td><td><span class="up">+19.3%</span></td><td>특이사항 없음</td></tr>
+<tr><td>John Deere</td><td><span class="down">-0.72%</span></td><td><span class="up">+2.0%</span></td><td><span class="up">+3.8%</span></td><td><span class="up">+35.4%</span></td><td>특이사항 없음</td></tr>
+<tr><td>구보타</td><td><span class="down">-1.56%</span></td><td><span class="down">-8.1%</span></td><td><span class="down">-11.6%</span></td><td><span class="up">+21.5%</span></td><td>기준일 11/17 · 과수원용 자율주행 트랙터 확대 보도</td></tr>
+<tr><td>히타치건기</td><td><span class="down">-1.72%</span></td><td><span class="down">-8.1%</span></td><td><span class="down">-10.9%</span></td><td><span class="down">-1.2%</span></td><td>기준일 11/17</td></tr>
+<tr><td>고마쓰</td><td><span class="down">-1.85%</span></td><td><span class="down">-17.2%</span></td><td><span class="down">-19.1%</span></td><td><span class="up">+15.3%</span></td><td>기준일 11/17</td></tr>
+<tr><td>Caterpillar</td><td><span class="down">-2.10%</span></td><td><span class="down">-22.9%</span></td><td><span class="down">-31.5%</span></td><td><span class="up">+1.2%</span></td><td>관련 공시·뉴스 미확인 (수급 요인 추정) · 기계공 200명 채용 보도</td></tr>
+</table></div>
+<p><b>[중소형]</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>Terex</td><td><span class="up">+1.28%</span></td><td><span class="up">+2.2%</span></td><td><span class="down">-16.2%</span></td><td><span class="up">+22.3%</span></td><td>주택착공 반등과 같은 날 · 개별 기사 없음</td></tr>
+<tr><td>Oshkosh</td><td><span class="up">+0.99%</span></td><td><span class="up">+5.3%</span></td><td><span class="down">-8.4%</span></td><td><span class="up">+15.1%</span></td><td>특이사항 없음</td></tr>
+<tr><td>Manitou</td><td><span class="up">+0.00%</span></td><td><span class="down">-2.5%</span></td><td><span class="down">-8.2%</span></td><td><span class="up">+12.0%</span></td><td>특이사항 없음</td></tr>
+<tr><td>다케우치</td><td><span class="down">-0.28%</span></td><td><span class="down">-5.7%</span></td><td><span class="down">-5.5%</span></td><td><span class="up">+13.7%</span></td><td>기준일 11/17 · 타다노 <span class="down">-1.57%</span></td></tr>
+<tr><td>Manitowoc</td><td><span class="down">-0.40%</span></td><td><span class="down">-0.1%</span></td><td><span class="up">+16.2%</span></td><td><span class="up">+112.1%</span></td><td>특이사항 없음</td></tr>
+<tr><td>Wacker Neuson</td><td><span class="down">-1.21%</span></td><td><span class="down">-10.5%</span></td><td><span class="down">-3.1%</span></td><td><span class="up">+12.8%</span></td><td>특이사항 없음</td></tr>
+</table></div>
+<p><b>[광산장비]</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>Epiroc</td><td><span class="down">-3.66%</span></td><td><span class="down">-10.1%</span></td><td><span class="down">-12.7%</span></td><td><span class="up">+16.9%</span></td><td>구리·금·은 동반 급락</td></tr>
+<tr><td>Sandvik</td><td><span class="down">-4.00%</span></td><td><span class="down">-4.4%</span></td><td><span class="down">-12.3%</span></td><td><span class="up">+15.9%</span></td><td>구리·금·은 동반 급락</td></tr>
+</table></div>
+<p><b>[렌탈·딜러]</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>Toromont</td><td><span class="up">+1.36%</span></td><td><span class="down">-7.0%</span></td><td><span class="down">-5.9%</span></td><td><span class="up">+23.9%</span></td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>United Rentals</td><td><span class="up">+0.45%</span></td><td><span class="up">+4.2%</span></td><td><span class="down">-0.7%</span></td><td><span class="up">+34.8%</span></td><td>주택착공 반등과 같은 날</td></tr>
+<tr><td>Herc</td><td><span class="up">+0.18%</span></td><td><span class="up">+25.6%</span></td><td><span class="down">-2.6%</span></td><td><span class="up">+22.8%</span></td><td>특이사항 없음</td></tr>
+<tr><td>Finning</td><td><span class="down">-0.24%</span></td><td><span class="down">-14.9%</span></td><td><span class="down">-9.3%</span></td><td><span class="up">+15.8%</span></td><td>특이사항 없음</td></tr>
+</table></div>
+<p><b>[중국]</b></p>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업명</td><td>1D</td><td>1M</td><td>3M</td><td>12M</td><td>변동 요인</td></tr>
+<tr><td>XCMG</td><td><span class="up">+1.08%</span></td><td><span class="down">-9.1%</span></td><td><span class="down">-20.8%</span></td><td><span class="down">-38.6%</span></td><td>기준일 11/17 — 관련 기사 없음</td></tr>
+<tr><td>Zoomlion</td><td><span class="up">+0.51%</span></td><td><span class="down">-1.3%</span></td><td><span class="down">-16.2%</span></td><td><span class="down">-28.3%</span></td><td>기준일 11/17</td></tr>
+<tr><td>LiuGong</td><td><span class="down">-0.12%</span></td><td><span class="up">+2.4%</span></td><td><span class="down">-2.3%</span></td><td><span class="down">-31.0%</span></td><td>기준일 11/17</td></tr>
+<tr><td>SANY</td><td><span class="down">-0.96%</span></td><td><span class="up">+4.4%</span></td><td><span class="down">-1.6%</span></td><td><span class="down">-15.0%</span></td><td>기준일 11/17</td></tr>
+</table></div>
+<p>(인도(11/17): Action Construction Equipment <span class="down">-0.22%</span>, Escorts Kubota <span class="down">-0.10%</span>. PAVE ETF <span class="up">+0.75%</span>. Ashtead(Sunbelt)는 수집 시세가 종가 2.16·시총 0으로 잡혀 비정상이라 표에서 뺐다.)</p>
+<h2>큰 변동 분석</h2>
+<p>±10% 이상 변동 종목 없음. (±5% 이상도 없음. 가장 큰 움직임은 Sandvik <span class="down">-4.00%</span>·Epiroc <span class="down">-3.66%</span>로, 같은 날 구리 <span class="down">-5.07%</span>·은 <span class="down">-4.77%</span>·금 <span class="down">-3.42%</span>가 겹쳤다[사실]. 두 회사에 대한 개별 기사는 목록에 없고, 금속 가격 급락을 원인으로 본다[해석]. Caterpillar <span class="down">-2.10%</span>는 관련 공시·뉴스 미확인 (수급 요인 추정)이다.)</p>
+<h2>시장별 동향</h2>
+<ul>
+<li><b>미국 주택</b>: 10월 착공이 연율 130.9만 호로 9.9% 늘어 예상(124.5만 호)을 웃돌았다. 다가구 착공 반등이 이끌었고 단독주택도 늘었지만 Reuters는 추세가 여전히 가라앉아 있다고 평가했다. 건축 허가는 <span class="down">-7.4%</span>였다[사실]. 전일 나온 주택건설업 심리지수(14년 만의 최저)와 방향이 엇갈린다 — 착공은 이미 받아둔 허가를 소화한 결과이고, 허가와 심리는 앞으로의 물량을 가리킨다[해석]. 소형장비(두산밥캣의 스키드로더·소형 굴착기)는 단독주택 물량에 더 민감해서, 다가구 중심의 반등은 수혜가 제한적이다[해석]. <a href="https://news.google.com/rss/articles/CBMib0FVX3lxTFBQOTljNnpVVzZPbTBva2dqVE92MGZUSjF1UzRBUXA0eHdaVmxxQ051SS1MZGJiVWNLdDJvQmV6UGE4bnBxTEFFVlhGUEQ1VzdKLXotbHdkZjFGU29vLXhMQUw2S0lyS0x5bUZ4WF9Ydw?oc=5">Breitbart News</a> (11/19 03:36) · <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxOVl9RTm41VGZ2TXJSWC1Vb2VZT1FLeXpObVhXc1c4M09CWEUxUUNkYnJ5RUZrNVBXWnF6Sjh4SFEyaTVUM2FWSElxSjhpSEJjcFBkM2FKNUQ5RW80Sk1fcm1kUUpsR1lSRU53LVFqVGFnc29ranM0NlN0R3VvTDFPa1kwOFRsREs1NjQwNmZEdzZ3MDZ0Y01nMDNyZGdfY0xKdm1r?oc=5">24/7 Wall St.</a> (11/18 22:13)</li>
+<li><b>미국 데이터센터</b>: 투자자 Steve Eisman은 AI 투자의 가장 큰 위험으로 지방정부가 데이터센터 건설을 늦추는 것을 꼽았다[사실]. 데이터센터 현장은 굴착기·발전기 수요의 한 축이라 인허가 지연은 Caterpillar와 렌탈 업체에 직접 변수다[해석]. <a href="https://news.google.com/rss/articles/CBMi0AFBVV95cUxQd04ycFhmWE1Tb2hFRXpwQUJad05lMWRGY3lmTzdhYmN4Vnp0TW5qNUxYOVk4YXdheHBHWGZJY2R5MnpXTXRIY2FrbXgwMms3aVVfWVBMWG5kSHR1T2h0TmR1Yk1rRFFtak1xMWxCa0x4dGhGaUR4MG9vOEc5QUtSaTVNUnlFQjVaQ3dManZ4TzFmczl0R3N1QldxQ1BLX250WDBSekNZdVVJMExkc2tBaWE4M1BYVTVULUpraXYtOVBPQzUxdzRCdDFPVHVCVFJR?oc=5">24/7 Wall St.</a> (11/18 04:47)</li>
+<li><b>영국 렌탈</b>: 렌탈 업체 Ardent가 JCB 장비 500대를 들인다[사실 — 제목 기준]. 렌탈 업체의 대량 구매는 영국 현장 수요가 유지된다는 신호다[해석]. <a href="https://news.google.com/rss/articles/CBMibEFVX3lxTE1YSERIbjJpbVQ4b3JWcTVIVVZIbi1QTjROMnJIdlBXOHpUbE4wZ3pQU2lUMnJPbkJ1b1hmb0djVXJEOTY0dzZ1RVBTWV9MNUVmMDR6YTRHazVYcVZNSnd3c19faUdKbjdlNnJxLQ?oc=5">Vertikal.net</a> (11/18 08:17)</li>
+<li><b>한국</b>: HD현대가 HD건설기계 임형택 부사장 등 대규모 임원 인사를 냈다[사실]. <a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE1BdGk2T2tKZ2J6cXY1eURVNFpyQUpfMXZDSlBGWVBXdk1CQ3NKdXhrWm9oV0o4Mjc0MHNLZnM1RzdhRUl6bkMyZzdpVFFrSGNGVkM2V0k1LXEzQXBhQmlEUUMzVk5lMzdI?oc=5">대한건설기계신문</a> (11/18 10:32)</li>
+</ul>
+<h2>기업 전략 동향</h2>
+<ul>
+<li><b>HD현대</b>: 1톤급 로봇을 처음 팔았고 건설기계를 넘어 조선·자동차 쪽으로 공급한다는 보도다[사실 — 제목 기준]. 건설기계 생산 라인에서 쓰던 자동화 역량을 그룹 밖으로 파는 단계로 읽힌다[해석]. <a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTFBncVNtNXB3akx5UnZLWlhDdmJYR25DZmRoUVNSbXZ3Wmg5cG9VSEZQYlNxWDFKZC03aHkyYkVDTml2ZkIzVllOX2d3TG1pQ3g5QWlVaWRQZG1lQQ?oc=5">파이낸셜뉴스</a> (11/18 15:00)</li>
+<li><b>Caterpillar</b>: 이스트피오리아에서 기계공 200명 채용에 나섰다[사실]. 주가가 3개월 새 31.5% 내린 것과 달리 생산 현장 인력은 늘리는 중이다[해석]. <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxNTTBjNzkzcE9VOHNQbk5PbEpzSVZIamZtX1otbmtDOVg5T1JqTjZGQjFONGZ6OUpVWTBxVkdnc1BKcUJodEVRSTFnakU0UjdKdkpnek1PUGYwam1waldFSG1McFBtYk40cUtXaklEalg4WU5UdmxvNHVSc2czRUNNTk0yS292VmdSdEtNQ3FneXZ2QTNvakpBZjdKaVI1cWfSAbMBQVVfeXFMTnFZbEtvenU0NjBodVhPdGhzNGtHWmxJQUNVbGlxSW5oak5kR29yX0RYdFdtbVR0Q0FxQ0h0N0NQTlMtSFhGZl82akJCVkZZc2pOYmlVaWRvUkkwcy1JeTRmZ3piS3VEUFRZanZWWTJ0NXdLRHJMMTJMLTVMZTF4b1pPeF9CeW1tNTd0VVEwcGVHMlp5NHY5SlhGVkpuVGRUVnBxNnNhZzBHdUhTS0RnVXMwMGc?oc=5">WEEK 25 News Now</a> (11/18 10:34)</li>
+<li><b>Kubota</b>: 자율주행 업체 Agtonomy와 함께 자율주행 트랙터 적용 범위를 과수원·견과류 농장으로 넓혔다[사실]. 소형 농기계 자동화는 소형 건설장비로 넘어오기 쉬운 기술이라 두산밥캣의 경쟁 구도와 닿아 있다[해석]. <a href="https://news.google.com/rss/articles/CBMizwFBVV95cUxOTUVLV1hlRS14b3lsbXpQY1BvUlVNaFJaUzYxT1VKNzlySW5pSkk3VmxFWVFzUnpLdWhDSlJtU1NwVnFCaWpCX0V5amtXcDR0MjZwSU1iWVZsX3dkU1c1ck5CNGpLZjZaLTNNY010T2p1cEM0c2R2RmRaM3FHNk5vSXhlNm5HRUkyelZxZGs4Z1prU1J3S0xCSm91VDNmX01xMndpdVVzeHN1ZXJWekZfZ3NZQkNSMDR1MDBqNGl1c2xLQzRmVWV3c3NubHhNNW8?oc=5">Global Agriculture</a> (11/19 01:18)</li>
+</ul>
+<h2>투자 시사점</h2>
+<p>1. <b>광산장비는 금속 가격을 따라 내려가는 구간</b>: 금·은이 12개월 수익률까지 마이너스로 돌아섰다. 금광·은광의 증설 결정이 늦어지면 Sandvik·Epiroc뿐 아니라 대형 굴착기·덤프트럭을 파는 Caterpillar·고마쓰, 광산용 대형 기종을 키우는 HD건설기계에도 시차를 두고 부담이다. 중국 업체(SANY·XCMG)가 가격을 앞세워 광산 시장을 파고드는 상황에서 발주가 줄면 가격 경쟁은 더 세진다[해석].</p>
+<p>2. <b>미국 주택은 '착공 반등, 허가 감소' — 소형장비에는 아직 확인이 더 필요</b>: 착공을 끌어올린 것은 다가구다. 두산밥캣에 중요한 단독주택은 반등했어도 추세가 약하고 허가가 줄었다. 금리가 5%대에 머무는 한 딜러 재고 보충은 조심스러울 것이다[해석].</p>
+<p>3. <b>렌탈·인프라는 버틴다</b>: United Rentals·Herc가 플러스로 돌아섰고 영국에서는 500대 단위 구매가 나왔다. 장비를 사기보다 빌리는 흐름은 금리가 높을수록 강해진다 — 완성차 업체보다 렌탈 업체 실적이 먼저 버티는 그림이다[해석].</p>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"light"}catch(e){return "light"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="light")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

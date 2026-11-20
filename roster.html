@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<!--
+  인원.관리 — 팀 인원 명부 대시보드. 표는 둘: 👥 재직(정직원·인턴·알바 근무중) / 🚩 퇴사.
+  ★ 명부 데이터는 이 리포에 두지 않는다(리포가 공개라 출생연도·입퇴사일이 GitHub 에 남는다).
+    - 이 브라우저 localStorage(hi_roster_v1) 에 저장하고,
+    - TO-DO·수명 피드백과 같은 GAS 저장소(TASK_ENDPOINT 번들의 roster 키)로 기기 간 동기화를 시도한다.
+      저장 뒤 다시 읽어 서버에 남았는지 확인하고, 안 남으면 '이 기기에만 저장' 이라고 적는다.
+  한 줄 = {sec, team, name, yy, rank, intern(인턴 시작), join(입사일), debut(데뷔), quit(퇴사일)}.
+  재직/퇴사는 **퇴사일 칸**으로 가른다: 퇴사일이 지났으면 퇴사, 미래거나 비었으면 재직.
+    (예외 — 퇴사 구분선 밑에 있던 줄은 퇴사일이 비어도 퇴사, 인턴·알바 묶음은 종료일이 없으면 종료로 본다.)
+  붙여넣기: 머리글(이름·yy·직급·인턴·입사일·데뷔·퇴사일) 이름으로 열을 찾는다 — 열 순서·'팀'·'묶음' 열 유무 무관.
+    머리글이 없으면 옛 순서([팀]·이름·yy·직급·인턴·입사일·데뷔·[퇴사일]). '퇴사…'/'인턴'/'알바'/'재직' 한 칸짜리 줄은 구분선.
+    옛 형식(퇴사 정직원의 데뷔 칸 = 퇴사일, 인턴·알바의 입사일 칸 = 종료일·'8주')은 normalize() 가 퇴사일 칸으로 옮긴다.
+-->
+<html lang="ko">
+<head><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",TH="466f2167513403c0b21bd9bc77f62789f19195656f686edba4adaede4ee93c80",OWNER=true,TEAMOK=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===TH?"team":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ // 팀 비번이 통하는 곳: 대시보드 본체를 수명 피드백 항목 링크로 연 집중 화면뿐.
+ function teamHere(){return TEAMOK&&/[?&]focus=/.test(location.search)&&/^#tasklist:/.test(location.hash)}
+ function pass(l){return l==="owner"||((l==="guest"||l==="team")&&!OWNER)||(l==="team"&&teamHere())}
+ var lv=level();
+ if(pass(lv)){window.__GS_LEVEL__=lv;return}   // app.js 가 등급을 읽어 팀 화면을 좁힌다
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ window.__GS_GATED__=1;                  // 아직 안 풀림 — app.js 가 서버 데이터를 받아 두지 않게
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?(teamHere()?"주인 또는 팀 비밀번호로 열립니다. ":"이 화면은 주인 비밀번호가 필요합니다. "):"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     var l=h===OH?"owner":h===TH?"team":h===GH?"guest":null;
+     if(pass(l)){set(h);location.reload();return}
+     msg.textContent=l==="guest"?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                    :l==="team"?"팀 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>인원 관리</title>
+<style>
+:root{--bg:#fff;--fg:#1c2430;--muted:#6b7684;--line:#e5e8ec;--card:#f7f8fa;--btn:#1f2937;--hd:#eef0f3;
+  --a:#2a78d6;--warn:#b45309;--bad:#d92d2a;--ok:#15803d;--soft:#fef3c7}
+*{box-sizing:border-box}
+body{margin:0;padding:18px 16px 48px;background:var(--bg);color:var(--fg);font:14px/1.6 -apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+button,input,select,textarea{font-family:inherit}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-size:19px;margin:0 0 2px}
+h2{font-size:15px;margin:0}
+.sub{color:var(--muted);font-size:12.5px;margin:0 0 12px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 14px}
+.btn{font-weight:700;font-size:12.5px;padding:5px 12px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--fg);cursor:pointer}
+.btn.pri{background:var(--btn);color:var(--bg);border-color:var(--btn)}
+.btn.danger{color:var(--bad)}
+#sync{font-size:12px;color:var(--muted);margin-left:auto}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 16px}
+.tile{border:1px solid var(--line);border-radius:8px;background:var(--card);padding:10px 12px}
+.tile b{display:block;font-size:22px;line-height:1.2}
+.tile span{font-size:12px;color:var(--muted)}
+.tile small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.card{border:1px solid var(--line);border-radius:8px;margin:0 0 16px;background:var(--card);overflow:hidden}
+.card>.hd{padding:9px 12px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.card>.hd small{color:var(--muted);font-size:12px}
+.card.gone>.hd{background:var(--hd)}
+details.card>summary.hd{cursor:pointer;list-style:none;user-select:none}
+details.card>summary.hd::-webkit-details-marker{display:none}
+details.card>summary.hd::before{content:'▶';font-size:11px;color:var(--muted)}
+details.card[open]>summary.hd::before{content:'▼'}
+details.card:not([open])>summary.hd{border-bottom:0}
+.tw{overflow-x:auto;background:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:5px 9px;border-bottom:1px solid var(--line);white-space:nowrap;text-align:center}
+thead th{font-weight:600;color:var(--muted);background:var(--hd);font-size:12px}
+td.nm{font-weight:700;text-align:left}
+td.tm{text-align:left;color:var(--muted);font-size:12px}
+tr.first td{border-top:2px solid var(--line)}
+td.ten{color:var(--muted);font-size:12px;text-align:left}
+td .pill{display:inline-block;font-size:11px;font-weight:700;padding:0 7px;border-radius:999px;border:1px solid var(--line)}
+.pill.on{color:var(--ok);border-color:var(--ok)}.pill.soon{color:var(--warn);border-color:var(--warn)}.pill.off{color:var(--muted)}
+tr.dim td{color:var(--muted)}
+tr.dim td.nm{font-weight:400}
+td.no{color:var(--muted);font-size:12px;text-align:right;padding:5px 4px 5px 9px;width:1%}
+tr.subhd td .n{font-weight:400;margin-left:4px}
+tr.jr td{color:#9aa0a6}
+tr.subhd td{background:var(--hd);color:var(--muted);font-weight:700;font-size:12px;text-align:left;padding:4px 9px}
+th.fd{cursor:pointer;color:var(--a);user-select:none}
+th.fd.cl{width:1%;padding:5px 6px}
+tbody td.fd{cursor:pointer;color:var(--muted);padding:5px 4px}
+tbody td.ed{cursor:pointer}
+tbody td.ed:hover{background:var(--soft);box-shadow:inset 0 -2px 0 var(--a)}
+.up{padding:8px 12px;background:var(--bg)}
+.up ul{margin:0;padding:0;list-style:none}
+.up li{padding:4px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.up li b.d{display:inline-block;min-width:54px;color:var(--warn)}
+.up li b.d.now{color:var(--bad)}
+.empty{padding:26px 12px;text-align:center;color:var(--muted);background:var(--bg)}
+/* 편집 */
+.edit td{padding:2px 3px}
+.edit input,.edit select{width:100%;min-width:64px;font-size:12.5px;padding:3px 5px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg)}
+.edit input.yy{min-width:44px}.edit input.w{min-width:110px}
+.edit .del{border:0;background:none;cursor:pointer;font-size:14px}
+dialog{border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--fg);padding:16px;max-width:820px;width:94vw}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+dialog textarea{width:100%;height:260px;font:12px/1.5 ui-monospace,Consolas,monospace;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);padding:8px;white-space:pre;overflow:auto}
+dialog p{font-size:12.5px;color:var(--muted);margin:6px 0 10px}
+#pv{font-size:12.5px;margin:8px 0;min-height:18px;line-height:1.7}
+#pv b{color:var(--fg)}#pv .g{color:var(--muted)}
+.note{font-size:12px;color:var(--muted);line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧑‍🤝‍🧑 인원.관리</h1>
+  <p class="sub">팀 인원 명부 — 재직 / 퇴사 두 표. 명부는 이 리포(GitHub)에 올리지 않고 브라우저와 동기화 저장소에만 둡니다.</p>
+  <div class="bar">
+    <button class="btn pri" id="b-edit">✏️ 편집</button>
+    <button class="btn pri" id="b-save" hidden>💾 저장</button>
+    <button class="btn" id="b-cancel" hidden>취소</button>
+    <button class="btn" id="b-paste">📥 엑셀 표 붙여넣기</button>
+    <button class="btn" id="b-copy">📋 엑셀용 복사</button>
+    <button class="btn" id="b-csv">⬇ CSV</button>
+    <span id="sync"></span>
+  </div>
+  <div class="tiles" id="tiles"></div>
+  <details class="card" id="upcard"><summary class="hd"><h2>⏰ 다가오는 일정</h2><small id="upn"></small></summary><div class="up" id="up"></div></details>
+  <div id="secs"></div>
+  <p class="note">· <b>재직/퇴사는 '퇴사일' 칸으로 가릅니다</b> — 퇴사일이 지났으면 🚩 퇴사 표, 미래거나 비어 있으면 👥 재직 표. 인턴·알바도 퇴사일이 아직 안 지났으면 재직 표의 정직원 밑에 나옵니다(시작일만 있고 퇴사일이 없으면 종료로 봅니다).<br>
+  · 표의 <b>yy·직급·인턴 시작·입사일·데뷔·퇴사일</b> 칸은 클릭해서 바로 고칠 수 있습니다(Enter 저장 · Esc 취소). 재직 표에서 퇴사일을 넣으면 그 날짜가 지난 뒤 퇴사 표로 내려갑니다. 팀·이름은 ✏️ 편집에서 고칩니다. 직급 칸에 <b>RA</b> 라고 적은 줄은 회색 글자로 나옵니다. <b>데뷔 열은 접혀 있습니다</b> — 머리글 '데뷔 ▸' 를 누르면 펼쳐지고(값이 있는 줄은 점 ·), 다시 누르면 접힙니다.<br>
+  · 근속은 입사일(인턴 전환일) 기준 오늘까지, 퇴사자는 입사일~퇴사일입니다. 기간은 끝 날까지 근무한 것으로 세고(6/22~9/21 = 3개월), 1년 미만은 남는 날수도 적습니다(2개월 20일). 날짜는 <b>YY.MM.DD</b> 로 적습니다(뒤에 '전환'·'데뷔' 같은 말이 붙어도 됩니다). 인턴·알바의 퇴사일 칸에는 '8주'·'2개월' 같은 기간도 됩니다.<br>
+  · 🚩 퇴사 표와 ⏰ 다가오는 일정은 접힌 채 시작합니다(제목 줄을 누르면 펼침). 일정에는 재직자만 나옵니다(퇴사자의 입사 기념일·종료된 인턴/알바 제외).<br>
+  · 다른 기기에서도 보려면 그 기기에서 이 화면을 한 번 열면 됩니다(동기화 상태는 오른쪽 위).</p>
+</div>
+
+<dialog id="dlg">
+  <h2>📥 엑셀 표 붙여넣기</h2>
+  <p>엑셀에서 <b>머리글 줄(이름·yy·직급·인턴·입사일·데뷔·퇴사일)</b>부터 맨 아래 줄까지 선택해 복사한 뒤 아래에 Ctrl+V 하세요. 열 순서는 상관없고 머리글 이름으로 찾습니다. <b>지금 명부를 통째로 바꿉니다</b> — 아래 '읽은 결과'에서 재직/퇴사가 맞게 갈렸는지 보고 누르세요.</p>
+  <textarea id="ta" placeholder="여기에 붙여넣기"></textarea>
+  <div id="pv"></div>
+  <div class="bar" style="margin:0"><button class="btn pri" id="d-ok">이걸로 교체</button><button class="btn" id="d-no">닫기</button></div>
+</dialog>
+
+<script>
+(function(){
+const KEY='hi_roster_v1';
+const ENDPOINT='https://script.google.com/macros/s/AKfycbwTX-Ld-ayqHgi97S0QiMYPsHfb2cjNwy66FyDYU6GBrS0kOgMH8KE220GPy3KRxcT3/exec'; // app.js TASK_ENDPOINT 와 같은 저장소
+const SECS=[['active','정직원'],['intern','인턴'],['alba','알바'],['left','퇴사 정직원']];
+const COLS=['team','name','yy','rank','intern','join','debut','quit'];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const kst=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'});
+const TODAY=kst.format(new Date());
+const T0=Date.parse(TODAY);
+
+// ── 날짜 ────────────────────────────────────────────────
+// 'YY.MM.DD' / 'YYYY.MM.DD' (+뒤에 말) → 'YYYY-MM-DD'. 못 읽으면 null(추측하지 않는다).
+function pdate(s){const m=String(s||'').match(/(\d{2}|\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/);if(!m)return null;
+  const y=m[1].length===2?2000+ +m[1]:+m[1],mo=+m[2],d=+m[3];if(mo<1||mo>12||d<1||d>31)return null;
+  return y+'-'+String(mo).padStart(2,'0')+'-'+String(d).padStart(2,'0')}
+const DUR=/(\d+)\s*(주|개월|일)/;
+// '8주' '2개월' '3주' 같은 기간 → 시작일에 더한 날짜
+function addDur(start,s){const m=String(s||'').match(DUR);if(!start||!m)return null;const d=new Date(start+'T00:00:00Z');
+  if(m[2]==='주')d.setUTCDate(d.getUTCDate()+7*+m[1]);else if(m[2]==='개월')d.setUTCMonth(d.getUTCMonth()+ +m[1]);else d.setUTCDate(d.getUTCDate()+ +m[1]);
+  return d.toISOString().slice(0,10)}
+const dday=d=>Math.round((Date.parse(d)-T0)/864e5);
+// 기간 표기 — 끝 날도 근무일로 센다(6/22~9/21 = 3개월). 1년 미만은 남는 날수까지('2개월 20일'), 1년 이상은 년·개월.
+function span(a,b){if(!a||!b||b<a)return '';
+  const A=new Date(a+'T00:00:00Z'),B=new Date(b+'T00:00:00Z');B.setUTCDate(B.getUTCDate()+1);
+  const at=m=>{const d=new Date(Date.UTC(A.getUTCFullYear(),A.getUTCMonth()+m,1)),last=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0)).getUTCDate();
+    d.setUTCDate(Math.min(A.getUTCDate(),last));return d};                 // 시작일 + m개월(말일 넘으면 그 달 말일)
+  let mo=(B.getUTCFullYear()-A.getUTCFullYear())*12+B.getUTCMonth()-A.getUTCMonth();if(at(mo)>B)mo--;
+  const days=Math.round((B-at(mo))/864e5);
+  if(mo<1)return days+'일';
+  const y=Math.floor(mo/12),r=mo%12;
+  return y?y+'년'+(r?' '+r+'개월':''):r+'개월'+(days?' '+days+'일':'')}
+const md=d=>d.slice(2).replace(/-/g,'.');
+const isShort=r=>r.sec==='intern'||r.sec==='alba';
+
+// ── 옛 형식 → 퇴사일 칸 ─────────────────────────────────
+// 퇴사 정직원: 데뷔 칸에 퇴사일을 적던 것. 인턴·알바: 입사일 칸에 종료일(또는 '8주')을 적던 것.
+// 퇴사일 칸이 빈 줄만 옮긴다(멱등 — 몇 번을 돌려도 같다).
+function normalize(rows){
+  for(const r of rows){
+    for(const c of COLS)r[c]=r[c]==null?'':String(r[c]);
+    r.team=r.team.replace(/^(.*?\))\s+[^(\s].*$/,'$1');      // '휴먼/생체 (Human) FDA' → '휴먼/생체 (Human)'
+    if(!['active','left','intern','alba'].includes(r.sec))r.sec='active';
+    if(r.quit)continue;
+    if(r.sec==='left'){if(pdate(r.debut)){r.quit=r.debut;r.debut=''}}
+    else if(isShort(r)){
+      if(pdate(r.debut)){r.quit=r.debut;r.debut=''}
+      else if(r.join&&(pdate(r.join)||DUR.test(r.join))){r.quit=r.join;r.join=''}
+    }
+  }
+  return rows}
+
+// ── 한 줄의 상태 ─────────────────────────────────────────
+// grp: 'work'(재직 표) | 'gone'(퇴사 표) · sub: 'reg' 정직원 | 'itn' 인턴 | 'alb' 알바 · st: on/soon/off(인턴·알바 배지)
+function info(r){
+  const o={},it=pdate(r.intern),j=pdate(r.join);
+  if(isShort(r)){
+    const s=it;
+    let e=pdate(r.quit)||addDur(s,r.quit);
+    if(!e){const ds=[j,pdate(r.debut)].filter(d=>d&&(!s||d>=s)).sort();e=ds.pop()||addDur(s,r.join)||null}
+    o.sub=r.sec==='intern'?'itn':'alb';o.start=s;o.end=e;
+    o.st=s&&s>TODAY?'soon':e&&e>=TODAY?'on':'off';      // 퇴사일이 아직 안 지났으면 근무중
+    o.grp=o.st==='off'?'gone':'work';
+    o.tenure=s&&e?span(s,e):'';
+    return o}
+  const q=pdate(r.quit);
+  o.grp=q?(q<TODAY?'gone':'work'):(r.sec==='left'?'gone':'work');
+  o.isIntern=r.sec!=='left'&&(/인턴/.test(r.rank||'')||(!!it&&!!j&&j>TODAY));   // 전환일이 아직 안 온 사람
+  o.sub=r.sec!=='left'&&/알바/.test(r.rank||'')?'alb':o.isIntern?'itn':'reg';
+  o.end=q;
+  if(o.grp==='gone'){
+    const a=o.sub==='reg'?(j||it):(it||j);o.tenure=a&&q?span(a,q)+(o.sub==='reg'?' 재직':''):'';
+    if(o.sub!=='reg')o.st='off';
+    return o}
+  if(j&&j>TODAY){o.pending=j;o.tenure=(it?'인턴 '+span(it,TODAY)+' · ':'')+'전환 D-'+dday(j)}
+  else if(j)o.tenure=span(j,TODAY);
+  else if(it&&it<=TODAY)o.tenure=(o.sub==='alb'?'':'인턴 ')+span(it,TODAY);
+  if(q)o.tenure+=(o.tenure?' · ':'')+(o.sub==='reg'?'퇴사 예정':'종료')+' D-'+dday(q);
+  o.from=j&&j<=TODAY?j:null;
+  if(o.sub!=='reg')o.st=(it&&it>TODAY)||(!it&&j&&j>TODAY)?'soon':'on';
+  return o}
+
+// ── 저장·동기화 ──────────────────────────────────────────
+let D={rows:[],updated:0},editing=false,showDebut=false,goneOpen=false;   // 데뷔 열은 접힌 채 시작(머리글 클릭으로 펼침)
+const load=()=>{try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&Array.isArray(d.rows)){normalize(d.rows);return d}}catch(e){}return null};
+const setSync=t=>{$('#sync').textContent=t};
+async function pull(){
+  try{const r=await fetch(ENDPOINT,{cache:'no-store'});if(!r.ok)throw 0;return await r.json()||{}}catch(e){return null}}
+async function push(){
+  setSync('저장 중…');
+  const b=await pull();
+  if(!b){setSync('⚠ 이 기기에만 저장 — 동기화 저장소에 연결하지 못했습니다');return}
+  try{await fetch(ENDPOINT,{method:'POST',body:JSON.stringify({...b,roster:D})})}catch(e){setSync('⚠ 이 기기에만 저장 — 올리기 실패');return}
+  const chk=await pull();
+  if(chk&&chk.roster&&chk.roster.updated===D.updated)setSync('☁ 동기화됨 · '+new Date(D.updated).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',hour12:false}).slice(0,-3));
+  else setSync('⚠ 이 기기에만 저장 — 동기화 저장소가 명부를 보관하지 않습니다');
+}
+function commit(rows){rows.forEach(r=>{delete r._g});   // _g 는 편집 화면 전용 표시 — 저장하지 않는다
+  D={rows:normalize(rows),updated:Date.now()};try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}render();push()}
+async function boot(){
+  D=load()||D;render();setSync(D.rows.length?'불러오는 중…':'');
+  const b=await pull();
+  if(!b){setSync(D.rows.length?'이 기기 저장본 (동기화 저장소 연결 실패)':'');return}
+  const R=b.roster;
+  if(R&&Array.isArray(R.rows)&&(R.updated||0)>(D.updated||0)){normalize(R.rows);D=R;try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}if(!editing)render();setSync('☁ 동기화됨')}
+  else if(D.rows.length&&(!R||(R.updated||0)<D.updated))push();        // 이 기기가 더 최신 → 올린다
+  else setSync(D.rows.length?'☁ 동기화됨':'');
+}
+
+// ── 붙여넣기 해석 ────────────────────────────────────────
+const HDR=[[/^묶음/,'sec'],[/^팀/,'team'],[/^(이름|성명)/,'name'],[/^(yy|나이|생년|출생)/i,'yy'],[/직급|직책|직위/,'rank'],
+  [/인턴/,'intern'],[/입사/,'join'],[/데뷔/,'debut'],[/퇴사|종료/,'quit']];
+const isHdr=c=>c.some(x=>/^(이름|성명)$/.test(x));
+// 구분선 글 → 묶음. 'gone' = 정직원·인턴·알바가 섞인 퇴사 묶음(줄마다 직급으로 가른다).
+function blockOf(t){
+  if(/퇴사/.test(t)){const a=/정직원/.test(t),b=/인턴/.test(t),c=/알바/.test(t);
+    return a&&!b&&!c?'left':b&&!a&&!c?'intern':c&&!a&&!b?'alba':'gone'}
+  if(/알바/.test(t))return 'alba';
+  if(/인턴/.test(t))return 'intern';
+  if(/재직|정직원|근무/.test(t))return 'active';
+  return null}
+function parse(text){
+  const lines=String(text||'').replace(/\r/g,'').split('\n').map(l=>l.split('\t').map(c=>c.trim()));
+  let map=null;
+  for(const c of lines){if(!isHdr(c))continue;
+    const ni=c.findIndex(x=>/^(이름|성명)$/.test(x));map={};
+    c.forEach((h,k)=>{if(!h)return;for(const [re,f] of HDR)if(re.test(h)){if(!(f in map))map[f]=k;break}});
+    if(!('team' in map)&&ni>0&&!Object.values(map).includes(ni-1))map.team=ni-1;   // 이름 앞의 이름 없는 열 = 팀
+    break}
+  if(!map){const off=lines.some(c=>c.length>=7)?1:0;                      // 머리글 없음 → 옛 순서
+    map={name:off,yy:off+1,rank:off+2,intern:off+3,join:off+4,debut:off+5,quit:off+6};if(off)map.team=0}
+  const g=(c,f)=>f in map?(c[map[f]]||''):'';
+  let block='active',rows=[],prevTeamCell=false,teamId=0;const teamOf={};
+  const sw=b=>{block=b;prevTeamCell=false;teamId++};
+  for(const c of lines){
+    const cells=c.filter(x=>x);
+    if(!cells.length){prevTeamCell=false;continue}
+    if(isHdr(c)){                                              // 머리글 줄 — 같은 줄에 구분 글이 있으면 묶음만 바꾼다
+      const rest=c.filter(x=>x&&!HDR.some(h=>h[0].test(x))&&!/근속|기간|상태|비고/.test(x)).join(' '),b=rest&&blockOf(rest);
+      if(b)sw(b);continue}
+    if(cells.length===1||(cells.length===2&&/^\d+\s*명$/.test(cells[1]))){   // 한 칸짜리 줄 = 구분선
+      const b=blockOf(cells[0]);if(b){sw(b);continue}}
+    else if(/퇴사\s*[-–—]\s*(정직원|인턴)/.test(cells.join(' '))&&!g(c,'yy')){sw(blockOf(cells.join(' ')));continue}
+    let tcell=g(c,'team');
+    if(tcell&&(/퇴사|알바/.test(tcell)||/^인턴$/.test(tcell))){sw(blockOf(tcell));tcell=''}   // 팀 칸에 적힌 구분 글
+    if(tcell){if(!prevTeamCell){teamId++;teamOf[teamId]=[]}
+      if(!/\)\s*$/.test(teamOf[teamId].join(' ')))teamOf[teamId].push(tcell);   // '휴먼/생체'+'(Human)' 까지만 — 닫는 괄호 뒤 칸('FDA')은 팀 이름이 아니다
+      prevTeamCell=true}else prevTeamCell=false;
+    const name=g(c,'name');if(!name)continue;
+    const rank=g(c,'rank'),sc=g(c,'sec');
+    let sec=block;
+    if(sc)sec=/퇴사/.test(sc)?'left':/인턴/.test(sc)?'intern':/알바/.test(sc)?'alba':'active';
+    else if(block==='gone')sec=/알바/.test(rank)?'alba':/인턴/.test(rank)?'intern':'left';
+    rows.push({sec,_t:teamId,name,yy:g(c,'yy'),rank,intern:g(c,'intern'),join:g(c,'join'),debut:g(c,'debut'),quit:g(c,'quit')});
+  }
+  for(const r of rows){r.team=(teamOf[r._t]||[]).join(' ');delete r._t}
+  return normalize(rows)}
+
+// ── 화면 ────────────────────────────────────────────────
+// 직급 칸에 RA 라고 적은 줄만 회색 글자(대소문자 무관 — 'ra'·'RA'). 이름 명단은 두지 않는다.
+const isJr=r=>/\bra\b/i.test(r.rank||'');
+const SUB={reg:0,itn:1,alb:2},ORD={on:0,soon:1,off:2},SUBL={reg:'정직원',itn:'🎓 인턴',alb:'🌈 알바'};
+const GRPS=[['work','👥 재직 — 지금 근무 중'],['gone','🚩 퇴사']];
+function render(){
+  const all=D.rows.map((r,idx)=>({r,idx,i:info(r)}));
+  const work=all.filter(x=>x.i.grp==='work'),gone=all.filter(x=>x.i.grp==='gone');
+  const by=(l,s)=>l.filter(x=>x.i.sub===s);
+  const reg=by(work,'reg'),itn=by(work,'itn'),alb=by(work,'alb');
+  const rk={};for(const x of reg){const k=x.r.rank||'미기재';rk[k]=(rk[k]||0)+1}
+  const names=l=>l.map(x=>x.r.name).join(' · ')||'없음';
+  $('#tiles').innerHTML=D.rows.length?[
+    ['재직',work.length,'정직원 '+reg.length+' · 인턴 '+itn.length+' · 알바 '+alb.length],
+    ['정직원',reg.length,Object.entries(rk).map(([k,v])=>k+' '+v).join(' · ')],
+    ['인턴',itn.length,names(itn)],
+    ['알바',alb.length,names(alb)],
+    ['퇴사 누적',gone.length,'정직원 '+by(gone,'reg').length+' · 인턴 '+by(gone,'itn').length+' · 알바 '+by(gone,'alb').length],
+  ].map(t=>'<div class="tile"><span>'+t[0]+'</span><b>'+t[1]+'</b><small>'+esc(t[2])+'</small></div>').join(''):'';
+
+  // 다가오는 일정 — 재직자만(퇴사자의 입사 기념일·종료된 인턴/알바는 안 나온다)
+  const ev=[];
+  for(const {r,i} of work){
+    if(isShort(r)){
+      if(i.start&&i.start>TODAY)ev.push([i.start,r.name+' — '+(r.rank||'단기')+' 시작']);
+      if(i.end&&i.end>=TODAY)ev.push([i.end,r.name+' — '+(r.rank||'단기')+' 종료']);
+    }else{
+      if(i.pending)ev.push([i.pending,r.name+' — 인턴 → 정직원 전환 예정']);
+      if(i.end)ev.push([i.end,r.name+' — '+(i.sub==='reg'?'퇴사 예정':(r.rank||'단기')+' 종료')]);
+      const j=i.from;if(j){const y=+TODAY.slice(0,4);for(const yy of [y,y+1]){const a=yy+j.slice(4);
+        if(a>=TODAY&&yy>+j.slice(0,4)&&(!i.end||a<=i.end)){ev.push([a,r.name+' — 입사 '+(yy-+j.slice(0,4))+'주년']);break}}}
+    }}
+  const up=ev.filter(e=>dday(e[0])<=120).sort((a,b)=>a[0].localeCompare(b[0]));
+  $('#upcard').hidden=!D.rows.length;
+  $('#upn').textContent=up.length?up.length+'건 · 앞으로 120일 · 가장 가까운 일정 '+(dday(up[0][0])===0?'오늘':'D-'+dday(up[0][0])):'앞으로 120일 — 없음';
+  $('#up').innerHTML=up.length?'<ul>'+up.map(e=>{const n=dday(e[0]);return '<li><b class="d'+(n<=7?' now':'')+'">'+(n===0?'오늘':'D-'+n)+'</b> '+md(e[0])+' · '+esc(e[1])+'</li>'}).join('')+'</ul>':'<span style="color:var(--muted);font-size:13px">120일 안에 잡힌 일정이 없습니다.</span>';
+
+  if(!D.rows.length&&!editing){$('#secs').innerHTML='<div class="card"><div class="empty">아직 명부가 없습니다.<br><b>📥 엑셀 표 붙여넣기</b>로 한 번에 넣거나 <b>✏️ 편집</b>으로 직접 추가하세요.</div></div>';return}
+  // 표는 둘 — 👥 재직 / 🚩 퇴사. 안에서는 정직원 → 인턴 → 알바, 재직 쪽 인턴·알바는 진행중 → 예정.
+  if(editing)all.forEach(x=>{if(!x.r._g)x.r._g=x.i.grp});   // 편집 중엔 묶음 고정 — 날짜를 고치는 동안 줄이 다른 표로 안 튄다
+  $('#secs').innerHTML=GRPS.map(([g,label])=>{
+    const list=all.filter(x=>(editing?x.r._g:x.i.grp)===g)
+      .sort((a,b)=>(SUB[a.i.sub]-SUB[b.i.sub])||(g==='work'&&a.i.sub!=='reg'?(ORD[a.i.st]||0)-(ORD[b.i.st]||0):0)||(a.idx-b.idx));
+    if(!list.length&&!editing)return '';
+    const head=['No','팀','이름','yy','직급','인턴 시작','입사일','데뷔','퇴사일',g==='work'?'근속·상태':'재직 기간'];
+    const cnt={};for(const x of list)cnt[x.i.sub]=(cnt[x.i.sub]||0)+1;   // 소묶음별 인원
+    let prevT=null,prevSub=null,no=0;
+    const ncol=10;
+    const body=list.map(x=>{const {r,idx,i}=x,sub=i.sub;
+      let out='';
+      if(sub!==prevSub){out='<tr class="subhd"><td colspan="'+ncol+'">'+SUBL[sub]+' <span class="n">'+cnt[sub]+'명</span></td></tr>';prevSub=sub;prevT=null;no=0}
+      no++;                                                   // 번호는 소묶음(정직원·인턴·알바)마다 1부터
+      if(editing)return out+'<tr data-i="'+idx+'">'+COLS.map(c=>'<td><input class="'+(c==='yy'?'yy':c==='team'?'w':'')+'" data-c="'+c+'" value="'+esc(r[c])+'"></td>').join('')+
+        '<td><select data-c="sec">'+SECS.map(s=>'<option value="'+s[0]+'"'+(s[0]===r.sec?' selected':'')+'>'+s[1]+'</option>').join('')+'</select></td><td><button class="del" title="이 줄 삭제">🗑</button></td></tr>';
+      const first=sub==='reg'&&r.team!==prevT;prevT=r.team;
+      let last=esc(i.tenure||'');
+      if(i.st)last=(i.tenure?esc(i.tenure)+' ':'')+'<span class="pill '+i.st+'">'+({on:'진행중',soon:'예정',off:'종료'}[i.st])+'</span>';
+      const ed=(c,v)=>'<td class="ed" data-i="'+idx+'" data-c="'+c+'" title="클릭해서 바로 수정">'+esc(v)+'</td>';
+      return out+'<tr class="'+(first?'first':'')+(g==='gone'&&sub!=='reg'?' dim':'')+(isJr(r)?' jr':'')+'"><td class="no">'+no+'</td><td class="tm">'+((first||sub!=='reg')?esc(r.team):'')+'</td><td class="nm">'+esc(r.name)+'</td>'+ed('yy',r.yy)+ed('rank',r.rank)+ed('intern',r.intern)+ed('join',r.join)+(showDebut?ed('debut',r.debut):'<td class="fd" title="'+(r.debut?'데뷔 '+esc(r.debut)+' · ':'')+'클릭해서 데뷔 열 펼치기">'+(r.debut?'·':'')+'</td>')+ed('quit',r.quit)+'<td class="ten">'+last+'</td></tr>'}).join('');
+    // 퇴사 표는 접힌 채 시작(보기 화면만 — 편집 중엔 늘 펼침). 펼친 상태는 다시 그려도 유지한다(goneOpen).
+    const fold=g==='gone'&&!editing,hd='<h2>'+label+'</h2><small>'+list.length+'명</small>';
+    const tbl='<div class="tw"><table class="'+(editing?'edit':'')+'"><thead><tr>'+
+      (editing?['팀','이름','yy','직급','인턴 시작','입사일','데뷔','퇴사일','구분','']:head).map(h=>!editing&&h==='데뷔'?'<th class="fd'+(showDebut?'':' cl')+'" title="데뷔 열 '+(showDebut?'접기':'펼치기')+'">데뷔 '+(showDebut?'◂':'▸')+'</th>':'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+body+'</tbody></table></div>';
+    return fold?'<details class="card gone"'+(goneOpen?' open':'')+'><summary class="hd">'+hd+'</summary>'+tbl+'</details>'
+      :'<div class="card '+g+'"><div class="hd">'+hd+(editing?'<button class="btn add" data-sec="'+(g==='work'?'active':'left')+'" data-g="'+g+'" style="margin-left:auto">＋ 줄 추가</button>':'')+'</div>'+tbl+'</div>'
+}).join('');
+  const gd=document.querySelector('#secs details.gone');if(gd)gd.addEventListener('toggle',()=>{goneOpen=gd.open});
+}
+
+// ── 편집 ────────────────────────────────────────────────
+let draft=null;
+function collect(){document.querySelectorAll('#secs tr[data-i]').forEach(tr=>{const r=D.rows[+tr.dataset.i];if(!r)return;tr.querySelectorAll('[data-c]').forEach(el=>{r[el.dataset.c]=el.value.trim()})})}
+function setEdit(on){editing=on;$('#b-edit').hidden=on;$('#b-save').hidden=!on;$('#b-cancel').hidden=!on;$('#b-paste').disabled=on;render()}
+$('#b-edit').onclick=()=>{draft=JSON.stringify(D);setEdit(true)};
+$('#b-cancel').onclick=()=>{D=JSON.parse(draft);setEdit(false)};
+$('#b-save').onclick=()=>{collect();const rows=D.rows.filter(r=>r.name);editing=false;setEdit(false);commit(rows)};
+$('#secs').onclick=e=>{
+  const add=e.target.closest('.add'),del=e.target.closest('.del');
+  if(add){collect();D.rows.push({sec:add.dataset.sec,_g:add.dataset.g,team:'',name:'',yy:'',rank:'',intern:'',join:'',debut:'',quit:''});render();const ins=document.querySelectorAll('#secs tr[data-i="'+(D.rows.length-1)+'"] input');if(ins[1])ins[1].focus()}
+  else if(del){collect();D.rows.splice(+del.closest('tr').dataset.i,1);render()}
+  else if(!editing){                         // 보기 화면에서 칸 클릭 = 그 값만 바로 수정
+    if(e.target.closest('.fd')){showDebut=!showDebut;render();return}   // 데뷔 열 접기/펼치기
+    const td=e.target.closest('td.ed');if(!td||td.querySelector('input'))return;
+    const i=+td.dataset.i,c=td.dataset.c;if(!D.rows[i])return;
+    const old=String(D.rows[i][c]||'');
+    td.innerHTML='<input value="'+esc(old)+'" style="width:'+(c==='yy'?'52px':'112px')+';font-size:12.5px;padding:2px 5px;border:1px solid var(--a);border-radius:5px;background:var(--bg);color:var(--fg)">';
+    const inp=td.querySelector('input');inp.focus();inp.select();
+    let fin=false;
+    const done=ok=>{if(fin)return;fin=true;const v=inp.value.trim();
+      if(ok&&v!==old){D.rows[i][c]=v;commit(D.rows)}else render()};
+    inp.onblur=()=>done(true);
+    inp.onkeydown=ev=>{if(ev.key==='Enter')inp.blur();else if(ev.key==='Escape')done(false)};
+  }};
+
+// ── 붙여넣기 ─────────────────────────────────────────────
+let parsed=[];
+const preview=()=>{parsed=parse($('#ta').value);
+  if(!parsed.length){$('#pv').textContent=$('#ta').value.trim()?'읽을 수 있는 줄이 없습니다 — 탭으로 구분된 엑셀 표인지 확인해 주세요.':'';return}
+  const X=parsed.map(r=>({r,i:info(r)})),pick=(g,s)=>X.filter(x=>x.i.grp===g&&x.i.sub===s).map(x=>x.r.name);
+  const line=g=>['reg','itn','alb'].map(s=>{const n=pick(g,s);return n.length?'<span class="g">'+SUBL[s]+' '+n.length+'</span> '+esc(n.join(' · ')):''}).filter(Boolean).join('<br>');
+  const nw=X.filter(x=>x.i.grp==='work').length;
+  $('#pv').innerHTML='<b>읽은 결과 — 합계 '+parsed.length+'명</b><br><b>👥 재직 '+nw+'명</b><br>'+(line('work')||'<span class="g">없음</span>')+
+    '<br><b>🚩 퇴사 '+(parsed.length-nw)+'명</b><br>'+(line('gone')||'<span class="g">없음</span>')};
+$('#b-paste').onclick=()=>{$('#ta').value='';$('#pv').textContent='';parsed=[];$('#dlg').showModal()};
+$('#ta').oninput=preview;
+$('#d-no').onclick=()=>$('#dlg').close();
+$('#d-ok').onclick=()=>{preview();if(!parsed.length)return;if(D.rows.length&&!confirm('지금 명부 '+D.rows.length+'명을 지우고 붙여넣은 '+parsed.length+'명으로 바꿉니다.'))return;$('#dlg').close();commit(parsed)};
+
+// ── 내보내기 ─────────────────────────────────────────────
+// 다시 붙여넣어도 그대로 읽히는 모양('묶음' 열 + 머리글 이름).
+function table(sep,q){const out=[['묶음','팀','이름','yy','직급','인턴 시작','입사일','데뷔','퇴사일','근속·기간']];
+  for(const [k,label] of SECS)for(const r of D.rows.filter(x=>x.sec===k))out.push([label,r.team,r.name,r.yy,r.rank,r.intern,r.join,r.debut,r.quit,info(r).tenure||'']);
+  return out.map(l=>l.map(c=>q?'"'+String(c||'').replace(/"/g,'""')+'"':String(c||'')).join(sep)).join('\n')}
+$('#b-copy').onclick=async()=>{try{await navigator.clipboard.writeText(table('\t',false));setSync('📋 복사됨 — 엑셀에 붙여넣으세요')}catch(e){setSync('복사 실패 — ⬇ CSV 를 쓰세요')}};
+$('#b-csv').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+table(',',true)],{type:'text/csv'}));a.download='인원명부_'+TODAY+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
+
+window.__roster={parse,info,normalize,pdate,addDur,span,table:()=>table('\t',false)};   // 검증용
+boot();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+/* 사용자가 토글로 고른 값 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",TH="466f2167513403c0b21bd9bc77f62789f19195656f686edba4adaede4ee93c80",OWNER=false,TEAMOK=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===TH?"team":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ // 팀 비번이 통하는 곳: 대시보드 본체를 수명 피드백 항목 링크로 연 집중 화면뿐.
+ function teamHere(){return TEAMOK&&/[?&]focus=/.test(location.search)&&/^#tasklist:/.test(location.hash)}
+ function pass(l){return l==="owner"||((l==="guest"||l==="team")&&!OWNER)||(l==="team"&&teamHere())}
+ var lv=level();
+ if(pass(lv)){window.__GS_LEVEL__=lv;return}   // app.js 가 등급을 읽어 팀 화면을 좁힌다
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ window.__GS_GATED__=1;                  // 아직 안 풀림 — app.js 가 서버 데이터를 받아 두지 않게
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?(teamHere()?"주인 또는 팀 비밀번호로 열립니다. ":"이 화면은 주인 비밀번호가 필요합니다. "):"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     var l=h===OH?"owner":h===TH?"team":h===GH?"guest":null;
+     if(pass(l)){set(h);location.reload();return}
+     msg.textContent=l==="guest"?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                    :l==="team"?"팀 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>친환경 에너지·FDC 브리핑 2026-11-20</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:13.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-mint,#7fd9b6);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-mint-line,#24443a)}
+h3{font-size:16px;color:var(--gs-mint,#7fd9b6);margin:18px 0 6px}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-mint-line,#24443a);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:13px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<h1>🌊 친환경 에너지·FDC 데일리 브리핑</h1>
+<div class="meta">기준: 2026-11-20 11:00 KST · 생성: Gemini(gemini-flash-latest) + 구글뉴스 RSS · 주제: 친환경 선박(암모니아·수소·원자력)/FDC/FLNG·LNG FID/미국 발전원/미·한 데이터센터</div>
+<p>친환경 에너지·FDC 분야에서 지난 24시간 동안 발생한 주요 뉴스를 정리해 드립니다. 업데이트 시간은 2026-11-20 11:00입니다.</p>
+<h2>오늘의 핵심 요약</h2>
+<ul>
+<li>엑손모빌(ExxonMobil)의 300억 달러 규모 모잠비크 로부마(Rovuma) LNG 육상 프로젝트 변경안 승인 및 에니(Eni)의 코랄 노스(Coral North) FLNG 50억 달러 차입 임박으로 동아프리카 해양/육상 가스전 투자가 본궤도에 진입했습니다.</li>
+<li>미국 FERC가 셰니에르(Cheniere)의 사빈패스(Sabine Pass) 2,000만 톤(mtpa) 확장 프로젝트를 승인하면서 최종투자결정(FID) 가시권에 진입, 대형 LNG선 발주 모멘텀이 강화되었습니다.</li>
+<li>골라LNG(Golar LNG)가 4번째 FLNG 신조/개조 프로젝트 계약을 위한 심화 협상(advanced talks)을 진행 중이라고 공식 발표했습니다.</li>
+<li>한국 정부는 AI 데이터센터(AIDC) 인허가 패스트트랙을 도입하고 비수도권 50MW 이하 시설의 전력계통영향평가를 면제하는 등 분산 입지 유도 법안을 본격 추진합니다.</li>
+<li>미국에서는 데이터센터 급증에 따른 일반 가정 전기요금 전가 논란 및 전력망 포화 문제가 대두되며 빅테크의 자가발전(가스터빈 등) 의존도가 확대되고 있습니다.</li>
+</ul>
+<h2>친환경 선박 추진</h2>
+<h3>암모니아</h3>
+<ul>
+<li><b>NYK-야라(Yara), 암모니아 연료 추진 가스 운반선 실증 운항 테스트 개시</b>: 일본 NYK가 비료·화학 대기업 야라와 협력하여 암모니아 연료 추진 가스선의 실제 운항 시험 단계에 돌입했습니다(11/19 보도). 해운 탄소중립 규제(IMO Net-Zero)를 앞두고 암모니아 이중연료(DF) 엔진의 해상 실증이 본격화되고 있습니다. <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxNZEFsd2NkdW5PLWNYazZmSzFfYjhES2V6ZkJoakVBMThmbXU1N1NZdnV0VG5Mc1h5bXNhRXRReTNaZ2plQnhtdzQyYjZfZW13d251RDU5UFk0cmJiR1Z5N25udmVaX2YxalVoTFJTRk80bXYwMGJRdnFtd3ROVUVEV0NnODFxRU9TcjVFbUEtQktScVhlQTdEaWl1UQ?oc=5">Breakbulk.News</a></li>
+</ul>
+<h3>액화수소</h3>
+<ul>
+<li>특이사항 없음.</li>
+</ul>
+<h3>원자력·SMR 추진</h3>
+<ul>
+<li>특이사항 없음.</li>
+</ul>
+<h2>FDC (Floating Data Center)</h2>
+<ul>
+<li>특이사항 없음.</li>
+</ul>
+<h2>FLNG · LNG 액화 FID</h2>
+<ul>
+<li><b>골라LNG(Golar LNG), 4번째 FLNG 유닛 발주 협상 가속</b>: 골라LNG는 실적 발표를 통해 아르헨티나 배치 예정인 Hilli호 재배치 외에도 4번째 FLNG 유닛에 대한 선주 및 용선 계약 심화 협상(advanced talks)을 진행 중이라고 밝혔습니다(11/20 보도). 해양 가스전 개발 수요가 유지되면서 FLNG 수주 파이프라인이 확대되고 있습니다. <a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxNY3djNWRkOUMyQ0Mwa25FN3hGR2ZIVHN0QWI1dkd4RU95SkV1NWVuVzllWmVmNmxudFJubklSNjU3czVod1JBM1dJZUYySDd4RW0xdzJYOE9IZWRzOVJiQVRrZC1abVFKNFZsekhDandmTmxKTmZpYnAyeWZ5bUMwSVp6V01WdGpiS1g2OWx6OEpqejhLTW93?oc=5">Upstream Online</a>, <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxQU250eXFhTGVaWGF1UFlUMWZFNzFyNG5aVHFybElFRFU2TEVEMlBwSnpKb3RYMS1NOUozZkhVcDJZNWM2R1J2NWtXX191bDJvcG9abDVHT09SMkVGdzVyM2RFcjBxN0NfN1l2OGtiSVFaMUJHdGI5dllMZ05uNklWRldwYTBMTUZNN20zU1R2azVWRHNzRU16Q3FlclRnVVnSAawBQVVfeXFMUHNnMnFaai1uVXlqR0NSUVJCNHgwUVgyUE9QRGl1Y1J1aEp6V1hValYtOUtpOHI4RUZJMWpaYjQ4V3NkS0NmYmdBdTROeGxvTTFFM1RWSGRiX1hoTGxFc25VNGYwaFk4bW1RSkNUNHFoVEE4anV4YWx3cGVXcE15R2ZrTWp3azVBeHpFRVJlNEFkd2VZRU9HOTNQcUZ6WXpLYXBIaVVJaWhuWHlGVg?oc=5">Baird Maritime</a></li>
+<li><b>에니(Eni) 코랄 노스(Coral North) FLNG, 50억 달러 차입 마무리 단계</b>: 모잠비크 해상 가스전을 대상으로 한 에니의 2번째 FLNG인 Coral North 프로젝트가 수출신용기관(ECA) 보증 50억 달러 규모 대출 완료에 근접했습니다(11/19 보도). 국내 조선사 건조 계약 및 착공으로 이어지는 핵심 관문입니다. <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxNejRheTNQaVNfY09NUVQ2bDQ5bmxYZExKdFgzVjFsa1VZNkpGdFJFTk83U0s4VURTU3RjWnNHbkN3R0dFanlJeTRubzJWMGtPeEh5bktveGtlNGotTmF5SDYzZXlrcG9PdjhGbm9kNldJdFFqYjhjbWlSdC1icU52MjlGVTBTVkEyZ2VPZ2pOYw?oc=5">TXF</a></li>
+<li><b>모잠비크 로부마(Rovuma) LNG 변경안 승인</b>: 모잠비크 정부가 엑손모빌 주도의 300억 달러 규모 로부마 LNG 프로젝트 수정 개발 계획을 최종 승인했습니다(11/19 보도). 1,800만 톤 규모 육상 모듈러 액화 트레인 건설로 FID가 임박했습니다. <a href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxPa2NSU0xhazhEQzRacExQaVZ0aFdFSDBuSm1adjJMNjN4MzV4cVJxeWFqMVJXcWpvZmJNaE1KS3QzOUJibmlOdmF5TVJjVlRFaTVGSC0yR2ViUEc5WlA1cHM2eXJjSFZKcUZRcmxnVDlBQ2xfN3VpekJwUHA3MlZsdXVoZ2FLaHpvMHZ4YnpuR1VBUWdWVkg5OU42M2ctYmVVa2pqM2thakdhWmM?oc=5">TradeWinds News</a></li>
+<li><b>셰니에르 사빈패스(Sabine Pass) 확장안 FERC 승인</b>: 연방에너지규제위원회(FERC)가 20mtpa 규모의 대규모 확장안을 승인하여 FID 단계에 바짝 다가섰습니다(11/20 보도). <a href="https://news.google.com/rss/articles/CBMimgFBVV95cUxQZUVDOFFRckYzeXM0VHVtbFZTeEVHbGlpdktUS2s0US1zRF9EQ1N4NFZJa3B6YnFDZjlDY05veDFKT0EwNjVYQTBlVGlUVlBzRWhlRldFZ1FTTTdxRTFRbjZYczVxaEtZZE5xbjBrU1NmcjZjN3FCVVB6aXpWRl8wMmdIS2NRaEU2bzZkUUpILUhhZTRHVUstalR3?oc=5">Hart Energy</a></li>
+<li><b>FID 추적 리스트</b>:</li>
+</ul>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>Sabine Pass Expansion Stage 5</td><td>미국</td><td>Cheniere</td><td>20.0</td><td>FERC 승인 완료(FID 임박)</td><td>11/20</td></tr>
+<tr><td>Rovuma LNG</td><td>모잠비크</td><td>ExxonMobil</td><td>18.0</td><td>정부 개발안 승인(FID 추진)</td><td>11/19</td></tr>
+<tr><td>Coral North FLNG</td><td>모잠비크</td><td>Eni</td><td>3.5</td><td>50억 달러 금융조달 마감 임박</td><td>11/19</td></tr>
+</table></div>
+<h2>미국 발전원 투자</h2>
+<h3>가스복합화력</h3>
+<ul>
+<li><b>미국 데이터센터 자체 가스발전 구축 확대</b>: 미국 내 데이터센터 사업자들이 전력망 연결 지연(Interconnection queue) 문제를 우회하기 위해 전력망에 의존하지 않고 현장(On-site) 가스복합발전 및 가스터빈을 직접 설치하는 독립 자가발전 도입을 가속화하고 있습니다(11/20 보도). <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTFBnVC1XNG45Rkp0N1A1VG9GQXdIM1JhR2lVQzRQYldxWUpFbGtxTFpVd05JS0Z2WVd1YjZJRVdfbVhRckg5TkRhenhOUVM0MlUwbnFGX01ZNkRZeGVYb1kyczJWQQ?oc=5">더구루</a></li>
+</ul>
+<h3>신재생</h3>
+<ul>
+<li><b>정치 지형 변화와 AI DC의 태양광 조달 확대</b>: 미국의 정치적 불확실성(중간선거·정권 변화 등) 및 전력난 장기화에 대응해 하이퍼스케일러들이 즉시 설치가 용이한 대규모 태양광 및 배터리에너지저장장치(BESS) 결합형 전력구매에 집중하고 있습니다(11/20 보도). <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxPclF0cVEzTXBCTmNoUlM1cjFyU1RzVHhPNnVKZEpPRUcxYWd0cWdVZk0waEVFTk5Bd2dwOFR6TG05d0hFUlY2Z210SzhwSG1CVG9XMThHT09sQ1hnVkNNSmJyOW5NMF9kN0d0Mkg1RnJhN1JNZXh1bzBYUGd5c0ZXMWFEUVNxM3VrZnp1S0VMa9IBZkFVX3lxTE5VeTB1am1JaXZjRXJPd0hmQVByNFdFVnM4bXBvQ2dLelhqSUxSY1NQQTRrUFVlTzBHbWViYk9BdG1XcFlRLUNFMmxJOEhLRmpwWEdhclJfTkNsNXpURVQ3OTU2VTNEdw?oc=5">SBS 뉴스</a></li>
+</ul>
+<h3>SMR</h3>
+<ul>
+<li><b>다우(Dow)-엑스에너지(X-energy), 텍사스 4기 SMR 건설 허가 확보</b>: NRC(미국 원자력규제위원회)로부터 텍사스 석유화학 콤플렉스 산업 공정열 및 전력 공급을 위한 4기 원자로 건설 인허가를 공식 취득했습니다(11/20 보도). <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTFBwWjAwVVNtQXktQnh2a255andJc1NjNFYtNGd0Vl8tWjNtWmJvcURxLWpaVmZ2alUtUWE4TTI1YXEyYzBIalJ4bWczcnVrUHc3VUZMcTZEeE1TMFZteGJPZ2lNZjg2ZkRyeEZyeGFUMC0xR25uNWtRZjZSU3ZyQQ?oc=5">Energies Media</a></li>
+<li><b>아팔라치안 파워(Appalachian Power), 버지니아 SMR 부지 작업 요금 인상 신청</b>: 미국 유틸리티 기업 아팔라치안 파워가 SMR(소형모듈원자로) 신규 부지 엔지니어링 및 개발 비용 충당을 위해 월별 전력 요금 인상을 규제 당국에 요청했습니다(11/20 보도). <a href="https://news.google.com/rss/articles/CBMizAFBVV95cUxNYndBcGg1S1BoNnBnNWt4cE1uQ3dSWDB6aGQtVlBfcDNSN2pjSkJUbU5fSkdIdE9xNmJBa09UZmpmaEtCd2FEX3dwRWtkczlNcHVvaXJ4RzVHTkJpM3liMnRleWllZ2trU2hiMHUyR2V5bzBRUDU0OC1OZmZNVkw3Qi1mTHA1VXpScHF5cFdyOVNVRjFxVHQ2ZFVmSi01bVBEdmtYUndFTnZGMVNoTTRWUTEzeUhabWFabFEzZ1owZkVxcTVBMFo5cHh4bzE?oc=5">WSET</a></li>
+</ul>
+<h2>데이터센터 투자 (미국·한국)</h2>
+<h3>미국</h3>
+<ul>
+<li><b>IEA, 2030년 데이터센터 전력 소비량 2배 급증 경고</b>: 국제에너지기구(IEA)는 글로벌 AI 및 데이터센터 지출이 4조 달러 규모로 확대되는 과정에서 2030년까지 전력 소모량이 현재의 두 배로 폭증해 전력망 포화 및 탄소 배출 심화를 유발할 것이라 발표했습니다(11/20 보도). 이에 따라 빅테크의 신규 전력망 연결 지연이 심화되어 BESS 및 오프그리드 발전설비가 대체재로 부각되고 있습니다. <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTFB6eHBsVnFyNkttejYzSVBVM1ZCYUtoZFI2dUtRMGlMb3V3YWpKSDV0cDctQWQ0eWxjcWpTakNjOWdiTVZwbFRNMHAtNzRZbVJpMm1XbnJ4WWpXcHJobHFzMlE2cw?oc=5">더구루</a>, <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE9aX25kckE4X0hxa2xyRkgxemJTdDM4T0gtbjJ6c3lpUktDV0EtVHNsZXpRMnRTTzhSeEF6QW5tNTdQNDBULS1ZZEdRUzdndnpYb3kwWnB3RUp1UTlhbjhFT1VLY2tTd01QZ0tmWDNzN0Y?oc=5">연합인포맥스</a></li>
+</ul>
+<h3>한국</h3>
+<ul>
+<li><b>한국 정부, 비수도권 AI 데이터센터 전력평가 면제 등 인허가 패스트트랙 입법예고</b>: 산업통상자원부 등이 비수도권에 50MW 이하 AI 데이터센터를 지을 경우 전력계통영향평가를 전액 면제하고, 인허가 일괄 처리 및 부설주차장 규제를 완화하는 하위법령 제정안을 입법 예고했습니다(11/20 보도). 수도권 전력망 과밀을 해소하고 전력 여유가 있는 비수도권으로의 AIDC 분산을 유도하려는 목적입니다. <a href="https://news.google.com/rss/articles/CBMiYEFVX3lxTE5nR2Y0aGpmTHM3SUNRSkVYLUZSM3JseWtsdk1IRFp0RENDR0JVZlB3N2tqTVZPTWFQelV2UUNkNzVhVWhoRXR4VnlNVFdCYjdfR1p4aVZ4cGZUdzZQQmhQRQ?oc=5">한겨레</a>, <a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTE5xZGM5a3VIR0w5TGhzQlhfZU92ZVA1Sk1XMVktbk56N0J1d29TNGVOZ1JPRm9yOEJEa1ByWDVCWnBnZFAxa1RyaC1jd2JESWtHbmg4NGQ5Tm9aRk3SAWBBVV95cUxPUVN2dTVuUDhVcDRpQ0tMLXhQZUk0b2xoUVhqay1fZWxrbllTZHNfanNoamNRQk5DZjZYMzRLYzV2dlJPOXdSdVFQazJfSG9aYVYwRTRJTmJkLXpRazVaaV8?oc=5">연합뉴스</a></li>
+</ul>
+<h2>미국 DC 법안·규제 &amp; 반대 움직임</h2>
+<ul>
+<li><b>버지니아주 등 미국 전역의 '전기요금 폭탄' 논란과 지역사회 반발</b>: 미국 내 주요 데이터센터 밀집지(버지니아주 등)에서 빅테크 DC의 대규모 송전망 증설 및 발전 비용이 일반 주택용 전기요금으로 전가된다는 비판이 거세지면서 지역 주민과 시민단체의 신규 DC 건설 승인 반대와 소송이 격화되고 있습니다(11/20 보도). 신규 송전선로 허가 지연과 조닝(토지용도) 승인 거부, 모라토리엄 논의가 지속 확산되는 양상입니다. <a href="https://news.google.com/rss/articles/CBMiakFVX3lxTFBKTHZieXZ1TmdlUnphdkVvSWVVbEFvWGV6bFB3SlhUTFNCcHBLNGZJNWxFNExjbHY3RG9ab2RrTmw4TzAxWU1nUEdSbVJKYm9ySDExZi15MVRXeHY2WmswbzRKZW91aWxYQWc?oc=5">SBS 뉴스</a></li>
+<li><b>인허가 지연에 따른 전력 인프라 병목 현상</b>: 데이터센터 신규 허가 심사 강화로 인해 미국 내 배전 기자재 공급망 일부가 단기 납품 지연을 겪는 등 제도적 규제와 주민 저항이 데이터센터 착공 속도를 늦추는 핵심 병목 요인으로 지목되고 있습니다(11/20 보도). <a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTE9WZldmVWo1d0NHbFl4QmZjb2pfWHczUjVRLXlVU0hnWTNkZlQxanNHQjMza0E3LXRaUFhfRTR4czZJNUdSVGo5b2MyQllnekM3VGhpQjFVZHZBX2pFQ1JV?oc=5">뉴스1</a></li>
+</ul>
+<h2>한국 조선·기자재 시사점</h2>
+<p>1. <b>FLNG 수주 가시화</b>: 에니(Eni)의 코랄 노스(Coral North) 50억 달러 파이낸싱 완결 임박과 골라LNG의 4번째 FLNG 협상 공식화는 삼성중공업과 한화오션의 대형 FLNG EPC 수주 파이프라인의 수익성 개선 및 슬롯 선점 효과로 직결됩니다.</p>
+<p>2. <b>미국 LNG 수출 인허가 재개 및 대형 LNG선 교체 수요</b>: 사빈패스(20mtpa)의 FERC 최종 승인은 미국의 LNG 수출 확대와 이에 수반되는 174k CBM급 대형 LNG운반선 대규모 추가 발주로 이어져 한국 조선 3사(HD한국조선해양·한화오션·삼성중공업)의 카타르 프로젝트 이후 중장기 수주 잔고를 강력히 지지합니다.</p>
+<p>3. <b>육상 DC 전력망 포화/규제 심화에 따른 해상 솔루션 기회</b>: 미국 육상 데이터센터의 전력 계통 접속 지연, 주민 반발, 전기요금 전가 논란에 따른 인허가 병목은 원거리 해상에 자립형 전력원(가스터빈·해상풍력·SMR)을 탑재하는 해상 데이터센터(FDC) 및 해상 부유식 발전설비(FSRP)의 경제성을 부각시키는 강력한 트리거가 될 전망입니다.</p>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"light"}catch(e){return "light"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="light")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

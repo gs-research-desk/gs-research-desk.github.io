@@ -1,0 +1,222 @@
+{
+ "source": "DC인사이드",
+ "galleries": [
+  {
+   "id": "krstock",
+   "name": "국내주식갤러리",
+   "posts": 1510,
+   "capped": true,
+   "burst": 1.9,
+   "base_daily": 800.9
+  },
+  {
+   "id": "stockus",
+   "name": "해외주식갤러리",
+   "posts": 7351,
+   "capped": true,
+   "burst": 3.2,
+   "base_daily": 2331.7
+  }
+ ],
+ "posts_sampled": 588,
+ "keywords": [
+  {
+   "term": "이사회",
+   "count": 11,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "나이키",
+   "count": 11,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "실발",
+   "count": 7,
+   "burst": 84.9,
+   "new": true
+  },
+  {
+   "term": "속보",
+   "count": 7,
+   "burst": 84.9,
+   "new": true
+  },
+  {
+   "term": "섹슨황",
+   "count": 5,
+   "burst": 60.7,
+   "new": true
+  },
+  {
+   "term": "모든",
+   "count": 5,
+   "burst": 60.7,
+   "new": true
+  },
+  {
+   "term": "젠슨",
+   "count": 5,
+   "burst": 60.7,
+   "new": true
+  },
+  {
+   "term": "롱숭이들",
+   "count": 5,
+   "burst": 60.7,
+   "new": true
+  },
+  {
+   "term": "드라켄밀러",
+   "count": 5,
+   "burst": 60.7,
+   "new": true
+  },
+  {
+   "term": "젠슨황",
+   "count": 39,
+   "burst": 5.3,
+   "new": false
+  },
+  {
+   "term": "엔비",
+   "count": 34,
+   "burst": 4.2,
+   "new": false
+  },
+  {
+   "term": "복귀",
+   "count": 18,
+   "burst": 5.1,
+   "new": false
+  },
+  {
+   "term": "엔비디아",
+   "count": 25,
+   "burst": 3.3,
+   "new": false
+  },
+  {
+   "term": "SK하이닉스",
+   "count": 8,
+   "burst": 3.3,
+   "new": false
+  },
+  {
+   "term": "속슬",
+   "count": 18,
+   "burst": 1.7,
+   "new": false
+  }
+ ],
+ "top_recommended": [
+  {
+   "gallery": "해외주식갤러리",
+   "title": "손해 천만원 이상이면 개추 ㅋㅋㅋㅋㅋㅋ",
+   "views": 11063,
+   "recommend": 312,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18425936&exception_mode=recommend&page=1",
+   "time_kst": "11-17 19:10"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "오늘 길가다 세무사 존나 팸",
+   "views": 9971,
+   "recommend": 191,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18422807&exception_mode=recommend&page=1",
+   "time_kst": "11-17 14:12"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "애초에 국민들이 연금을 받는게 이상한거였음 ㄹㅇ",
+   "views": 7453,
+   "recommend": 188,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18420035&exception_mode=recommend&page=2",
+   "time_kst": "11-17 09:30"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "세무사가 곧 없어질 직업인 이유",
+   "views": 8385,
+   "recommend": 187,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18423785&exception_mode=recommend&page=1",
+   "time_kst": "11-17 15:43"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "국장충들이 외화유출 매국노새끼들 아님?",
+   "views": 7380,
+   "recommend": 157,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18420419&exception_mode=recommend&page=2",
+   "time_kst": "11-17 10:05"
+  }
+ ],
+ "top_viewed": [
+  {
+   "gallery": "국내주식갤러리",
+   "title": "실시간 야선시세.jpg",
+   "views": 812,
+   "recommend": 1,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3918530&page=5",
+   "time_kst": "11-18 02:25"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "폭딸치고 옴",
+   "views": 573,
+   "recommend": 5,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3918563&page=4",
+   "time_kst": "11-18 03:09"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "젠슨 황 : \"이사회가 원한다면, CEO로 복귀하겠다\"",
+   "views": 549,
+   "recommend": 1,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3918580&page=4",
+   "time_kst": "11-18 03:53"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "내일 프장에 꼭 사라",
+   "views": 537,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3918553&page=4",
+   "time_kst": "11-18 02:50"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "실시간 마누라강탈중ㅋㅋㅋㅋ",
+   "views": 529,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3918538&page=4",
+   "time_kst": "11-18 02:36"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "한달동안 외인 순매도 16조네;;",
+   "views": 490,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3918561&page=4",
+   "time_kst": "11-18 03:03"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "중국도 지금 청년들 폭발 직전이라고 함",
+   "views": 482,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3918574&page=4",
+   "time_kst": "11-18 03:44"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "외국인 풋옵션 500억 샀네",
+   "views": 455,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3918570&page=4",
+   "time_kst": "11-18 03:37"
+  }
+ ]
+}

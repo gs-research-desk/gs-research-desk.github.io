@@ -1,0 +1,222 @@
+{
+ "source": "DC인사이드",
+ "galleries": [
+  {
+   "id": "krstock",
+   "name": "국내주식갤러리",
+   "posts": 1171,
+   "capped": true,
+   "burst": 1.2,
+   "base_daily": 972.6
+  },
+  {
+   "id": "stockus",
+   "name": "해외주식갤러리",
+   "posts": 1045,
+   "capped": true,
+   "burst": 0.3,
+   "base_daily": 3281.1
+  }
+ ],
+ "posts_sampled": 501,
+ "keywords": [
+  {
+   "term": "복귀",
+   "count": 21,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "황어게인",
+   "count": 9,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "베센트",
+   "count": 8,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "수능",
+   "count": 7,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "세무사",
+   "count": 5,
+   "burst": 73.5,
+   "new": true
+  },
+  {
+   "term": "그래",
+   "count": 5,
+   "burst": 73.5,
+   "new": true
+  },
+  {
+   "term": "카더라",
+   "count": 5,
+   "burst": 73.5,
+   "new": true
+  },
+  {
+   "term": "어떻게",
+   "count": 5,
+   "burst": 73.5,
+   "new": true
+  },
+  {
+   "term": "트럼프",
+   "count": 5,
+   "burst": 73.5,
+   "new": true
+  },
+  {
+   "term": "ai",
+   "count": 28,
+   "burst": 10.0,
+   "new": false
+  },
+  {
+   "term": "젠슨황",
+   "count": 30,
+   "burst": 9.4,
+   "new": false
+  },
+  {
+   "term": "AI",
+   "count": 16,
+   "burst": 10.2,
+   "new": false
+  },
+  {
+   "term": "안경",
+   "count": 14,
+   "burst": 9.8,
+   "new": false
+  },
+  {
+   "term": "국장",
+   "count": 13,
+   "burst": 8.3,
+   "new": false
+  },
+  {
+   "term": "삼성전자",
+   "count": 10,
+   "burst": 8.6,
+   "new": false
+  }
+ ],
+ "top_recommended": [
+  {
+   "gallery": "해외주식갤러리",
+   "title": "세무사 수석 자수한 이유",
+   "views": 14896,
+   "recommend": 280,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18399079&exception_mode=recommend&page=1",
+   "time_kst": "11-15 15:19"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "세무냥이 <- 애때메 지금 피해자들 존니 많다 ㅠㅠ",
+   "views": 8553,
+   "recommend": 204,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18401310&exception_mode=recommend&page=1",
+   "time_kst": "11-15 21:07"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "내일 나스닥 30% 빠졌으면 좋겠으면 개추",
+   "views": 8561,
+   "recommend": 163,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18398493&exception_mode=recommend&page=1",
+   "time_kst": "11-15 13:57"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "모두들 그동안 고마웠습니다...",
+   "views": 12476,
+   "recommend": 152,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18397123&exception_mode=recommend&page=1",
+   "time_kst": "11-15 11:30"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "다시 보니 진짜 현명한 새끼들...jpg",
+   "views": 12189,
+   "recommend": 142,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18396208&exception_mode=recommend&page=1",
+   "time_kst": "11-15 10:06"
+  }
+ ],
+ "top_viewed": [
+  {
+   "gallery": "국내주식갤러리",
+   "title": "[속보] 베센트 \"다음달 인플레이션 큰폭으로 떨어질것\"",
+   "views": 694,
+   "recommend": 6,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902012&page=6",
+   "time_kst": "11-16 00:45"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "(카더라) 젠슨황 CEO 복귀 논의",
+   "views": 591,
+   "recommend": 2,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902194&page=2",
+   "time_kst": "11-16 04:12"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "반등 절대 없을 것 같아도",
+   "views": 528,
+   "recommend": 2,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902020&page=6",
+   "time_kst": "11-16 00:48"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "와 존나 소름돋는 사진봄",
+   "views": 521,
+   "recommend": 2,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902166&page=3",
+   "time_kst": "11-16 03:09"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "월요일부터 상한가뭐냐 미친ㄷㄷㄷ",
+   "views": 506,
+   "recommend": 2,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902000&page=6",
+   "time_kst": "11-16 00:40"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "내일 국장 동호가  예상",
+   "views": 490,
+   "recommend": 3,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902148&page=3",
+   "time_kst": "11-16 02:32"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "젠슨황 복귀가능성, FT보도후 칼시에서 20% 급등",
+   "views": 476,
+   "recommend": 2,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902216&page=2",
+   "time_kst": "11-16 04:46"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "실시간 코랩",
+   "views": 469,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902077&page=4",
+   "time_kst": "11-16 01:31"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "1w": {
+  "start": "2026-11-14",
+  "end": "2026-11-20",
+  "total": 192,
+  "sections": {
+   "daol": 13,
+   "visits": 1,
+   "defense": 62,
+   "construction": 44,
+   "energy": 10,
+   "channel": 62
+  }
+ },
+ "3w": {
+  "start": "2026-10-31",
+  "end": "2026-11-20",
+  "total": 583,
+  "sections": {
+   "daol": 48,
+   "visits": 4,
+   "defense": 172,
+   "construction": 129,
+   "energy": 45,
+   "channel": 185
+  }
+ }
+}

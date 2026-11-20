@@ -1,0 +1,640 @@
+{
+ "date": "2026-11-17",
+ "meta": {
+  "window": "11-16 06:00~11-17 06:00 KST",
+  "engine": "Gemini(gemini-2.5-flash)",
+  "generated_at": "2026-11-17T06:48+09:00"
+ },
+ "stats": {
+  "channels": 93,
+  "messages": 2271,
+  "groups": 2038
+ },
+ "one_liner": "반도체 D램 담합 소송 및 AI 리더십 불확실성으로 시장 우려가 커진 가운데, HBM 장비, LFP 배터리 등 특정 성장 섹터의 수주 확대 소식이 주목받고 있다.",
+ "themes": [
+  {
+   "name": "반도체 산업 — D램 담합 소송 및 AI 리더십 불확실성",
+   "narrative": "미국 법원의 D램 담합 소송 본안 돌입 결정과 엔비디아 젠슨 황 CEO의 퇴진 및 복귀 불확실성 소식이 겹치며 메모리 반도체 및 AI 기술주 전반의 투자 심리에 부담을 주고 있다. AI 컴퓨팅 수요 전망 하향 소식도 부정적 영향을 더했다.",
+   "status": "ongoing",
+   "strength": 4,
+   "keywords": [
+    "법원",
+    "CEO 복귀",
+    "재무장관"
+   ],
+   "evidence": [
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "美 법원의 D램 담합 정황 인정으로 HBM 생산 차질 우려, 주가 급락에 '빚투' 7조원 집중으로 반대매매 우려, 전 삼성전자 부장, 반도체 기술 中 유출 혐의 징역형 확정"
+    },
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "젠슨 황 CEO 퇴진 이후 리더십 불확실성 지속, 미국 재무장관, 젠슨 황 CEO 복귀 가능성 차단 및 외부 CEO 영입 촉구"
+    },
+    {
+     "channel": "하나 중국/신흥국 전략 김경환",
+     "quote": "SemiAnalysis, AI 컴퓨팅 수요 전망 대폭 하향…2028년 자본지출 전망 30% 가까이 하향 (중국언론)"
+    }
+   ]
+  },
+  {
+   "name": "반도체 장비 및 소재 — HBM 투자 및 전반적 수주 확대",
+   "narrative": "HBM4 생산 능력 확대를 위한 SK하이닉스의 장비 발주 논의와 이오테크닉스, 인텍플러스 등 반도체 장비 기업들의 강력한 수주 흐름 및 실적 개선 소식이 이어지고 있다. 한솔케미칼의 과산화수소 증설 등 소재 부문에서도 전방 수요 호조가 관측된다.",
+   "status": "ongoing",
+   "strength": 5,
+   "keywords": [
+    "고객사향",
+    "IT 하드웨어"
+   ],
+   "evidence": [
+    {
+     "channel": "[신한 리서치본부] IT(반도체/전기전자/디스플레이)",
+     "quote": "[신한투자증권 IT소부장/디스플레이 박현우, 김예성] 이오테크닉스: 고무적인 수익성 레벨업 ▶️ 강력한 수주 흐름과 Capa 확대가 예고하는 고성장. Top Picks 추천"
+    },
+    {
+     "channel": "메리츠증권 리서치",
+     "quote": "📮[메리츠증권 IT 소재장비 김동관] 인텍플러스(064290): 실적도 수주도 순항 중 - 인텍플러스는 3Q26P 매출액 282억원(+184% YoY; 이하 YoY), 영업이익 35억원(흑자전환; OPM 12.6%)을 기록"
+    },
+    {
+     "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+     "quote": "* AI 불확실 우려에도 수요 견고”…SK하이닉스, HBM4 생산능력 더 키운다 - 15일 복수의 반도체 장비 업체 관계자에 따르면 SK하이닉스는 협력사와 HBM4 제조용 장비 구매 발주를 논의하고 있다."
+    }
+   ]
+  },
+  {
+   "name": "2차전지 — 삼성SDI의 LFP ESS 시장 공략",
+   "narrative": "삼성SDI가 미국에서 대규모 LFP ESS 배터리 공급 계약을 체결하며 LFP 시장 공략을 본격화하고 있다. 이는 2차전지 섹터 전반의 투자 심리에는 큰 영향을 주지 못했으나, 삼성SDI의 신사업 성장 동력으로 주목받고 있다.",
+   "status": "new",
+   "strength": 4,
+   "keywords": [
+    "LFP"
+   ],
+   "evidence": [
+    {
+     "channel": "유진투자증권 코스닥벤처팀",
+     "quote": "삼성SDI, 미국서 수조원대 ESS배터리 수주…LFP시장공략 본격화"
+    },
+    {
+     "channel": "신한 리서치",
+     "quote": ":삼성SDI(-2.0%), Jupiter Power와 16GWh(29년부터 3년간) LFP 배터리 공급에도 2차전지(LGES -2.5%)↓"
+    }
+   ]
+  },
+  {
+   "name": "전력 인프라 및 발전 — 국내외 수주 기대감",
+   "narrative": "국내 LNG 발전 확대, 체코 원전 후속 발주 등 중장기 수주 기회가 풍부한 비에이치아이와 같은 전력 설비 기업에 대한 기대감이 높다. 미국에서는 BAAJA 법안을 통해 전력 인프라 지연 위험이 완화될 것으로 예상되어 유틸리티 및 신재생 에너지 섹터에 긍정적이다.",
+   "status": "ongoing",
+   "strength": 3,
+   "keywords": [],
+   "evidence": [
+    {
+     "channel": "신한 리서치",
+     "quote": "『비에이치아이(083650.KQ) - 견조한 수익성 재확인』 기업분석부 한승훈 ☎️02-3772-2647 ▶️ 신한생각: 후속 발주가 열어줄 반등 기회 - 12차 전기본에 따른 국내 LNG 발전 확대, 대미투자, 체코 원전 후속 발주 등 중장기 수주 기회 풍부"
+    },
+    {
+     "channel": "신한 리서치",
+     "quote": "# 신한 유틸리티/신재생 Weekly Power Up (26년 11월 3주차) [신한 유틸리티 한승훈 / 신재생 최민기] ► [유틸리티] BAAJA, 전력 인프라 지연 위험 완화"
+    }
+   ]
+  },
+  {
+   "name": "거시 경제 — 미국 인플레이션 완화 기대",
+   "narrative": "미국 재무장관이 다음 달 인플레이션이 큰 폭으로 하락할 것으로 예상하며, 핵심 인플레이션이 연준 목표에 근접하고 있다고 발언했다. 이는 시장의 금리 인하 기대감을 높이는 긍정적인 거시 경제 신호로 해석될 수 있다.",
+   "status": "new",
+   "strength": 3,
+   "keywords": [
+    "재무장관"
+   ],
+   "evidence": [
+    {
+     "channel": "텐렙",
+     "quote": "베센트 미 재무장관: 다음달 인플레이션 큰 폭으로 하락 예상. 핵심 인플레이션 안정적이며 연준 목표에 근접"
+    }
+   ]
+  }
+ ],
+ "community_mood": {
+  "score": -60,
+  "summary": "개인 투자자 커뮤니티에서는 국내 증시가 외국인에게 '설거지' 당했다는 불만과 함께 폭락장과 하락장에 대한 우려가 지배적이다. AI 기술에 대한 회의적인 시각도 나타나며, 전반적으로 공포와 회피 심리가 강하게 작용하고 있다.",
+  "hot_stocks": [
+   {
+    "name": "삼성전자/SK하이닉스",
+    "score": -50,
+    "reason": "D램 담합 소송 우려 및 전반적인 반도체 하락에 대한 부정적 정서가 표출되었다."
+   },
+   {
+    "name": "AI 관련주",
+    "score": -40,
+    "reason": "AI 기술의 부정적 영향에 대한 회의론과 젠슨 황 CEO 리더십 불확실성에 대한 논의가 활발하다."
+   }
+  ]
+ },
+ "signals": {
+  "spikes": [
+   {
+    "term": "발신 NH",
+    "count": 56,
+    "burst": 31.13733187092305,
+    "base_daily": 1.1,
+    "new": false
+   },
+   {
+    "term": "법원",
+    "count": 23,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "결재",
+    "count": 57,
+    "burst": 13.141147466430503,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "컴플라이언스 결재",
+    "count": 57,
+    "burst": 13.141147466430503,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "없이 복제",
+    "count": 56,
+    "burst": 12.91060101965102,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "변형 대여할",
+    "count": 56,
+    "burst": 12.91060101965102,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "전송 변형",
+    "count": 56,
+    "burst": 12.91060101965102,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "복제",
+    "count": 56,
+    "burst": 12.91060101965102,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "복제 배포",
+    "count": 56,
+    "burst": 12.91060101965102,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "결재 받아",
+    "count": 56,
+    "burst": 12.91060101965102,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "대여할",
+    "count": 56,
+    "burst": 12.91060101965102,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "무료수신거부",
+    "count": 56,
+    "burst": 12.91060101965102,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "당사 동의",
+    "count": 56,
+    "burst": 12.91060101965102,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "동의 없이",
+    "count": 57,
+    "burst": 12.52993130520118,
+    "base_daily": 3.0,
+    "new": false
+   },
+   {
+    "term": "Web 발신",
+    "count": 58,
+    "burst": 11.188560213094068,
+    "base_daily": 3.4,
+    "new": false
+   },
+   {
+    "term": "발신",
+    "count": 58,
+    "burst": 10.749793145913909,
+    "base_daily": 3.6,
+    "new": false
+   },
+   {
+    "term": "Web",
+    "count": 58,
+    "burst": 10.34414057436999,
+    "base_daily": 3.7,
+    "new": false
+   },
+   {
+    "term": "본문보기",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "CEO 복귀",
+    "count": 26,
+    "burst": 35.108930323846906,
+    "base_daily": 0.4,
+    "new": false
+   },
+   {
+    "term": "고객사향",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "LFP",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "동의",
+    "count": 58,
+    "burst": 9.292194075281515,
+    "base_daily": 4.1,
+    "new": false
+   },
+   {
+    "term": "재무장관",
+    "count": 27,
+    "burst": 28.357212953876346,
+    "base_daily": 0.6,
+    "new": false
+   },
+   {
+    "term": "변형",
+    "count": 56,
+    "burst": 9.286572663257752,
+    "base_daily": 4.0,
+    "new": false
+   },
+   {
+    "term": "IT 하드웨어",
+    "count": 14,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   }
+  ],
+  "top_posts": [
+   {
+    "channels": 6,
+    "channel": "[신한 리서치본부] IT(반도체/전기전자/디스플레이)",
+    "head": "[신한투자증권 IT소부장/디스플레이 박현우, 김예성] 이오테크닉스: 고무적인 수익성 레벨업 ▶️ 강력한 수주 흐름과 Capa 확대가 예고하는 고성장. Top Picks 추천 - 글로벌 WFE(웨이퍼 제조 장비) 시장 전망치 CY27 2,000억달러+α로 상향 지속 - 다각화된 제품 포트폴리오 기반 전∙후공정 투자 Cycl…",
+    "url": "https://t.me/c/1355104422/7491",
+    "time_kst": "11-16 07:47"
+   },
+   {
+    "channels": 5,
+    "channel": "신한 리서치",
+    "head": "『비에이치아이(083650.KQ) - 견조한 수익성 재확인』 기업분석부 한승훈 ☎️02-3772-2647 ▶️ 신한생각: 후속 발주가 열어줄 반등 기회 - 12차 전기본에 따른 국내 LNG 발전 확대, 대미투자, 체코 원전 후속 발주 등 중장기 수주 기회 풍부 - 북미·유럽 신규 고객 확보 및 원전 BOP 공급 확대 가시…",
+    "url": "https://t.me/shinhanresearch/53659",
+    "time_kst": "11-16 07:53"
+   },
+   {
+    "channels": 5,
+    "channel": "하나 중국/신흥국 전략 김경환",
+    "head": ">>SemiAnalysis, AI 컴퓨팅 수요 전망 대폭 하향…2028년 자본지출 전망 30% 가까이 하향 (중국언론) •SemiAnalysis는 2028년 글로벌 AI 가속기 자본지출 전망을 28% 하향했으며, 2030년 전망은 40% 낮췄음 •2026~2030년 AI 가속기용 실리콘 웨이퍼 출하 면적 누적 전망도 17…",
+    "url": "https://t.me/HANAchina/72221",
+    "time_kst": "11-16 20:41"
+   },
+   {
+    "channels": 4,
+    "channel": "메리츠증권 리서치",
+    "head": "📮[메리츠증권 IT 소재장비 김동관] 인텍플러스(064290): 실적도 수주도 순항 중 - 인텍플러스는 3Q26P 매출액 282억원(+184% YoY; 이하 YoY), 영업이익 35억원(흑자전환; OPM 12.6%)을 기록 - 반도체 패키징/기판 외관검사 장비의 매출 인식이 시작되며 YoY/QoQ 실적 개선. 고정비가 전…",
+    "url": "https://t.me/meritz_research/45174",
+    "time_kst": "11-16 08:12"
+   },
+   {
+    "channels": 4,
+    "channel": "텐렙",
+    "head": "베센트 미 재무장관: 다음달 인플레이션 큰 폭으로 하락 예상. 핵심 인플레이션 안정적이며 연준 목표에 근접 美国财政部长贝森特：预计通胀将在下个月大幅下滑。核心通胀是温和的，接近美联储的目标。 https://wallstreetcn.com/livenews/3200213?ivk=1#from=android",
+    "url": "https://t.me/Ten_level/94353",
+    "time_kst": "11-16 06:27"
+   },
+   {
+    "channels": 3,
+    "channel": "키움증권 전략/시황 한지영",
+    "head": "[11/16, Kiwoom Weekly, 키움 전략 한지영] \"엔비디아와 앤스로픽이 만들어 내는 분기점\" ------ <Weekly Three Points> a. 금요일 미국 증시는10월 PPI 컨센 하회에도, 엔비디아(-2.0%)발 AI 순환금융 불확실성, AMD(-8.8%), 브로드컴(-4.8%) 등 반사수혜 업체들의…",
+    "url": "https://t.me/hedgecat0301/3000",
+    "time_kst": "11-16 07:46"
+   },
+   {
+    "channels": 3,
+    "channel": "신한 리서치",
+    "head": "# 신한 유틸리티/신재생 Weekly Power Up (26년 11월 3주차) [신한 유틸리티 한승훈 / 신재생 최민기] ► [유틸리티] BAAJA, 전력 인프라 지연 위험 완화 - BAAJA는 발전소·송전망·가스관 등 인프라의 연방 인허가를 개선하고 데이터센터 전력공급 비용을 해당 수요처에 부담시키는 초당적 법안 - 연…",
+    "url": "https://t.me/shinhanresearch/53670",
+    "time_kst": "11-16 08:20"
+   },
+   {
+    "channels": 3,
+    "channel": "다올투자증권 리서치센터",
+    "head": "[다올투자증권 조선/기계/방산 최광식] 11/16(월) 데일리뉴스 🛳 조선 [TradeWinds] Seapeak forges $489m sale-and-leaseback deal for newbuilding duo at South Korean yard Court ups Kogas’ LNG containment system…",
+    "url": "https://t.me/daolresearch/15510",
+    "time_kst": "11-16 07:26"
+   },
+   {
+    "channels": 3,
+    "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+    "head": "* AI 불확실 우려에도 수요 견고”…SK하이닉스, HBM4 생산능력 더 키운다 - 15일 복수의 반도체 장비 업체 관계자에 따르면 SK하이닉스는 협력사와 HBM4 제조용 장비 구매 발주를 논의하고 있다. HBM 접합·절단·검사 등 주로 후공정 장비 업체와 구매 시기, 물량을 조율하는 것으로 파악됐다. 사안에 정통한 SK…",
+    "url": "https://t.me/INSIGHTVALUELEE/11346",
+    "time_kst": "11-16 08:11"
+   },
+   {
+    "channels": 3,
+    "channel": "다올투자증권 리서치센터",
+    "head": "[리브스메드(491000)/ BUY(유지)/ TP 8만원(하향)/ 다올 의료기기 박종현] ★ 재고는 비우고, 로봇은 채우고 ▶ Review 3Q26 매출액 89억원(YoY -34%, QoQ -29%), 영업이익 -104억원(YoY 적자 확대, QoQ 적자 축소)으로 컨센서스 하회. 아티센셜 프로 출시 전 대리점의 구버전…",
+    "url": "https://t.me/daolresearch/15509",
+    "time_kst": "11-16 07:17"
+   },
+   {
+    "channels": 3,
+    "channel": "[신한 리서치본부] IT(반도체/전기전자/디스플레이)",
+    "head": "[신한투자증권 전기전자 김예성, 오강호] 티엘비: 2027년 성장 스토리 주목 ▶️ Mix 개선 및 판가 인상 모멘텀 지속 - 수급 불균형 장기화로 수주잔고는 1H27 물량까지 가시화 - 27년 1) 추가 판가 인상, 2) 4Q27 증설 효과, 3) BVH 공법 확대 → 연간 최초 20%대 수익성 기대 ▶️ 극심한 공급…",
+    "url": "https://t.me/c/1355104422/7490",
+    "time_kst": "11-16 07:47"
+   },
+   {
+    "channels": 3,
+    "channel": "허재환 유진증권 전략",
+    "head": "[Web발신] 안녕하십니까 유진투자증권 허재환입니다 =용서 vs. 율법= * 11월 미국 중간선거는 AI 산업과 빅테크 엘리트, 그리고 이를 후원하는 트럼프 정부에 대한 심판이었습니다. * 지루하고 평범한 사람들이 주로 쓰는 산업들 주가는 괜찮았습니다. * 8월 이후 미국 증시에서 부동산, 필수소비, 헬스케어 섹터 주가가…",
+    "url": "https://t.me/huhjae/4641",
+    "time_kst": "11-16 07:50"
+   },
+   {
+    "channels": 3,
+    "channel": "[신한 리서치본부] IT(반도체/전기전자/디스플레이)",
+    "head": "[신한투자증권 반도체/소부장 송혜수, 김형태] 한솔케미칼(014680.KS); 흔들림 없는 방향성 ▶️ 더 빨라지는 성장의 시계 - 전방 수요가 예상을 상회하며 과산화수소 증설 앞당겨지는 상황 - Q Cycle 초입 구간 속 시장 내 과점적 지위 및 높은 수익성 고려 시 안정적 투자 대안으로 판단 ▶️ 3Q26 Revie…",
+    "url": "https://t.me/c/1355104422/7494",
+    "time_kst": "11-16 07:48"
+   },
+   {
+    "channels": 3,
+    "channel": "우주방산AI로봇 아카이브",
+    "head": "📌 미 육군, 궤도형 155mm 자주포(MTC-T) 도입사업 본격화 미 육군의 차세대 궤도형 자주포(MTC-T) 사업이 시제품 제안서 접수 마감 단계에 들어섰습니다. 제안서 마감은 11월 16일 오후 3시(미 동부시간), 한국시간 17일 오전 5시입니다. 🚀 주요 사업 조건 계약 후 12개월 이내 자주포·탄약보급차량 3개…",
+    "url": "https://t.me/defence_24/6582",
+    "time_kst": "11-16 09:27"
+   },
+   {
+    "channels": 3,
+    "channel": "[DAOL퀀트 김경훈] 탑다운 전략",
+    "head": "[DAOL퀀트 김경훈] Active Quant의 定石 - 11/16 \"하반기 숏 밭 생존기\" 3Q26분기 8번째 업데이트 (11.16 ~ 11.27) ■ 시총 TOP3 실적 현황 * 여전히 정체된 가운데 3종목 모두 포지션 부재 이어가는 중 * 외국인 순매도세 또한 지속 중 * 밸류에이션은 삼성전기의 Overvalued…",
+    "url": "https://t.me/toptownquant/13912",
+    "time_kst": "11-16 10:26"
+   }
+  ]
+ },
+ "community_dc": {
+  "source": "DC인사이드",
+  "galleries": [
+   {
+    "id": "krstock",
+    "name": "국내주식갤러리",
+    "posts": 461,
+    "capped": true,
+    "burst": 0.5,
+    "base_daily": 945.4
+   },
+   {
+    "id": "stockus",
+    "name": "해외주식갤러리",
+    "posts": 817,
+    "capped": true,
+    "burst": 0.3,
+    "base_daily": 3049.0
+   }
+  ],
+  "posts_sampled": 464,
+  "keywords": [
+   {
+    "term": "워시",
+    "count": 7,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "결국",
+    "count": 5,
+    "burst": 78.1,
+    "new": true
+   },
+   {
+    "term": "슬슬",
+    "count": 5,
+    "burst": 78.1,
+    "new": true
+   },
+   {
+    "term": "애들",
+    "count": 5,
+    "burst": 78.1,
+    "new": true
+   },
+   {
+    "term": "하락장",
+    "count": 5,
+    "burst": 78.1,
+    "new": true
+   },
+   {
+    "term": "콜라",
+    "count": 5,
+    "burst": 78.1,
+    "new": true
+   },
+   {
+    "term": "디시",
+    "count": 5,
+    "burst": 78.1,
+    "new": true
+   },
+   {
+    "term": "AI",
+    "count": 16,
+    "burst": 5.8,
+    "new": false
+   },
+   {
+    "term": "야선",
+    "count": 10,
+    "burst": 5.0,
+    "new": false
+   },
+   {
+    "term": "반도체",
+    "count": 6,
+    "burst": 5.5,
+    "new": false
+   },
+   {
+    "term": "이유",
+    "count": 6,
+    "burst": 5.5,
+    "new": false
+   },
+   {
+    "term": "시발",
+    "count": 5,
+    "burst": 4.6,
+    "new": false
+   },
+   {
+    "term": "존나",
+    "count": 7,
+    "burst": 3.5,
+    "new": false
+   },
+   {
+    "term": "ai",
+    "count": 12,
+    "burst": 2.4,
+    "new": false
+   },
+   {
+    "term": "SK하이닉스",
+    "count": 7,
+    "burst": 3.0,
+    "new": false
+   }
+  ],
+  "top_recommended": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "개추시 고추 통통하고 길쭉해짐",
+    "views": 2338,
+    "recommend": 233,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18417832&exception_mode=recommend&page=1",
+    "time_kst": "11-17 03:06"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "2027 서울대의대 신입생 환영회 .jpg",
+    "views": 8304,
+    "recommend": 202,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18407295&exception_mode=recommend&page=2",
+    "time_kst": "11-16 13:08"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "아 씨발 삼하 떨어지니깐 기분너무좋네",
+    "views": 8276,
+    "recommend": 198,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18407246&exception_mode=recommend&page=2",
+    "time_kst": "11-16 13:02"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "국장은 대국적으로 외국인한테 설거지 당했노 ㅋㅋ",
+    "views": 6580,
+    "recommend": 183,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18407915&exception_mode=recommend&page=2",
+    "time_kst": "11-16 13:59"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "AI 이거 세상을 좆같게만 만드는 기분인데",
+    "views": 6095,
+    "recommend": 169,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18411933&exception_mode=recommend&page=2",
+    "time_kst": "11-16 19:36"
+   }
+  ],
+  "top_viewed": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "아 결국 찐반왔네 ㅅㅂ 사나이 테스트 종료",
+    "views": 3906,
+    "recommend": 31,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18418161&page=10",
+    "time_kst": "11-17 03:49"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "폭락장 많이 겪어본 경험상",
+    "views": 1219,
+    "recommend": 1,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910189&page=3",
+    "time_kst": "11-17 04:41"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "5000피 터지면 급락이라는데 ㄹㅇ임?",
+    "views": 979,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910180&page=3",
+    "time_kst": "11-17 03:53"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "나스닥 진짜 개좆된이유",
+    "views": 867,
+    "recommend": 12,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18418276&page=8",
+    "time_kst": "11-17 05:20"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "곰곰히 생각해보니까 주식이 죽기직전 마지막 피날래였던거같다",
+    "views": 750,
+    "recommend": 1,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910177&page=3",
+    "time_kst": "11-17 03:46"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "오늘자 코스피 예상",
+    "views": 732,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910141&page=4",
+    "time_kst": "11-17 02:42"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "폭락장 경험 3번째",
+    "views": 694,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910140&page=4",
+    "time_kst": "11-17 02:36"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "샘 올트먼: \"AI업계, 젠슨황 없어도 잘 굴러갈거다\"",
+    "views": 694,
+    "recommend": 1,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910135&page=4",
+    "time_kst": "11-17 02:28"
+   }
+  ]
+ }
+}

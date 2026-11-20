@@ -1,0 +1,222 @@
+{
+ "source": "DC인사이드",
+ "galleries": [
+  {
+   "id": "krstock",
+   "name": "국내주식갤러리",
+   "posts": 461,
+   "capped": true,
+   "burst": 0.5,
+   "base_daily": 945.4
+  },
+  {
+   "id": "stockus",
+   "name": "해외주식갤러리",
+   "posts": 817,
+   "capped": true,
+   "burst": 0.3,
+   "base_daily": 3049.0
+  }
+ ],
+ "posts_sampled": 464,
+ "keywords": [
+  {
+   "term": "워시",
+   "count": 7,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "결국",
+   "count": 5,
+   "burst": 78.1,
+   "new": true
+  },
+  {
+   "term": "슬슬",
+   "count": 5,
+   "burst": 78.1,
+   "new": true
+  },
+  {
+   "term": "애들",
+   "count": 5,
+   "burst": 78.1,
+   "new": true
+  },
+  {
+   "term": "하락장",
+   "count": 5,
+   "burst": 78.1,
+   "new": true
+  },
+  {
+   "term": "콜라",
+   "count": 5,
+   "burst": 78.1,
+   "new": true
+  },
+  {
+   "term": "디시",
+   "count": 5,
+   "burst": 78.1,
+   "new": true
+  },
+  {
+   "term": "AI",
+   "count": 16,
+   "burst": 5.8,
+   "new": false
+  },
+  {
+   "term": "야선",
+   "count": 10,
+   "burst": 5.0,
+   "new": false
+  },
+  {
+   "term": "반도체",
+   "count": 6,
+   "burst": 5.5,
+   "new": false
+  },
+  {
+   "term": "이유",
+   "count": 6,
+   "burst": 5.5,
+   "new": false
+  },
+  {
+   "term": "시발",
+   "count": 5,
+   "burst": 4.6,
+   "new": false
+  },
+  {
+   "term": "존나",
+   "count": 7,
+   "burst": 3.5,
+   "new": false
+  },
+  {
+   "term": "ai",
+   "count": 12,
+   "burst": 2.4,
+   "new": false
+  },
+  {
+   "term": "SK하이닉스",
+   "count": 7,
+   "burst": 3.0,
+   "new": false
+  }
+ ],
+ "top_recommended": [
+  {
+   "gallery": "해외주식갤러리",
+   "title": "개추시 고추 통통하고 길쭉해짐",
+   "views": 2338,
+   "recommend": 233,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18417832&exception_mode=recommend&page=1",
+   "time_kst": "11-17 03:06"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "2027 서울대의대 신입생 환영회 .jpg",
+   "views": 8304,
+   "recommend": 202,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18407295&exception_mode=recommend&page=2",
+   "time_kst": "11-16 13:08"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "아 씨발 삼하 떨어지니깐 기분너무좋네",
+   "views": 8276,
+   "recommend": 198,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18407246&exception_mode=recommend&page=2",
+   "time_kst": "11-16 13:02"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "국장은 대국적으로 외국인한테 설거지 당했노 ㅋㅋ",
+   "views": 6580,
+   "recommend": 183,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18407915&exception_mode=recommend&page=2",
+   "time_kst": "11-16 13:59"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "AI 이거 세상을 좆같게만 만드는 기분인데",
+   "views": 6095,
+   "recommend": 169,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18411933&exception_mode=recommend&page=2",
+   "time_kst": "11-16 19:36"
+  }
+ ],
+ "top_viewed": [
+  {
+   "gallery": "해외주식갤러리",
+   "title": "아 결국 찐반왔네 ㅅㅂ 사나이 테스트 종료",
+   "views": 3906,
+   "recommend": 31,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18418161&page=10",
+   "time_kst": "11-17 03:49"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "폭락장 많이 겪어본 경험상",
+   "views": 1219,
+   "recommend": 1,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910189&page=3",
+   "time_kst": "11-17 04:41"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "5000피 터지면 급락이라는데 ㄹㅇ임?",
+   "views": 979,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910180&page=3",
+   "time_kst": "11-17 03:53"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "나스닥 진짜 개좆된이유",
+   "views": 867,
+   "recommend": 12,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18418276&page=8",
+   "time_kst": "11-17 05:20"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "곰곰히 생각해보니까 주식이 죽기직전 마지막 피날래였던거같다",
+   "views": 750,
+   "recommend": 1,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910177&page=3",
+   "time_kst": "11-17 03:46"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "오늘자 코스피 예상",
+   "views": 732,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910141&page=4",
+   "time_kst": "11-17 02:42"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "폭락장 경험 3번째",
+   "views": 694,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910140&page=4",
+   "time_kst": "11-17 02:36"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "샘 올트먼: \"AI업계, 젠슨황 없어도 잘 굴러갈거다\"",
+   "views": 694,
+   "recommend": 1,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3910135&page=4",
+   "time_kst": "11-17 02:28"
+  }
+ ]
+}

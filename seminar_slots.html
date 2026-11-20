@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!--
+  세미나 일정 잡기 — 구글 캘린더의 빈 시간 중 '세미나 가능' 칸을 보여준다.
+  계산은 전부 GAS 웹앱(정본 gas/seminar_slots.gs)이 하고, 이 페이지는 묻고 그리기만 한다.
+  GAS 주소·토큰: 배포 때 build_static 이 GitHub 시크릿 SEMINAR_GAS_URL·SEMINAR_TOKEN 을 BAKED 에 넣는다(사용자 선택 —
+  배포본 소스에서 읽힘을 감수). 이 브라우저 localStorage(seminar_cfg_v1)에 값이 있으면 그게 먼저.
+  규칙: 1시간 · 08~16시 시작 · 점심 11~13시 제외 · 앞뒤 일정 장소(권역) 사이 이동 시간 반영.
+-->
+<html lang="ko">
+<head><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",TH="466f2167513403c0b21bd9bc77f62789f19195656f686edba4adaede4ee93c80",OWNER=false,TEAMOK=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===TH?"team":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ // 팀 비번이 통하는 곳: 대시보드 본체를 수명 피드백 항목 링크로 연 집중 화면뿐.
+ function teamHere(){return TEAMOK&&/[?&]focus=/.test(location.search)&&/^#tasklist:/.test(location.hash)}
+ function pass(l){return l==="owner"||((l==="guest"||l==="team")&&!OWNER)||(l==="team"&&teamHere())}
+ var lv=level();
+ if(pass(lv)){window.__GS_LEVEL__=lv;return}   // app.js 가 등급을 읽어 팀 화면을 좁힌다
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ window.__GS_GATED__=1;                  // 아직 안 풀림 — app.js 가 서버 데이터를 받아 두지 않게
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?(teamHere()?"주인 또는 팀 비밀번호로 열립니다. ":"이 화면은 주인 비밀번호가 필요합니다. "):"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     var l=h===OH?"owner":h===TH?"team":h===GH?"guest":null;
+     if(pass(l)){set(h);location.reload();return}
+     msg.textContent=l==="guest"?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                    :l==="team"?"팀 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>세미나 일정</title>
+<style>
+:root{--bg:#fff;--fg:#1c2430;--muted:#6b7684;--line:#e5e8ec;--card:#f7f8fa;--btn:#1f2937;
+  --ok:#15803d;--okbg:#e7f6ec;--tight:#b45309;--tightbg:#fef3c7;--no:#9aa0a6;--nobg:#f3f4f6;--a:#2a78d6;--bad:#d92d2a}
+*{box-sizing:border-box}
+body{margin:0;padding:18px 16px 48px;background:var(--bg);color:var(--fg);font:14px/1.6 -apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+button,input,select{font-family:inherit;font-size:13px}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-size:19px;margin:0 0 2px}
+.sub{color:var(--muted);font-size:12.5px;margin:0 0 14px}
+.card{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;margin:0 0 14px}
+.row{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+.row label{font-size:12.5px;color:var(--muted);display:flex;gap:6px;align-items:center}
+input,select{padding:5px 8px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--fg)}
+input[type=text]{min-width:180px}
+.btn{font-weight:700;padding:6px 14px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--fg);cursor:pointer}
+.btn.pri{background:var(--btn);color:var(--bg);border-color:var(--btn)}
+.seg button{padding:5px 10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;margin-left:-1px}
+.seg button:first-child{border-radius:7px 0 0 7px;margin-left:0}.seg button:last-child{border-radius:0 7px 7px 0}
+.seg button.on{background:var(--btn);color:var(--bg);border-color:var(--btn)}
+#status{font-size:12.5px;color:var(--muted)}
+#status.err{color:var(--bad)}
+.where{font-size:13px;margin:0 0 8px}
+.where b{font-size:15px}
+.chk{color:var(--tight);font-size:12px}
+pre#text{white-space:pre-wrap;margin:0;font:13px/1.6 inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.tblwrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th,td{border:1px solid var(--line);padding:6px 6px;vertical-align:top;text-align:center}
+thead th{background:var(--card);font-size:12.5px}
+th.day{white-space:nowrap;text-align:left;font-size:13px;width:92px}
+th.day small{display:block;color:var(--muted);font-weight:400}
+td.s{font-size:11.5px;line-height:1.4;width:13%}
+td.s b{display:block;font-size:13px}
+td.ok{background:var(--okbg);color:var(--ok)}
+td.tight{background:var(--tightbg);color:var(--tight)}
+td.no{background:var(--nobg);color:var(--no)}
+td.no b{color:var(--no)}
+td.allday{background:var(--nobg);color:var(--no);font-size:12.5px}
+tr.wk th.day{color:var(--bad)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted);margin:8px 0 0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-2px}
+details>summary{cursor:pointer;font-weight:700;font-size:13.5px}
+.mini{font-size:12px;color:var(--muted)}
+.tt{min-width:0;width:auto}
+.tt td,.tt th{padding:4px 8px;font-size:12px}
+.insts{columns:3 220px;font-size:12.5px;margin:8px 0 0}
+.insts div{break-inside:avoid}
+.empty{color:var(--muted);font-size:13px;padding:6px 0}
+.dcal{margin:0 0 10px}.dcal h3{font-size:13.5px;margin:0 0 4px}.dcal.off h3{color:var(--muted)}
+.dcal ul{margin:0;padding-left:18px;font-size:12.5px}.dcal .how{color:var(--muted)}.dcal .how.blk{color:var(--ok);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎤 세미나 일정 잡기</h1>
+  <p class="sub">구글 캘린더의 빈 시간 중 세미나 가능한 칸 — 1시간 · 08~16시 시작 · 점심 11~13시 제외 · 앞뒤 일정과의 이동 시간 반영.</p>
+
+  <details class="card" id="setup">
+    <summary>⚙️ 연결 설정 <span class="mini" id="setup-state"></span></summary>
+    <div class="row" style="margin-top:10px">
+      <label>GAS 웹앱 주소 <input type="text" id="url" placeholder="https://script.google.com/macros/s/…/exec" style="min-width:420px"></label>
+      <label>토큰 <input type="password" id="token" placeholder="SEMINAR_TOKEN (넣었을 때만)"></label>
+      <button class="btn" id="save">저장</button>
+    </div>
+    <p class="mini" style="margin:8px 0 0">주소·토큰은 GitHub 시크릿 <code>SEMINAR_GAS_URL</code>·<code>SEMINAR_TOKEN</code> 에 넣어 두면 배포 때 이 페이지에 들어가 어느 기기에서나 바로 쓰입니다. 여기 칸에 넣으면 이 브라우저에서만 그 값으로 덮어씁니다(비우고 저장하면 배포본 값으로 돌아감). 설치 방법은 <code>gas/seminar_slots.gs</code> 머리말 —
+      Apps Script 새 프로젝트에 붙여넣기 → <code>testSeminarSlots</code> 1회 실행(권한 승인) → 배포(웹 앱, 실행: 나, 액세스: 모든 사용자).
+      토큰을 넣어야 막힌 칸에 일정 제목이 보입니다.</p>
+  </details>
+
+  <div class="card">
+    <div class="row">
+      <label>장소 <select id="place"><option value="">회사(여의도)</option></select></label>
+      <label>또는 직접 <input type="text" id="free" placeholder="기관명·주소 (예: 역삼동, 흥국)"></label>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <label>기준일 <input type="date" id="date"></label>
+      <span class="seg" id="mode"><button data-v="forward" class="on">부터</button><button data-v="around">앞뒤 ±</button></span>
+      <span class="seg" id="days"><button data-v="5">5일</button><button data-v="10" class="on">10일</button><button data-v="15">15일</button><button data-v="20">20일</button></span>
+      <label><input type="checkbox" id="weekends"> 주말 포함</label>
+      <button class="btn pri" id="go">🔍 빈 시간 찾기</button>
+      <button class="btn" id="diag" title="기준일 하루의 캘린더별 일정과, 각 일정을 어떻게 읽었는지(막음·무시·위치)를 보여줍니다">🩺 캘린더 진단</button>
+      <span id="status"></span>
+    </div>
+  </div>
+
+  <div id="result" hidden>
+    <div class="card">
+      <p class="where" id="where"></p>
+      <pre id="text"></pre>
+      <div class="row" style="margin-top:8px"><button class="btn" id="copy">📋 가능 시간 복사</button><span class="mini" id="gen"></span></div>
+    </div>
+    <div class="tblwrap"><table id="grid"></table></div>
+    <div class="legend">
+      <span><i style="background:var(--okbg);border:1px solid var(--ok)"></i>가능</span>
+      <span><i style="background:var(--tightbg);border:1px solid var(--tight)"></i>가능 · 이동 빠듯</span>
+      <span><i style="background:var(--nobg);border:1px solid var(--no)"></i>불가(이유 표시)</span>
+      <span>'위치 추정' = 캘린더 일정에 장소가 없어 회사(여의도)에 있다고 본 것 — 일정 '위치' 칸에 기관명·주소를 적으면 정확해집니다.</span>
+    </div>
+  </div>
+
+  <div class="card" id="diagbox" hidden>
+    <p class="where" id="diag-h"></p>
+    <div id="diag-body"></div>
+    <p class="mini" style="margin:8px 0 0">⛔ 캘린더의 일정은 계산에 안 들어갑니다. 남이 공유한 캘린더(팀 공용 등)를 넣으려면 GAS 의 <code>INCLUDE_CALENDARS</code> 에 캘린더 이름을 적고 '배포 관리 → 새 버전'.</p>
+  </div>
+
+  <details class="card" id="refs" style="margin-top:16px" hidden>
+    <summary>🗺️ 권역·이동 시간·기관 위치표</summary>
+    <p class="mini">평일 낮 지하철·택시 기준 문 앞~문 앞 대략치(분). 고치려면 GAS 의 <code>TRAVEL</code>·<code>INSTITUTIONS</code> 를 수정 후 '배포 관리 → 새 버전'.</p>
+    <div class="tblwrap"><table class="tt" id="travel"></table></div>
+    <div class="insts" id="insts"></div>
+  </details>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const CFG_KEY='seminar_cfg_v1';
+// 배포 때 build_static 이 GitHub 시크릿(SEMINAR_GAS_URL·SEMINAR_TOKEN)으로 채운다. 이 기기에서 따로 저장한 값이 있으면 그게 먼저.
+const BAKED={"url": "https://script.google.com/macros/s/AKfycbzSsAr54xNotjgRP1vAenWfDW-2vwA9K_YA7T9X129CsLNN5f-ebRLgyrx5k6jQVA-l/exec", "token": "gs-seminar-8f3k2q9xXXXXXX"};
+function local(){try{return JSON.parse(localStorage.getItem(CFG_KEY))||{}}catch{return{}}}
+function cfg(){const l=local();return l.url?l:{url:BAKED.url||'',token:BAKED.token||'',baked:!!BAKED.url}}
+function setCfg(c){try{localStorage.setItem(CFG_KEY,JSON.stringify(c))}catch{}}
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function kstToday(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul'}).format(new Date())}
+function seg(id){return $('#'+id+' .on').dataset.v}
+document.querySelectorAll('.seg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))}));
+
+function status(t,err){const s=$('#status');s.textContent=t||'';s.className=err?'err':''}
+function setupState(){const c=cfg(),l=local();$('#url').value=l.url||'';$('#token').value=l.token||'';
+  $('#url').placeholder=c.baked?'배포본에 저장된 주소 사용 중 (여기 넣으면 이 기기만 덮어씀)':'https://script.google.com/macros/s/…/exec';
+  $('#setup-state').textContent=c.baked?'· 배포본에 저장된 주소 사용 중'+(c.token?' (토큰)':''):c.url?'· 이 기기에 저장된 주소'+(c.token?' (토큰)':''):'· 주소를 넣어 주세요';if(!c.url)$('#setup').open=true}
+
+async function call(params){
+  const c=cfg();if(!c.url)throw new Error('먼저 ⚙️ 연결 설정에 GAS 웹앱 주소를 넣어 주세요.');
+  const q=new URLSearchParams(params);if(c.token)q.set('token',c.token);
+  let r;try{r=await fetch(c.url+(c.url.includes('?')?'&':'?')+q,{cache:'no-store'})}catch(e){throw new Error('GAS 에 연결하지 못했습니다(주소·배포 액세스 \'모든 사용자\' 확인).')}
+  const t=await r.text();let j;try{j=JSON.parse(t)}catch{throw new Error('GAS 가 JSON 이 아닌 응답을 줬습니다 — 배포 액세스가 \'모든 사용자\'인지, 주소가 /exec 로 끝나는지 확인하세요.')}
+  if(!j.ok)throw new Error(j.error==='token'?'토큰이 맞지 않습니다.':(j.error||'오류'));
+  return j}
+
+let META=null;
+function fillMeta(m){if(!m||META)return;META=m;
+  const sel=$('#place'),keep=sel.value;
+  const og1=document.createElement('optgroup');og1.label='권역';
+  m.zones.forEach(z=>og1.insertAdjacentHTML('beforeend',`<option value="zone:${esc(z.zone)}">${esc(z.label)} — 회사에서 ${z.fromHome}분</option>`));
+  const og2=document.createElement('optgroup');og2.label='기관';
+  m.institutions.slice().sort((a,b)=>a.name.localeCompare(b.name,'ko')).forEach(i=>og2.insertAdjacentHTML('beforeend',`<option value="inst:${esc(i.name)}">${esc(i.name)} · ${esc(i.zone)}${i.chk?' (위치 확인 필요)':''}</option>`));
+  sel.append(og1,og2);sel.value=keep;
+  const zs=Object.keys(m.travel);
+  $('#travel').innerHTML='<tr><th></th>'+zs.map(z=>`<th>${esc(z)}</th>`).join('')+'</tr>'+zs.map(a=>`<tr><th>${esc(a)}</th>`+zs.map(b=>`<td>${m.travel[a][b]}</td>`).join('')+'</tr>').join('');
+  $('#insts').innerHTML=m.institutions.map(i=>`<div>${esc(i.name)} — ${esc(i.zone)}${i.chk?' <span class="chk">확인 필요</span>':''}</div>`).join('');
+  $('#refs').hidden=false}
+
+function render(j){
+  const q=j.query;
+  $('#where').innerHTML=`장소 <b>${esc(q.inst||q.zoneLabel)}</b>${q.inst?' · '+esc(q.zoneLabel):''}${q.instChk?' <span class="chk">⚠ 이 기관 위치는 확인이 필요합니다</span>':''} · ${esc(q.from)} ~ ${esc(q.to)}`;
+  $('#text').textContent=j.text;
+  $('#gen').textContent=`조회 ${j.generatedAt}`+(j.titles?'':' · 토큰이 없어 일정 제목은 가렸습니다');
+  const slots=(j.rules&&j.rules.slots)||(j.days[0]?j.days[0].slots.map(s=>s.start):[]);
+  let h='<thead><tr><th class="day">날짜</th>'+slots.map(s=>`<th>${s}</th>`).join('')+'</tr></thead><tbody>';
+  if(!j.days.length)h+=`<tr><td colspan="${slots.length+1}" class="empty">볼 날짜가 없습니다(지난 날·주말 제외).</td></tr>`;
+  j.days.forEach(d=>{
+    const wk=d.dow==='토'||d.dow==='일';
+    h+=`<tr class="${wk?'wk':''}"><th class="day">${d.date.slice(5).replace('-','/')} (${d.dow})${d.holiday?`<small>${esc(d.holiday)}</small>`:''}</th>`;
+    if(d.blockedAll){h+=`<td class="allday" colspan="${d.slots.length}">${esc(d.blockedAll)}</td>`}
+    else d.slots.forEach(s=>{
+      if(s.ok)h+=`<td class="s ${s.tight?'tight':'ok'}"><b>${s.tight?'△':'✅'} ${s.start}</b>${esc(s.note)}</td>`;
+      else h+=`<td class="s no"><b>${s.start}</b>${esc(s.reason)}</td>`});
+    h+='</tr>'});
+  $('#grid').innerHTML=h+'</tbody>';
+  $('#result').hidden=false}
+
+async function go(){
+  const v=$('#place').value,free=$('#free').value.trim();
+  const p={mode:seg('mode'),days:seg('days'),date:$('#date').value||kstToday()};
+  if(free)p.inst=free;else if(v.startsWith('zone:'))p.zone=v.slice(5);else if(v.startsWith('inst:'))p.inst=v.slice(5);
+  if($('#weekends').checked)p.weekends='1';
+  status('캘린더 읽는 중…');$('#go').disabled=true;
+  try{const j=await call(p);fillMeta(j.meta);render(j);status('')}
+  catch(e){status('⚠ '+e.message,true)}
+  finally{$('#go').disabled=false}}
+
+$('#save').onclick=()=>{setCfg({url:$('#url').value.trim(),token:$('#token').value.trim()});setupState();META=null;
+  $('#place').querySelectorAll('optgroup').forEach(o=>o.remove());loadMeta()};
+$('#go').onclick=go;
+$('#diag').onclick=async()=>{
+  const d=$('#date').value||kstToday();status('캘린더 진단 중…');
+  try{const j=await call({action:'diag',date:d});if(!j.calendars)throw new Error('지금 배포된 GAS 가 진단 기능을 모릅니다 — 최신 gas/seminar_slots.gs 를 다시 붙여넣고 \'배포 관리 → 새 버전\'');
+    $('#diag-h').innerHTML=`🩺 <b>${esc(j.date)}</b> 캘린더별 일정`+(j.titles?'':' <span class="mini">(토큰이 없어 제목은 가림)</span>');
+    $('#diag-body').innerHTML=j.calendars.map(c=>`<div class="dcal ${c.use?'':'off'}"><h3>${c.use?'✅':'⛔'} ${esc(c.name)} <span class="mini">— ${esc(c.why)}</span></h3>`+
+      (c.events.length?'<ul>'+c.events.map(e=>`<li>${esc(e.time)} ${esc(e.title)}${e.location?' <span class="mini">@'+esc(e.location)+'</span>':''} → <span class="how ${/^막음|그날 전체/.test(e.how)?'blk':''}">${esc(e.how)}</span></li>`).join('')+'</ul>':'<span class="mini">이날 일정 없음</span>')+'</div>').join('');
+    $('#diagbox').hidden=false;status('')}
+  catch(e){status('⚠ '+e.message,true)}};
+$('#free').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText($('#text').textContent);$('#copy').textContent='✅ 복사됨'}catch{$('#copy').textContent='복사 실패 — 글을 직접 선택하세요'}setTimeout(()=>$('#copy').textContent='📋 가능 시간 복사',1500)};
+async function loadMeta(){if(!cfg().url)return;try{fillMeta((await call({action:'meta'})).meta)}catch(e){status('⚠ '+e.message,true)}}
+$('#date').value=kstToday();
+setupState();loadMeta();
+</script>
+</body>
+</html>

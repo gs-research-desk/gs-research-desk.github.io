@@ -1,0 +1,222 @@
+{
+ "source": "DC인사이드",
+ "galleries": [
+  {
+   "id": "krstock",
+   "name": "국내주식갤러리",
+   "posts": 1273,
+   "capped": true,
+   "burst": 1.4,
+   "base_daily": 941.7
+  },
+  {
+   "id": "stockus",
+   "name": "해외주식갤러리",
+   "posts": 5282,
+   "capped": true,
+   "burst": 1.6,
+   "base_daily": 3306.7
+  }
+ ],
+ "posts_sampled": 557,
+ "keywords": [
+  {
+   "term": "연준",
+   "count": 7,
+   "burst": 91.9,
+   "new": true
+  },
+  {
+   "term": "삼닉",
+   "count": 6,
+   "burst": 78.8,
+   "new": true
+  },
+  {
+   "term": "차트",
+   "count": 6,
+   "burst": 78.8,
+   "new": true
+  },
+  {
+   "term": "근황",
+   "count": 6,
+   "burst": 78.8,
+   "new": true
+  },
+  {
+   "term": "뭐냐",
+   "count": 5,
+   "burst": 65.7,
+   "new": true
+  },
+  {
+   "term": "아니",
+   "count": 5,
+   "burst": 65.7,
+   "new": true
+  },
+  {
+   "term": "앤트로픽",
+   "count": 13,
+   "burst": 9.0,
+   "new": false
+  },
+  {
+   "term": "이사회",
+   "count": 12,
+   "burst": 6.9,
+   "new": false
+  },
+  {
+   "term": "반도체",
+   "count": 14,
+   "burst": 6.3,
+   "new": false
+  },
+  {
+   "term": "엔비",
+   "count": 33,
+   "burst": 3.5,
+   "new": false
+  },
+  {
+   "term": "엔비디아",
+   "count": 23,
+   "burst": 3.4,
+   "new": false
+  },
+  {
+   "term": "수능",
+   "count": 7,
+   "burst": 6.1,
+   "new": false
+  },
+  {
+   "term": "지금",
+   "count": 17,
+   "burst": 3.4,
+   "new": false
+  },
+  {
+   "term": "진지하게",
+   "count": 5,
+   "burst": 5.1,
+   "new": false
+  },
+  {
+   "term": "씨발",
+   "count": 5,
+   "burst": 5.1,
+   "new": false
+  }
+ ],
+ "top_recommended": [
+  {
+   "gallery": "해외주식갤러리",
+   "title": "내년 용산이 젤웃기네",
+   "views": 15362,
+   "recommend": 234,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18439603&exception_mode=recommend&page=1",
+   "time_kst": "11-18 15:45"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "리트냥이 드리블실력 뭐임?",
+   "views": 13904,
+   "recommend": 175,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18439187&exception_mode=recommend&page=1",
+   "time_kst": "11-18 14:41"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "미국주식갤러리 ㅇㅈㄹ ㅋㅋㅋ",
+   "views": 9802,
+   "recommend": 168,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18442958&exception_mode=recommend&page=1",
+   "time_kst": "11-18 22:30"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "ㄷㄷ 큰거왔다 노무냥이 등장 ㄷㄷ",
+   "views": 12585,
+   "recommend": 167,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18439007&exception_mode=recommend&page=1",
+   "time_kst": "11-18 14:14"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "여기보면 젠슨황이 무슨 선의의 피해자인줄",
+   "views": 10826,
+   "recommend": 167,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18439255&exception_mode=recommend&page=1",
+   "time_kst": "11-18 14:49"
+  }
+ ],
+ "top_viewed": [
+  {
+   "gallery": "국내주식갤러리",
+   "title": "지코 90억 손실중",
+   "views": 696,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925737&page=2",
+   "time_kst": "11-19 03:23"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "오늘 나선 개웃기네 ㅋㅋ",
+   "views": 594,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925688&page=3",
+   "time_kst": "11-19 02:05"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "삼닉 좆됐노 ㅋㅋ",
+   "views": 526,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925788&page=1",
+   "time_kst": "11-19 05:35"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "나스닥 불장인데? ㅋㅋㅋㅋㅋㅋㅋ",
+   "views": 509,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925734&page=2",
+   "time_kst": "11-19 03:17"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "지금 자리가 바닥이라 확신하는 이유",
+   "views": 496,
+   "recommend": 1,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925722&page=3",
+   "time_kst": "11-19 02:43"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "반도체가 계속 안좋내",
+   "views": 487,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925750&page=2",
+   "time_kst": "11-19 04:00"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "주식 참 재밌다 오를때는 다사고싶었는데",
+   "views": 446,
+   "recommend": 1,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925753&page=2",
+   "time_kst": "11-19 04:04"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "엔비디아 이사회 의장, \"젠슨 황 복귀 없다\"",
+   "views": 437,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925784&page=1",
+   "time_kst": "11-19 05:16"
+  }
+ ]
+}

@@ -1,0 +1,642 @@
+{
+ "date": "2026-09-20",
+ "meta": {
+  "window": "09-19 06:00~09-20 06:00 KST",
+  "engine": "Gemini(gemini-flash-lite-latest)",
+  "generated_at": "2026-09-20T06:35+09:00"
+ },
+ "stats": {
+  "channels": 42,
+  "messages": 374,
+  "groups": 350
+ },
+ "one_liner": "AI·반도체 및 암호화폐 강세 속 미·중 국빈회담과 중동 지정학적 리스크가 교차하는 하루",
+ "themes": [
+  {
+   "name": "미·중 정상회담 및 무역 협상 기대감",
+   "narrative": "시진핑 중국 국가주석의 방미를 앞두고 미·중 양국이 LNG 관세 인하와 300억 달러 규모 상품 상호 관세 인하를 논의 중이며, 빅테크 CEO들이 참석하는 국빈 만찬이 예정되어 시장의 기대를 모으고 있다.",
+   "status": "new",
+   "strength": 4,
+   "keywords": [
+    "국빈",
+    "대표단",
+    "미국산",
+    "희토류"
+   ],
+   "evidence": [
+    {
+     "channel": "미국 주식 인사이더 🇺🇸 (US Stocks Insider)",
+     "quote": "• 시진핑 중국 국가주석은 9월 25일까지 사흘간 워싱턴을 국빈 방문할 예정. 트럼프 대통령과 시 주석 회담에서는 AI, 미·중 무역 휴전, 펜타닐, 희토류 및 수출통제 등이 주요 의제로 논의될 전망."
+    },
+    {
+     "channel": "하나 중국/신흥국 전략 김경환",
+     "quote": "•이날 저녁 트럼프 부부는 백악관 이스트룸에서 중국 대표단을 위한 국빈 만찬을 개최하며, 트럼프와 시진핑이 만찬 시작에 앞서 연설할 예정임."
+    }
+   ]
+  },
+  {
+   "name": "비트코인 8만불 탈환 및 암호화폐 관련주 강세",
+   "narrative": "비트코인이 8만 달러선을 탈환하며 전고점 돌파 기대감이 재점화된 가운데, Strategy Inc.의 보유량 확대와 SEC의 블록체인 증권거래 '혁신 예외' 승인 등 제도화 진척이 관련주 매수세를 견인하고 있다.",
+   "status": "new",
+   "strength": 4,
+   "keywords": [
+    "Strategy",
+    "블록체인",
+    "Robinhood"
+   ],
+   "evidence": [
+    {
+     "channel": "연수르 해외주식",
+     "quote": "• MSTR (+16.39%): Bitcoin이 $80,000선을 탈환하며 전고점 돌파 기대감 재점화; Strategy Inc.의 BTC 보유량 약 845,050개..."
+    },
+    {
+     "channel": "김현석(자본주의 바이어스 있는 채널입니다)",
+     "quote": "-SEC의 블록체인 증권거래 \"혁신 예외(Innovation Exemption)\" 승인 소식에 코인베이스 COIN(+6.55%)·로빈후드 HOOD(+5.94%) 등 핀테크·가상자산 관련주 강세"
+    }
+   ]
+  },
+  {
+   "name": "반도체·AI 장비 수요 확대 및 설비투자 전망 상향",
+   "narrative": "씨티(Citi)의 글로벌 반도체 장비 지출 전망 상향과 AI 메모리·HBM 수요의 구조적 성장 재확인에 힘입어 반도체 장비 및 스토리지 종목들이 강세를 보이고 있다.",
+   "status": "new",
+   "strength": 4,
+   "keywords": [
+    "Citi",
+    "SNDK",
+    "재확인"
+   ],
+   "evidence": [
+    {
+     "channel": "연수르 해외주식",
+     "quote": "• LRCX (+7.0%): Citi가 글로벌 WFE 지출 전망을 2026년 $1,450억·2027년 $2,000억으로 대폭 상향; HBM·AI 메모리 설비투자 수요 구조적 성장 재확인"
+    },
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "* 샌디스크 (SNDK): 10.99% 상승. AI 데이터센터 수요 및 저장장치 공급 부족 기대감."
+    }
+   ]
+  },
+  {
+   "name": "중동 지정학적 리스크와 사우디 리야드 공습",
+   "narrative": "후티 반세력의 사우디 수도 리야드 공항 인근 공습 소식과 민방위국의 경보 발령 등으로 지정학적 불안감이 고조되며 에너지 시장 및 중동 리스크에 대한 경계감이 커지고 있다.",
+   "status": "new",
+   "strength": 3,
+   "keywords": [
+    "리야드"
+   ],
+   "evidence": [
+    {
+     "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+     "quote": "* 후티, 사우디 수도까지 첫 공습한 듯…\"리야드공항 인근서 화염\"(종합) - 19일(현지시간) 영국 BBC 방송 등에 따르면 사우디 민방위국은 현지 시간으로 전날 밤부터 이날 아침까지 리야드를 포함한 여러 지역에 공습경보를 발령했다."
+    },
+    {
+     "channel": "미국 주식 인사이더 🇺🇸 (US Stocks Insider)",
+     "quote": "• 사우디 민방위는 리야드와 알카르지에 잠재적 위험 경보를 발령했으나 이후 위험 상황이 종료됐다고 발표."
+    }
+   ]
+  },
+  {
+   "name": "테슬라 옵티머스 양산 가속화 및 로봇 밸류체인",
+   "narrative": "테슬라가 옵티머스 휴머노이드 로봇 양산을 위해 중국 공급업체를 대상으로 생산 감사를 진행하고 2026년 5만 대 생산을 목표로 하는 등 양산 체계 구축에 속도를 내고 있다.",
+   "status": "new",
+   "strength": 3,
+   "keywords": [
+    "옵티머스"
+   ],
+   "evidence": [
+    {
+     "channel": "미국 주식 인사이더 🇺🇸 (US Stocks Insider)",
+     "quote": "• 테슬라 (TSLA) — 옵티머스 휴머노이드 로봇 양산을 앞두고 중국 공급업체를 대상으로 새로운 생산 감사를 진행 중인 것으로 전해짐."
+    },
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "옵티머스 대량 생산 라인 전환 및 중국 공급업체 발주 시작, Optim선 5,000대 발주 확정으로 양산 단계 진입 신호"
+    }
+   ]
+  }
+ ],
+ "community_mood": {
+  "score": 65,
+  "summary": "비트코인 반등과 이란 종전 기대감, 그리고 국내외 증시의 연이은 상승세에 환호하며 과열된 분위기를 보이고 있다.",
+  "hot_stocks": [
+   {
+    "name": "가온전선",
+    "score": 40,
+    "reason": "디시 커뮤니티 제목 키워드에서 언급되며 투자자들의 관심을 받음."
+   },
+   {
+    "name": "하이닉스",
+    "score": 85,
+    "reason": "반도체 업황 개선 기대감 속 연말 주가 상승 전망이 언급됨."
+   }
+  ]
+ },
+ "signals": {
+  "spikes": [
+   {
+    "term": "청춘커피페스티벌",
+    "count": 14,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "그린란드",
+    "count": 12,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "재확인",
+    "count": 9,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "리야드",
+    "count": 9,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "미국산",
+    "count": 8,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "월로",
+    "count": 8,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "잠실",
+    "count": 8,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "커피",
+    "count": 8,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "SNDK",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "희토류",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "덴마크 그린란드",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "덴마크",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "전망임",
+    "count": 8,
+    "burst": 59.76685714285714,
+    "base_daily": 0.3,
+    "new": false
+   },
+   {
+    "term": "사퇴",
+    "count": 14,
+    "burst": 20.9184,
+    "base_daily": 1.7,
+    "new": false
+   },
+   {
+    "term": "Strategy",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "블록체인",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "섹터 전반",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "국빈",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "그린란드 안보",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "옵티머스",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "대표단",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "김승원 법무장관",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "법무장관",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "Citi",
+    "count": 6,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "Robinhood",
+    "count": 5,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   }
+  ],
+  "top_posts": [
+   {
+    "channels": 3,
+    "channel": "하나증권 리서치",
+    "head": "* 하나증권 미래산업팀 *스몰캡/로봇/AI (Analyst 한유건, 권태우, 박찬솔) ★에이치브이엠 (295310.KQ): 수요 대응을 넘어 밸류체인 확대 ★ 원문링크: https://buly.kr/1n6hfjH 1. 416억원 시설투자 공시 ‘수요 대응 → 생산능력 확대’의 전환점 ㆍ 2026년 9월 15일 에이치브이엠…",
+    "url": "https://t.me/HanaResearch/20471",
+    "time_kst": "09-19 19:22"
+   },
+   {
+    "channels": 2,
+    "channel": "메리츠증권 리서치",
+    "head": "📮[메리츠증권 조선/기계 배기연] 2026.9.19 (토) 조선 Weekly (9.21~9.25) ▶ 투자 선호도 - 키워드: DC향 엔진 > FDC > 군함 - Top-Pick: HD현대중공업, HD현대마린솔루션, 한화엔진, STX엔진 ▶ DC향 엔진: ‘제네락’ 이벤트가 상기시킨 조선주 투자 방향성 - 5.0%에 도달…",
+    "url": "https://t.me/meritz_research/44648",
+    "time_kst": "09-19 17:01"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 그림놀이 🚀",
+    "head": "📝 텔레그램 심층 분석 Report (19시 04분) 기준 🌡️ 센티먼트 긍정적 (+15) 💡 요약 AI 및 반도체 섹터의 견조한 성장세와 주요 기업들의 투자 확대 소식에 대한 기대감이 높습니다. 반면, AI 기술의 낮은 소비자 채택률, 주요 빅테크 기업의 대규모 현금 소진, 지정학적 리스크로 인한 에너지 시장 불안정,…",
+    "url": "https://t.me/easobi/16740",
+    "time_kst": "09-19 19:04"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (11시 07분) 기준 🌡️ 센티먼트 환호 (+50) 💡 요약 AI 기술의 빠른 발전과 미중 경제 협력 기대감, 반도체 섹터 강세 및 비트코인 상승세가 시장 전반의 긍정적 분위기를 주도하고 있습니다. 🗣️ Top 키워드: AI(139), 반도체(47), 비트코인(43), IPO(37),…",
+    "url": "https://t.me/easobi_ai/20805",
+    "time_kst": "09-19 11:07"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (23시 05분) 기준 🌡️ 센티먼트 기대 (+35) 💡 요약 AI 및 반도체 산업의 강한 성장 기대감과 비트코인의 기관 투자 확대로 긍정적인 분위기이나, 중동 지정학적 리스크로 인한 에너지 공급 불안과 일부 국가의 경제적 우려가 시장에 부담을 주고 있습니다. 🗣️ Top 키워드: AI…",
+    "url": "https://t.me/easobi_ai/20816",
+    "time_kst": "09-19 23:05"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (15시 09분) 기준 🌡️ 센티먼트 환호 (+40) 💡 요약 AI, 반도체 및 저PBR 자동차 부품 섹터에 대한 강한 기대감이 시장 전반의 낙관론을 이끌고 있으나, 일부 기술 기업의 비용 문제와 IPO 지연, 매크로 불안정성이 공존하며 신중한 투자 움직임도 보입니다. 🗣️ Top 키워…",
+    "url": "https://t.me/easobi_ai/20809",
+    "time_kst": "09-19 15:09"
+   },
+   {
+    "channels": 2,
+    "channel": "🗽엄브렐라(Umbrella Research) 리서치+ 네프콘 옆집부자형 since 2020",
+    "head": "Citi) 인공지능 씨티의 Inference Ahead - 지능이 복리로 쌓이는 곳 씨티의 시각 구글의 Dream-RSI(9/14, Figure 2)를 포함해 RSI가 확장될 수 있다는 초기 증거는 새로운 컴퓨트 수요원을 가리키고 있습니다. 평균 실현 서빙 비용의 하락(5월 28일 고점 대비 54%, 7월 1일 이후 43…",
+    "url": "https://t.me/umbrellaresearch/42339",
+    "time_kst": "09-19 19:50"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (07시 04분) 기준 🌡️ 센티먼트 환호 (+65) 💡 요약 AI, 반도체, 암호화폐 시장의 강력한 상승 모멘텀과 대규모 IPO 기대감으로 시장 전반의 투자심리가 개선되었으나, 국채금리 상승과 일부 지정학적 리스크는 관망세를 유발하고 있습니다. 🗣️ Top 키워드: 트럼프(28), 그…",
+    "url": "https://t.me/easobi_ai/20801",
+    "time_kst": "09-19 07:04"
+   },
+   {
+    "channels": 2,
+    "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+    "head": "* 웨스팅하우스 IPO, 500억달러 기업가치 목표 거론 - 웨스팅하우스 일렉트릭이 IPO를 추진하는 가운데 기업가치 500억달러 이상을 목표로 한다는 보도가 나왔다. 회사의 비공개 S-1 초안에는 공모가와 발행 주식 수가 담기지 않아 해당 목표는 확정된 IPO 조건이 아니다. 웨스팅하우스는 2026년 7월 31일 미 증…",
+    "url": "https://t.me/INSIGHTVALUELEE/10099",
+    "time_kst": "09-19 20:53"
+   },
+   {
+    "channels": 2,
+    "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+    "head": "* 클래리티법 막혔지만…美 가상화폐 제도화는 ‘진행형’ - 19일 주요 외신에 따르면 클래리티법 상원 절차표결에서 제동이 걸린 뒤 이틀 새 미국 내 가상화폐 관련 굵직한 조치들이 연이어 발표됐다. 가장 선도적으로 움직인 곳은 SEC다. SEC는 17일(현지시간) 토큰화된 미국 상장 주식을 블록체인에서 거래할 수 있도록 하…",
+    "url": "https://t.me/INSIGHTVALUELEE/10097",
+    "time_kst": "09-19 17:22"
+   },
+   {
+    "channels": 2,
+    "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+    "head": "* 구글 제미나이, 사이버보안 테스트 중 실제 기업 3곳 시스템 침입 - 월스트리트저널(WSJ)의 단독 보도에 따르면, 구글의 제미나이(Gemini) AI가 사이버보안 테스트 도중 실제 기업 3곳의 시스템에 침입한 것으로 확인됐다. 이는 구글 AI가 자율적으로 시스템 침입을 수행한 것으로 알려진 첫 번째 사례다. 이번 사…",
+    "url": "https://t.me/INSIGHTVALUELEE/10082",
+    "time_kst": "09-19 08:10"
+   },
+   {
+    "channels": 2,
+    "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+    "head": "* 후티, 사우디 수도까지 첫 공습한 듯…\"리야드공항 인근서 화염\"(종합) - 19일(현지시간) 영국 BBC 방송 등에 따르면 사우디 민방위국은 현지 시간으로 전날 밤부터 이날 아침까지 리야드를 포함한 여러 지역에 공습경보를 발령했다. 지난 7월 후티가 공격을 강화하고 사우디를 향해 해상 봉쇄를 선언한 후 리야드에 발령된…",
+    "url": "https://t.me/INSIGHTVALUELEE/10101",
+    "time_kst": "09-19 21:09"
+   },
+   {
+    "channels": 2,
+    "channel": "텐렙",
+    "head": "[로보티즈, 휴머노이드 양산 시계 빨라진다…'연 1만대' 목표] : 로보티즈가 내년부터 휴머노이드 'AI 사피엔스' 생산을 본격 확대 : 우즈베키스탄 생산거점을 활용해 중국 업체와 가격 경쟁력을 확보, 휴머노이드 솔루션 사업도 시작 : 로보티즈는 현지 생산공장을 올해 말 완공하고 내년부터 가동할 예정 : 수작업 비중이 높…",
+    "url": "https://t.me/Ten_level/92140",
+    "time_kst": "09-19 22:15"
+   },
+   {
+    "channels": 2,
+    "channel": "[삼성 이영진] 글로벌 AI/SW",
+    "head": "앤스로픽, IPO 11월로 연기, Astra 견제 위한 신규 모델 출시도 검토 보도 : 앤스로픽은 당초 10월로 예상됐던 IPO를 11월로 미룰 계획. 미 중간선거 이후로 추가 연기될 가능성도 있다는 후속 보도도 존재 : 3Q 실적을 공개해 오픈AI의 9월 GPT-6 Astra 출시 이후에도 강한 경쟁력을 유지하고 있음을…",
+    "url": "https://t.me/Samsung_Global_AI_SW/4596",
+    "time_kst": "09-19 09:46"
+   },
+   {
+    "channels": 2,
+    "channel": "🗽엄브렐라(Umbrella Research) 리서치+ 네프콘 옆집부자형 since 2020",
+    "head": "📌 Hyperscaler CDS Widening Is Not a Dealer Inventory Story (하이퍼스케일러 CDS 확대는 수급 문제가 아니라 AI CAPEX에 따른 신용 펀더멘털 재평가) 아폴로는 최근 하이퍼스케일러 CDS 확대가 신규 회사채 발행에 따른 딜러 헤지·재고 부담 때문이 아니라고 판단. 같은 논…",
+    "url": "https://t.me/umbrellaresearch/42333",
+    "time_kst": "09-19 09:44"
+   }
+  ]
+ },
+ "community_dc": {
+  "source": "DC인사이드",
+  "galleries": [
+   {
+    "id": "krstock",
+    "name": "국내주식갤러리",
+    "posts": 1049,
+    "capped": true,
+    "burst": 0.6,
+    "base_daily": 1640.4
+   },
+   {
+    "id": "stockus",
+    "name": "해외주식갤러리",
+    "posts": 2797,
+    "capped": true,
+    "burst": 0.8,
+    "base_daily": 3429.1
+   }
+  ],
+  "posts_sampled": 584,
+  "keywords": [
+   {
+    "term": "종전",
+    "count": 20,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "요즘",
+    "count": 16,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "특이점",
+    "count": 15,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "전쟁",
+    "count": 11,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "사람",
+    "count": 7,
+    "burst": 93.2,
+    "new": true
+   },
+   {
+    "term": "뭔가",
+    "count": 7,
+    "burst": 93.2,
+    "new": true
+   },
+   {
+    "term": "가온전선",
+    "count": 6,
+    "burst": 79.9,
+    "new": true
+   },
+   {
+    "term": "나는",
+    "count": 6,
+    "burst": 79.9,
+    "new": true
+   },
+   {
+    "term": "한번",
+    "count": 6,
+    "burst": 79.9,
+    "new": true
+   },
+   {
+    "term": "vs",
+    "count": 5,
+    "burst": 66.6,
+    "new": true
+   },
+   {
+    "term": "유럽",
+    "count": 5,
+    "burst": 66.6,
+    "new": true
+   },
+   {
+    "term": "러시아",
+    "count": 5,
+    "burst": 66.6,
+    "new": true
+   },
+   {
+    "term": "조건",
+    "count": 5,
+    "burst": 66.6,
+    "new": true
+   },
+   {
+    "term": "한국",
+    "count": 5,
+    "burst": 66.6,
+    "new": true
+   },
+   {
+    "term": "도쿄",
+    "count": 5,
+    "burst": 66.6,
+    "new": true
+   }
+  ],
+  "top_recommended": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "??? : 아니 그러니까 작은아빠 미국주식 하셔야 한다니까요!",
+    "views": 10468,
+    "recommend": 208,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17790840&exception_mode=recommend&page=1",
+    "time_kst": "09-19 13:39"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "니네 주식으로 돈벌었다고 절대 자랑하지마라....",
+    "views": 9518,
+    "recommend": 132,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17790413&exception_mode=recommend&page=1",
+    "time_kst": "09-19 12:08"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "일론 머스크가 끊임없이 입터는 이유...jpg",
+    "views": 9854,
+    "recommend": 119,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17790787&exception_mode=recommend&page=1",
+    "time_kst": "09-19 13:26"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "추석 명절 선물 ㅁㅌㅊ?",
+    "views": 10506,
+    "recommend": 102,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17790912&exception_mode=recommend&page=1",
+    "time_kst": "09-19 13:58"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "돌발퀴즈) 어린이 가슴을 2글자로 줄이면?",
+    "views": 9496,
+    "recommend": 96,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17791566&exception_mode=recommend&page=1",
+    "time_kst": "09-19 16:31"
+   }
+  ],
+  "top_viewed": [
+   {
+    "gallery": "국내주식갤러리",
+    "title": "내일 개폭등 확정이네",
+    "views": 714,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3515087&page=2",
+    "time_kst": "09-20 02:49"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "요즘 애새기들은 개념이 처 없나",
+    "views": 696,
+    "recommend": 30,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17794914&page=4",
+    "time_kst": "09-20 04:52"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "뭐야 종전임? 말도안돼",
+    "views": 616,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3515075&page=2",
+    "time_kst": "09-20 02:18"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "니네 왜캐 순진함ㅋㅋㅋ 호르무즈 해협 개방?",
+    "views": 605,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3515061&page=2",
+    "time_kst": "09-20 01:56"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "이란 종전안 나왓으니까 입털어야겟다",
+    "views": 524,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3515014&page=3",
+    "time_kst": "09-20 01:15"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "이란, 미국과 종전 협상 조건 제시",
+    "views": 496,
+    "recommend": 1,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3514936&page=4",
+    "time_kst": "09-20 00:43"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "이란 종전 조건 존나 후하네",
+    "views": 460,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3514948&page=4",
+    "time_kst": "09-20 00:46"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "하이닉스 진지하게 연말 400만 원 넘을듯...",
+    "views": 458,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3515108&page=1",
+    "time_kst": "09-20 04:10"
+   }
+  ]
+ }
+}

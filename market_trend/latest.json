@@ -1,0 +1,624 @@
+{
+ "date": "2026-11-20",
+ "meta": {
+  "window": "11-19 06:00~11-20 06:00 KST",
+  "engine": "Gemini(gemini-2.5-flash)",
+  "generated_at": "2026-11-20T06:35+09:00"
+ },
+ "stats": {
+  "channels": 95,
+  "messages": 1499,
+  "groups": 1369
+ },
+ "one_liner": "한중 FTA 타결로 콘텐츠/여행주 기대감이 고조된 가운데, 연준의 추가 금리 인상 가능성과 AI 투자 수익성 우려가 시장에 부담을 주며 개미 투자자들의 비관론이 심화되고 있습니다.",
+ "themes": [
+  {
+   "name": "연준의 매파적 스탠스 및 금리 인상 우려 재점화",
+   "narrative": "FOMC 의사록에서 대다수 위원들이 추가 금리 인상 가능성을 언급하고, 월러 연준 이사가 12월 50bp 인상(빅스텝) 필요성을 재차 강조하면서 시장의 금리 인상 우려가 다시 커지고 있습니다.",
+   "status": "ongoing",
+   "strength": 4,
+   "keywords": [
+    "bp 인상",
+    "월러 연준",
+    "빅스텝",
+    "거의 모든"
+   ],
+   "evidence": [
+    {
+     "channel": "키움증권 전략/시황 한지영",
+     "quote": "젠슨황 공백 우려 및 AI 투자수익성 부담 잔존, 월러 연준이사의 50bp 인상 재강조 및 매파적이었던 12월 FOMC 의사록 여파로,"
+    },
+    {
+     "channel": "여의도스토리 Ver2.0-习近平是个狗东西",
+     "quote": "① 연준 추가 인상 공감대와 50bp 논의"
+    },
+    {
+     "channel": "대신 전략. 돌직구",
+     "quote": "미 연방준비제도(Fed), 10월 FOMC 의사록에서 거의 모든 참가자가 추가 금리 인상이 적절할 가능성이 크다고 판단했다고 공개."
+    }
+   ]
+  },
+  {
+   "name": "한중 FTA 타결 및 한한령 해제 기대감 고조",
+   "narrative": "한중 FTA 서비스·투자 후속협상이 실질적으로 타결되면서 K-콘텐츠에 대한 최혜국 대우, 영화·게임 공동제작 확대, 한국 여행사의 중국 현지 모객 허용 등 한한령 해제에 대한 기대감이 커지고 있습니다. 이에 따라 엔터테인먼트, 콘텐츠, 여행 관련 업종의 강세가 나타났습니다.",
+   "status": "new",
+   "strength": 5,
+   "keywords": [
+    "FTA",
+    "한한령",
+    "한중",
+    "타결",
+    "공연",
+    "공동제작",
+    "여행",
+    "관광객",
+    "해제",
+    "FTA 타결",
+    "실질 타결",
+    "본토"
+   ],
+   "evidence": [
+    {
+     "channel": "다올투자증권 리서치센터",
+     "quote": "- 한중 FTA 서비스/투자 후속협상 실질 타결, K-콘텐츠에 대한 최혜국 대우 언급되며 주가에 긍정적으로 작용"
+    },
+    {
+     "channel": "신한 리서치",
+     "quote": "韓中 2단계 FTA가 8년 8개월 만에 타결됐습니다. 韓 여행사의 中 현지 상품 판매 및 모객 허용, 영화·게임 분야 최혜국 대우, 콘텐츠 공동제작 대상 확대 등 내용이 담겼습니다. 이에 여행(롯데관광개발 +8.5%)·콘텐츠(CJ ENM +28.1%)·게임(펄어비스 +6.0%) 등 수혜 기대 업종 강세였습니다."
+    },
+    {
+     "channel": "[한투증권 김명주] 유통/화장품/생활소비재",
+     "quote": "[한투증권 유통/화장품 김명주] 한중FTA 2차 타결에 따른 한한령 해제 기대감 상승에 대한 코멘트"
+    }
+   ]
+  },
+  {
+   "name": "AI 섹터, 호실적에도 수익성 우려 지속",
+   "narrative": "엔비디아가 호실적을 발표했음에도 불구하고 주가가 하락하는 등 AI 투자 수익성에 대한 투자자들의 우려가 지속되고 있습니다. 이는 AI 투자 붐의 지속 가능성에 대한 의구심을 반영하는 것으로 보입니다.",
+   "status": "ongoing",
+   "strength": 3,
+   "keywords": [
+    "호실적에"
+   ],
+   "evidence": [
+    {
+     "channel": "서화백의 그림놀이 🚀",
+     "quote": "AI 투자 붐 지속 가능성에 대한 투자자 우려, 호실적에도 불구하고 주가 하락"
+    },
+    {
+     "channel": "epic AI - 투자 어시스턴트",
+     "quote": "💻 엔비디아, 호실적에도 2.9% 하락… 반도체주는 종목별 엇갈려"
+    }
+   ]
+  }
+ ],
+ "community_mood": {
+  "score": -80,
+  "summary": "개미 투자자들은 코스피의 큰 폭 하락과 막대한 손실 추정치에 깊은 절망감을 느끼고 있으며, 시장 시스템과 외국인 투자자에 대한 불신이 팽배합니다. 전반적으로 주식 시장에 대한 회의적이고 비관적인 정서가 지배적입니다.",
+  "hot_stocks": [
+   {
+    "name": "앤트로픽",
+    "score": 0,
+    "reason": "AI 관련 기업으로 커뮤니티에서 언급량이 급증했다."
+   },
+   {
+    "name": "스엑",
+    "score": 30,
+    "reason": "상장 관련 키워드와 함께 언급되며 잠재적 투자 기회로 주목받고 있다."
+   },
+   {
+    "name": "삼성전자/SK하이닉스 (삼닉)",
+    "score": -40,
+    "reason": "외국인 매도세와 시장 전반의 하락 우려 속에서 언급되며 투자자들의 불안감을 반영하고 있다."
+   }
+  ]
+ },
+ "signals": {
+  "spikes": [
+   {
+    "term": "리트",
+    "count": 31,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "리트 만점자",
+    "count": 29,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "만점자",
+    "count": 29,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "bp 인상",
+    "count": 22,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "공연",
+    "count": 22,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "한덕수",
+    "count": 21,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "FTA",
+    "count": 56,
+    "burst": 15.46238130021914,
+    "base_daily": 3.4,
+    "new": false
+   },
+   {
+    "term": "by kimuda",
+    "count": 63,
+    "burst": 12.35309810397942,
+    "base_daily": 4.9,
+    "new": false
+   },
+   {
+    "term": "kimuda",
+    "count": 63,
+    "burst": 12.35309810397942,
+    "base_daily": 4.9,
+    "new": false
+   },
+   {
+    "term": "한한령",
+    "count": 58,
+    "burst": 13.766944754142479,
+    "base_daily": 4.0,
+    "new": false
+   },
+   {
+    "term": "빅스텝",
+    "count": 19,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "공동제작",
+    "count": 19,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "한중",
+    "count": 49,
+    "burst": 16.169502396265745,
+    "base_daily": 2.9,
+    "new": false
+   },
+   {
+    "term": "타결",
+    "count": 46,
+    "burst": 17.781738495252007,
+    "base_daily": 2.4,
+    "new": false
+   },
+   {
+    "term": "여행",
+    "count": 18,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "월러 연준",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "호실적에",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "FTA 타결",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "실질 타결",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "대법",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "해제",
+    "count": 53,
+    "burst": 11.755212013076436,
+    "base_daily": 4.3,
+    "new": false
+   },
+   {
+    "term": "거의 모든",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "본토",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "관광객",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "예정일자",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   }
+  ],
+  "top_posts": [
+   {
+    "channels": 4,
+    "channel": "키움증권 전략/시황 한지영",
+    "head": "[11/19, 장 시작 전 생각: 어려운 도전의 연속, 키움 한지영] - 다우 -1.1%, S&P500 -0.2%, 나스닥 +0.4% - 엔비디아 -2.9%, 마이크론 -1.0%, AMD +5.3% - 미 10년물 금리 5.06%, 30년물 금리 5.41%, WTI 81.8달러 1. 미국 본장의 분위기는 장전 선물시장에…",
+    "url": "https://t.me/hedgecat0301/3003",
+    "time_kst": "11-19 07:49"
+   },
+   {
+    "channels": 4,
+    "channel": "메리츠증권 리서치",
+    "head": "📮[메리츠증권 전기전자/IT부품 양승수] 티에스이(131290): 중장기 Probe Card 쇼티지의 중심 ▶ 3Q26 Review: 기대 이상의 매출, 아쉬운 수익성 - 3Q26 연결 실적은 매출액 2,174억원(+108.2% YoY), 영업이익 527억원(+187.3% YoY)을 기록하며, 각각 당사 추정치를 13.8…",
+    "url": "https://t.me/meritz_research/45198",
+    "time_kst": "11-19 08:53"
+   },
+   {
+    "channels": 4,
+    "channel": "여의도스토리 Ver2.0-习近平是个狗东西",
+    "head": "[세아제강지주(003030)/Not Rated/다올 철강금속·전력기기 이정우] ★ NDR 후기: 강관 사이클 진입 ▶️ 미국 법인이 이끌었던 호실적 3Q26 연결 매출액과 영업이익 각각 1.2조원(YoY +33.6%, QoQ +5.7%), 905억원(YoY +127.4%, QoQ 흑자전환) 기록. 세아제강 환율 하락과 납…",
+    "url": "https://t.me/YeouidoStory2/120019",
+    "time_kst": "11-19 08:48"
+   },
+   {
+    "channels": 4,
+    "channel": "다올투자증권 리서치센터",
+    "head": "[엔터(Overweight) | 다올 엔터 임도영] ★ 한한령 Comment ▶ K-콘텐츠 최혜국 대우 언급 - 한중 FTA 서비스/투자 후속협상 실질 타결, K-콘텐츠에 대한 최혜국 대우 언급되며 주가에 긍정적으로 작용 - 콘텐츠 부문 주요 합의는 크게 2가지. 1) 영화/게임 분야 사전심사 시 비차별 원칙 적용, 2)…",
+    "url": "https://t.me/daolresearch/15536",
+    "time_kst": "11-19 08:14"
+   },
+   {
+    "channels": 4,
+    "channel": "여의도스토리 Ver2.0-习近平是个狗东西",
+    "head": "[강원랜드(035250)｜다올 AI·인터넷·게임·레저 김혜영 ☎️2184-2395] ★ 2027년은 배당을, 2028년은 회복을 기대 ★ 19,000원(하향), BUY(유지) ▶️ 2027년 매출액은 1조 4,703억원(+1.3% YoY), 영업이익 2,160억원(-4.3% YoY; OPM 14.7%) 전망 ▶️ 3Q26…",
+    "url": "https://t.me/YeouidoStory2/120014",
+    "time_kst": "11-19 08:25"
+   },
+   {
+    "channels": 4,
+    "channel": "메리츠증권 투자전략팀",
+    "head": "📮[MERITZ Strategy Daily 전략공감2.0] 2026.11.19(목) [신흥국 투자전략 최설화] 2027 Outlook #4 (해설판) isolation - '26년 신흥국 증시의 명암은 고유가와 AI 공급망 편입 여부가 결정. '27년 반전의 열쇠는 유가로, 70달러대에서 안정되면 인도가 최대 수혜 - 중…",
+    "url": "https://t.me/Meritz_strategy/6295",
+    "time_kst": "11-19 08:40"
+   },
+   {
+    "channels": 4,
+    "channel": "하나 중국/신흥국 전략 김경환",
+    "head": "• 대만 금융감독관리위원회(FSC)의 증시 안정화 조치 확대 • 조건부 공매도 금지령 재가동 (약 4년 만의 부활): 개별 종목 당일 하락률 3.5% 이상 시, 다음 거래일 전일 종가 이하 공매도 금지 (신용대주 및 대차 공매도 모두 적용, 현물 매도는 제외) • 일일 대차거래 공매도 한도 추가 축소: 직전 30거래일 평…",
+    "url": "https://t.me/HANAchina/72402",
+    "time_kst": "11-19 17:11"
+   },
+   {
+    "channels": 3,
+    "channel": "빠르고 정확한 주식정보방",
+    "head": "[현대차증권 인터넷/SW/게임 최승호] 2027 연간전망: 불확실성의 바다에서 항해하는 법 투자의견 OVERWEIGHT ▶️ 인터넷/SW: 본업에 대한 디레이팅과, 신사업에 대한 리레이팅이 공존 - 27년은 B2B 내 AI 침투가 가속화되는 동시에 B2C AI AGENT의 본격적 침투가 시작되는 한 해가 될 전망 - 해외…",
+    "url": "https://t.me/fastest_info1/27107",
+    "time_kst": "11-19 15:03"
+   },
+   {
+    "channels": 3,
+    "channel": "GS의 조선/기계/방산 「바담」",
+    "head": "[다올투자증권 조선/기계/방산 최광식] 11/19(목) 데일리뉴스 🛳 조선 [TradeWinds] Kanata and Hanwha Ocean advance deal on FLNG job Shipowners and industry groups push IMO to end net-zero stalemate Hafnia loo…",
+    "url": "https://t.me/c/1405984327/8594",
+    "time_kst": "11-19 08:18"
+   },
+   {
+    "channels": 3,
+    "channel": "여의도스토리 Ver2.0-习近平是个狗东西",
+    "head": "<한화 임혜윤 오늘 개장전 꼭 알아야 할 5가지_11/19 Bloomberg> ① 연준 추가 인상 공감대와 50bp 논의 - 10월 의사록은 거의 모든 참석자가 향후 수개월 추가 인상이 적절할 가능성을 높게 봤고 월러는 12월 50bp 인상 검토를 주장 - 참석자 2명은 인플레이션이 악화되면 25bp를 넘는 인상이 필요할…",
+    "url": "https://t.me/YeouidoStory2/120007",
+    "time_kst": "11-19 07:50"
+   },
+   {
+    "channels": 3,
+    "channel": "신한 리서치",
+    "head": "[신한투자증권 혁신성장 최승환, 이채윤] SFA(056190.KQ) - NDR 후기: 27년 연결이익 대폭 레벨업 ▶️ 신한생각: 4분기 수주 점프 확인 시 주가 턴어라운드 확신 - 3분기 수주 부진은 PO 컷오프에 따른 이연으로 4분기 분기 최대 수주 달성을 통한 연간 1.3조원 목표 유효 - 반도체 전공정 진입과 SF…",
+    "url": "https://t.me/shinhanresearch/53721",
+    "time_kst": "11-19 08:42"
+   },
+   {
+    "channels": 3,
+    "channel": "키움증권 리서치센터",
+    "head": "[키움증권/김진구] 테이크 투 인터랙티브 소프트웨어 (TTWO.US) 기업리포트: 다가오는 판단의 시간 ◆ 최근 Bloomberg Consensus 상으로 반영되어 있는 GTA IP 매출액을 순매출 기준 ASP $63로 역산하여 당사가 분석한 내년 1분기까지 GTA VI 누적 판매량 기대치는 대략 4천만 장 수준, 과거…",
+    "url": "https://t.me/KiwoomResearch/24678",
+    "time_kst": "11-19 18:46"
+   },
+   {
+    "channels": 3,
+    "channel": "미국 주식 인사이더 🇺🇸 (US Stocks Insider)",
+    "head": "안녕하세요, 플루토입니다. 12월 3일, 팀더윤쎈의 올해 마지막 라이브 '시작이 중요하다, 2027 전략'을 무료로 공개합니다. 최근 채널에 새로 오신 분들이 계신 것 같아 간단히 소개드립니다. 저는 팀더윤쎈에서 퀀트 스페셜리스트로 강의를 맡고 있습니다. 팀더윤쎈은 매크로(윤지호 평론가), 국내 섹터(박찬일 대표), 글로…",
+    "url": "https://t.me/insidertracking/69702",
+    "time_kst": "11-19 11:36"
+   },
+   {
+    "channels": 3,
+    "channel": "하나 중국/신흥국 전략 김경환",
+    "head": ">>중국 AI 반도체 관련주 급락, 업계 “시장 소문 부정확” (중국언론) •11월 19일 A주 시장에서 Enflame, MetaX, Moore Threads 등 AI 반도체 관련주가 급락했음. 삼성전자가 파운드리 고객사를 대상으로 전수 조사를 시작했다는 소문이 확산됐지만, 업계 확인 결과 사실과 다른 것으로 파악 •소문…",
+    "url": "https://t.me/HANAchina/72398",
+    "time_kst": "11-19 14:32"
+   },
+   {
+    "channels": 3,
+    "channel": "한투증권 미국/중국전략 정정영",
+    "head": "텍사스에서 데이터센터 승인 재개 • 스페이스x ========================= ~ The data-center moratorium in Texas has ended, and much earlier than expected. Texas regulators have begun approving permits f…",
+    "url": "https://t.me/G2strategy/34565",
+    "time_kst": "11-19 08:01"
+   }
+  ]
+ },
+ "community_dc": {
+  "source": "DC인사이드",
+  "galleries": [
+   {
+    "id": "krstock",
+    "name": "국내주식갤러리",
+    "posts": 643,
+    "capped": true,
+    "burst": 0.6,
+    "base_daily": 1056.7
+   },
+   {
+    "id": "stockus",
+    "name": "해외주식갤러리",
+    "posts": 13772,
+    "capped": true,
+    "burst": 4.3,
+    "base_daily": 3187.9
+   }
+  ],
+  "posts_sampled": 477,
+  "keywords": [
+   {
+    "term": "스엑",
+    "count": 7,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "상장",
+    "count": 7,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "미장",
+    "count": 6,
+    "burst": 92.6,
+    "new": true
+   },
+   {
+    "term": "슨피",
+    "count": 6,
+    "burst": 92.6,
+    "new": true
+   },
+   {
+    "term": "에서",
+    "count": 5,
+    "burst": 77.1,
+    "new": true
+   },
+   {
+    "term": "이렇게",
+    "count": 5,
+    "burst": 77.1,
+    "new": true
+   },
+   {
+    "term": "앤트로픽",
+    "count": 27,
+    "burst": 9.3,
+    "new": false
+   },
+   {
+    "term": "야선",
+    "count": 13,
+    "burst": 9.5,
+    "new": false
+   },
+   {
+    "term": "이유",
+    "count": 9,
+    "burst": 10.7,
+    "new": false
+   },
+   {
+    "term": "엔트로픽",
+    "count": 12,
+    "burst": 8.8,
+    "new": false
+   },
+   {
+    "term": "그래",
+    "count": 6,
+    "burst": 8.4,
+    "new": false
+   },
+   {
+    "term": "국장",
+    "count": 15,
+    "burst": 4.7,
+    "new": false
+   },
+   {
+    "term": "구글",
+    "count": 5,
+    "burst": 5.9,
+    "new": false
+   },
+   {
+    "term": "시발",
+    "count": 5,
+    "burst": 2.9,
+    "new": false
+   },
+   {
+    "term": "지금",
+    "count": 10,
+    "burst": 1.6,
+    "new": false
+   }
+  ],
+  "top_recommended": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "철학없는 나라의 비극.",
+    "views": 14707,
+    "recommend": 315,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18454097&exception_mode=recommend&page=1",
+    "time_kst": "11-19 15:55"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "리트냥이가 운지한건 가축이 주인인척해서 그럼",
+    "views": 10300,
+    "recommend": 212,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18452447&exception_mode=recommend&page=1",
+    "time_kst": "11-19 14:18"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "\"너희들만큼은 이 허상으로 점철된 시스템에서 도망쳐라\"",
+    "views": 9501,
+    "recommend": 186,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18453856&exception_mode=recommend&page=1",
+    "time_kst": "11-19 15:33"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "진우씨 심경 이해는 되는게 나도 서울대 다닌적 있는데",
+    "views": 12307,
+    "recommend": 182,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18452768&exception_mode=recommend&page=1",
+    "time_kst": "11-19 14:30"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "아니 뭐 휴대폰 22명 적발했다. 이러는데 어이없다.",
+    "views": 8515,
+    "recommend": 182,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18450036&exception_mode=recommend&page=1",
+    "time_kst": "11-19 11:22"
+   }
+  ],
+  "top_viewed": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "\"코스피 9000에서 5000으로\"…개미들 손실 563조원 추정",
+    "views": 1165,
+    "recommend": 14,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18466070&page=10",
+    "time_kst": "11-20 05:47"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "외국인 입장에서는 ㅈㄴ 좋았겠다ㅋㅋ",
+    "views": 687,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932460&page=5",
+    "time_kst": "11-20 03:34"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "반도체가 아니라 걍 시장 자체가 무너지네",
+    "views": 599,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932486&page=4",
+    "time_kst": "11-20 04:12"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "외궈들 5천밑으로는 가급적 안팔려고 하더라",
+    "views": 449,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932449&page=5",
+    "time_kst": "11-20 03:26"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "어쩐지 외인들 아까 삼닉을 팔더라니..",
+    "views": 443,
+    "recommend": 2,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932438&page=5",
+    "time_kst": "11-20 03:20"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "주식 하지 말걸",
+    "views": 440,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932455&page=5",
+    "time_kst": "11-20 03:29"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "코스피 개미들 손실 600조 돌파 예정",
+    "views": 375,
+    "recommend": 6,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932539&page=3",
+    "time_kst": "11-20 05:17"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "미국 반도치 2퍼정도 빠졌더만",
+    "views": 368,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3932550&page=3",
+    "time_kst": "11-20 05:26"
+   }
+  ]
+ }
+}

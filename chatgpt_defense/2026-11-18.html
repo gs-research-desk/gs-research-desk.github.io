@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+/* 사용자가 토글로 고른 값 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",TH="466f2167513403c0b21bd9bc77f62789f19195656f686edba4adaede4ee93c80",OWNER=false,TEAMOK=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===TH?"team":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ // 팀 비번이 통하는 곳: 대시보드 본체를 수명 피드백 항목 링크로 연 집중 화면뿐.
+ function teamHere(){return TEAMOK&&/[?&]focus=/.test(location.search)&&/^#tasklist:/.test(location.hash)}
+ function pass(l){return l==="owner"||((l==="guest"||l==="team")&&!OWNER)||(l==="team"&&teamHere())}
+ var lv=level();
+ if(pass(lv)){window.__GS_LEVEL__=lv;return}   // app.js 가 등급을 읽어 팀 화면을 좁힌다
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ window.__GS_GATED__=1;                  // 아직 안 풀림 — app.js 가 서버 데이터를 받아 두지 않게
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?(teamHere()?"주인 또는 팀 비밀번호로 열립니다. ":"이 화면은 주인 비밀번호가 필요합니다. "):"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     var l=h===OH?"owner":h===TH?"team":h===GH?"guest":null;
+     if(pass(l)){set(h);location.reload();return}
+     msg.textContent=l==="guest"?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                    :l==="team"?"팀 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8"><base target="_blank">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>방산 브리핑 RSS판 2026-11-18</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:13.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-accent,#d6b27a);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:13px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+/* 모바일: 6열 표가 세로로 짓눌리므로 행을 카드로 재배치 (헤더행 기반 라벨) */
+@media (max-width:640px){
+  body{padding:20px 14px 48px}
+  .ptab.hdr, .ptab.hdr tbody, .ptab.hdr tr, .ptab.hdr td{display:block;width:100%;box-sizing:border-box}
+  .ptab.hdr tr:first-child{display:none}
+  .ptab.hdr tr{border:1px solid var(--gs-line,#232e3f);border-radius:10px;margin:10px 0;padding:9px 12px;background:var(--gs-card,#1a2029)}
+  .ptab.hdr tr:hover td{background:transparent}
+  .ptab.hdr td{border:none;padding:2px 0;display:flex;gap:10px;align-items:baseline;font-size:14.5px}
+  .ptab.hdr td::before{content:attr(data-l);color:var(--gs-muted,#8e98a8);font-size:11.5px;flex:0 0 58px}
+  .ptab.hdr td:first-child{display:block;font-weight:700;color:var(--gs-ink-strong,#e6ebf2);font-size:15.5px;
+    padding-bottom:5px;margin-bottom:4px;border-bottom:1px solid var(--gs-line-soft,#1f2834)}
+  .ptab.hdr td:first-child::before{content:none}
+}
+</style></head>
+<body><div class="wrap">
+<h1>🧠 글로벌 방산 브리핑 (RSS판)</h1>
+<div class="meta">기준: 2026-11-18(수) · 생성: Claude 예약 세션 — 구글뉴스 RSS(24h)+yfinance 확정 시세만 근거(제미나이판과 같은 지침)로 쓴 3탄 · 수동 등록분은 ChatGPT 앱 산출물</div>
+<p>글로벌 방산 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-11-18 06:05 KST입니다.</p>
+<p>*(RSS판 — 수집 목록 60건과 확정 시세표만 근거로 썼다. 미국·유럽은 11/17 종가, 한국·일본 개별 종목은 시세표 기준일이 11/16이다. PLUS K방산 ETF만 11/17 값이 들어와 있다.)*</p>
+<h2>오늘의 핵심 요약</h2>
+<ul>
+<li><b>미군, 이란 케슘섬 혁명수비대 미사일 발사 기지 타격</b>: 미 전투기가 호르무즈 해협의 케슘섬 발사 기지를 쳤다. 미국은 바레인 공격에 대한 '자위적' 보복이라고 설명했다[사실 — 보도 인용]. <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxNWENzVXNRVjR0NU9lejlJWll3U01GOENvbnlKVWJuZG9ZSmwtdVRXSDRPZ3JGcGZnSGhfQmYzNnFRQ0p4d2ZaZk80Q0NKUEgtdTI3cmFwb2JxT1FOamJYVllwTFR3UV9ZN2xfMTNTTFZiS0gtSjU2Q3B6dkVLUmgyYzlpcHprNXdCMEdST0RqNkdkTEgycGFEQkVwY01yWENOcVNpYWpFYlRrRG1waGlwVHNKM3h5UHBidHpMcXlkcw?oc=5">Reuters</a> (04:40 KST) · <a href="https://news.google.com/rss/articles/CBMixgFBVV95cUxNSnJFU3lWU1ZsVHctbEtWZTlkaVpGclNXeUw1ZExmRnF4V2ZMam53RHM3X3B3VHNnWm1JLVFkZzRxUDZkaDl2UktTRk9zQ0Z1VFBtamxUanJXdlpuTC1nMjVQNlRVenpaR0VRSUZhcGdpTlBzQ1lodVZNa29JS3lVNWVjYndoRzdZWXA1YzhKaGE1SnZKalJkaG56X0haaWNSZzcxWlpUbDg2M3lCQnlBc3cxVDVkVnNGeEI5RGtrQ2VnQVpaQkE?oc=5">Washington Examiner</a> (06:00 KST) · <a href="https://news.google.com/rss/articles/CBMiV0FVX3lxTE11Z0dWbklLeGlKQnpYMkNES2Z1MnoyVElzb3hNS1llX3A2V2otcF9ZRjdFQmZIVXBBWlg4eWxHX0VNeWdONUZJcDhqYnM2bzN1X1Rsd1BjNA?oc=5">Ynetnews</a> (04:53 KST)</li>
+<li><b>미국 "종심 타격은 통하지 않는다" — 독일 장관 "어리석다", 나토 지도부는 "정당한 타격"</b>: 미국은 우크라이나 지원국들에 전선 장비에 집중하라고 요구했다. 독일 장관은 미국의 비판을 '어리석다'고 일축했고 나토 지도부는 우크라이나의 러시아 본토 타격을 정당하다고 옹호했다. 브뤼셀 나토 본부에서는 우크라이나 방위연락그룹 회의가 열렸다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxOVFNpeUNXUzBTLWhGeWZKdGlFNmhOSFQ1ZVJicE00U3JEaW43N1V3Y1ctRUFSRnpod3dNYjNVV1h5c0RJVFhrU2dtRTExQm51Wmt1Z0Vla3dfSG00aHJBYjRvcGFIR3RsNW4zR2ZaYXpwY2pCOVVMLUV1Z0t2TmZ0d3Y5TVBWUXRyd3ZXOG9GUVJHT2RnRTdmTmJLSDdGb202ekdxbGJOYVQzV0pKU2RkUW5URXZyQ0gyRlpBaFN3?oc=5">WTOP News</a> (04:15 KST) · <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxPRmdnNC1aejdXR1ZzZFEzSGVBNEJ5T2VRZTdHTU1mVGlrcnJkZTlacmJ2V3UteWNQZkNKTUpQa1gtRGxNaGV6ejVaM1JQZkszX2FZeWs0RXlQM09aYnBvdllESnktVEZMclBBcnZDNVdremViZjZmSlZHcGRLeHpCLWc3VnQ3M0psWXBReEg2SEZzSmQ0dkVBbU1ZOTVaVGI1Yld6cWNiaXBGeFB5OFZCTA?oc=5">Reuters</a> (04:49 KST) · <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxOWnhJYWliaVVHVEQyc3dyUWNoNEJWbDM0WktVVEg5a1JGbDFVUVZLMUZtbnAyS1ZPTkpDOFZNYVJ1cnlvd2ZlT3ZkRmxUY2FPY2FWQWJZNDF3clJmczZsTm9sVDBvd2xFUnhGVjNPaGJmbG9hUC1NdEMtZkVlTHE2RV85d2pxalF1NktqVzJXS3VyUHdKZEZZLWhIcw?oc=5">Global News</a> (04:43 KST)</li>
+<li><b>우크라이나, 자체 미사일 유도체계로 크림대교 타격 — 젤렌스키는 '요격탄 맞교환' 제안</b>: Starlink·Starshield 없이 자국 유도체계로 크림대교를 쳤다는 보도다. 젤렌스키는 동맹국에 요격탄을 '기부가 아니라 교환'하자고 제안했고, 탄도미사일 발사대를 겨냥할 위성통신을 미국에 요청했다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMi8wFBVV95cUxQQWJWcUhjcWxSck05MzNVdThCOC1HUi1NbjJLNlRfLXZwQl80NU93ZG4tU3NOYXlJSU5IbWRuLV9yY24tLWNqemd1dkdvS190X0xBUWNKaXFNQi1wd0M4UXFxVkZpekFia1poeVRDdXV6eHdHdmYtdEFFQWZxRjdQZnNBM1ZSY1dld2VGTl9mY1FlNXpZbjFZWC01VUY1VllVWFlDazhPdFkzbGxjbUpjakxILW4tbm9DV25VNXhRUFE3RGE5U0FJU1Z2aWVhR01SWm1idmhmQngxLWRZYVA3a1pLc3RVU0JBd0JSNnUxU0JnaWc?oc=5">UNITED24 Media</a> (05:00 KST) · <a href="https://news.google.com/rss/articles/CBMiS0FVX3lxTFBwaFBnQzdYRnRMWEdXVXk4UU9HQXNvek9WQWhLb0liQkZCNE1XWXFaNzQwZU4waDU3c3pvTjBWWlNRMEI5ckxMamdEdw?oc=5">Kyiv Post</a> (04:34 KST) · <a href="https://news.google.com/rss/articles/CBMi2wFBVV95cUxQd2tyVVRMMWdrblZRU2J3UWtuand6M0ExZnFpNFlwM2lDbHh5azNyRkNjd2lZMXh0ejhNUzJQRzdDSUNnUk95YmVZeFRMZXN3TWZhOWxKZmZ2NWw2Q2g4R2RZS0JiNVZmTnFmZFlidXRWOWo3NENMRzZuNWREQnU4SXRUY2RoR1JjRlUtV3VfQTFXT2NiTzJKeWR0ckFZWXVGM2YyZFhYanNpNi1rekpWMTMxZEJZWmRXMkNwTGY0bDlNX1B1R2lqZm5DVFB3eFpuWWc0eWFqTGlJNnfSAeABQVVfeXFMTmJQbEotcEoyNE1OQktMU2VlS0JyS0J6c3JVd2k1N1BjUXNNME1ST3FGR2NGejJuRWdZZ19KR0k5bDdFOFVQakZoRnZfeDdGdGNMRDV4Z1ZLa09IM3c2alBYZ2R6dzIzQ2dMWjhCaElHRWg0cENnSmpseFZJeDFmR19ZWWV2a2lzUXJJdHg4bnZ3bEMxRExuUFRfbWFKcHNBekhKVnlsNzE1REstRjBOSUpXUEl3c2p0X3l1NXhHS0VpVEtDUTVDRFRJSVdFcm9RVGx2WldDYk9OU21BdmI1WDc?oc=5">Ukrinform</a> (04:52 KST)</li>
+<li><b>튠 상원 원내대표, 추수감사절 전 국방 예산 추가 처리 저울질</b>: 새 국방부 예산을 추수감사절 전에 진전시키는 방안을 검토 중이라는 보도다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxPa25MNG0wbGxQMzhQQTFwZU56MVA0Q2hxT0Y1YW82NE9DV1RVMzdEbjd0aEFjSDNEUElfbFVnNWx2X2FRWnE1YUw3OFJKcjJEYXk1cjhqOGMyS1lYalVRUVYwdXJNaGJ4TE05YncyRWFFUlZPTGRKR3lELVVXRURpbkJDNFR6bWlvdHpQNUlTNy1KZzNGbkxOT1A3OThXTDd3Y0RPVC1SVXM?oc=5">Washington Examiner</a> (03:35 KST)</li>
+<li><b>TKMS, 사상 최대 수상함 수주 확보 — 인도 잠수함 건은 내부 심사 통과</b>: 호위함 수주 계약이 서명됐다는 후속 기사도 있다. 대상 사업과 금액은 제목만으로 확인되지 않는다[사실 — 제목 기준/미확인]. <a href="https://news.google.com/rss/articles/CBMi8gFBVV95cUxORldZdEF5TDhnYkM0eFBpeU1sVHdKekdLb1N1N244ZWE3c3YtblZmWTMtcUotcU5VWlFkNGtEbkN0VUhZcUhkeWJWLWk4RmtQUElORmdXLXEyY01mNnptTzB2bG85V0N1c3dNMWtrZy04Nk55WkJOTGVwN09sTHhudjFreTlfM05MbzQtOUpEQ0dOczlPbWctcDdWUThQY0NQRUpId01GOExXQmRNdXNEYkUyeko5MGhTTzBHY3pHbmNzbDJSM1ppaGJCSEhvLVVvTmFlaDhxYmVUM0J4YUxBWFFNdF9aWmtSYjYyMzN2NHBEdw?oc=5">ad-hoc-news.de</a> (04:41 KST) · <a href="https://news.google.com/rss/articles/CBMiggJBVV95cUxPNkozbUZFME9lSVYzM25nWmRWUEtveVBST3A4N05NSXNpTUUtZ0JYa25sQmpLdVh1M2Rrc01CaUNDNkg3bXROUGxhdkpJNDRVMFlxSmFjY1dTWUF1dm9SWm5KeDVLMXR2TUw4V1RlNmstWEJwZktlQllIRC1RZjdvVHpjRF9PczM1bnhxOHp1WndoUm9YVXNFT3ZGU3ZVSXFoZ3N5cmlFcmxTUVNWekkzWTBmNHRXekw0X2lOUU9aVGFkbTN5UkotVEZJMS1odkRTeGdpbUthQWFxaEppM3A1U243c1luSVhwX3hrY2Znd0dJUkZ1VjhwR3ZrSm9IdE04Y3c?oc=5">ad-hoc-news.de</a> (04:31 KST)</li>
+<li><b>한화, 해상 팔레트형 발사대에서 천무 미사일 시험발사 성공</b>: 유인·무인 함정용 타격 능력을 개발하기 위한 해상 시험을 마쳤다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxQUlUwTWJsUll6MGZrNGx5cW9XZE5XZFd4ZjJyRWtxdW4zUkFfTDh1djREVVlLMnRmS09UY0tXMmh1UmtxZTdQX1h6b0VKT0RBSlloWFUxcFR2eHloSzQyMXprZzlTR2ZFRzF1b0xXME5VajNxcHlQX0hUM2lCQ0VMQ2VPVGsyU2stRGFUUjVnaHo4Nkp3ZnBLUWdMMGszNnlUaldtYWpDZlR6VXBRdU1oX1BzUjY2VUJocEJkRW00akhUVXpa?oc=5">Naval News</a> (05:18 KST) · <a href="https://news.google.com/rss/articles/CBMi3gFBVV95cUxNUGJzODZNOUY3ZkNwckN3eDBpd0twWU43cHdKX0lMQmdjMjlza01jZzVtXzU1SE1aTUJzbjBUcUFqQ2RaeVIyMG5qTnZJZ2pyUnVKUEhhRzlwZ3pTUjJ0R1Fydk1TNXc0WHQwZFF3VlZ3NFNfU3UwMmZ5ZFVOUkdwRXdYckRHSXBaSmw4VnBUMVFPMEhFcTJlQmNxVWdXTU9GckFkZmJQNThVVTJzT3NrVjZrZjhDVUU3ZXVBaW96VklMT2NBNTRiOUhhWC1FYnQwZldxaFVZT0ppOHR6Umc?oc=5">Defence Industry Europe</a> (05:35 KST)</li>
+<li><b>나토 11개국 '스타리프트' 위성 발사 프로그램 출범 — 한국도 재원 약정</b>: 한국의 발사장은 지정되지 않았다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxPZV81QzJIdDgwb3FVV1Zzd3poZVVoVVc5UG9DU3dLLU1Bc0dITTJkc2JjVnc5cGlTdlpGeEdUa2h6WmNWbmFOMU1yY3dYMXZpNVQ0bUk3ZDk3ak9KZlNJTUJYaElFY0Q4Uk9HdEdRYktXMS0wSVFwNXA4Y21tVGc4NEwyQ3JYUkV0M0p2OGJzbHdHOUNvR0ZVbTY5WQ?oc=5">Breaking Defense</a> (04:30 KST) · <a href="https://news.google.com/rss/articles/CBMi4AFBVV95cUxQU05iREZsLTZsUC1lQWlFc2t2cWdkMWRxUm5tSlZGU2I4QXFBVkhIdlNJVEp5QWdNc0lPaGx5ek1JRTNvb3lYbzd0WHcxQlZLVHViZzNTU09TV3N4WnBvd3NtTnlyZFgwdEtXRmxPcG4zbFY1UUhQVzdXRGNWdEJacFcxbEFlU2JiOFBRYjUzRUloTjVGQlB2dlRTanAtQTVZNWl1VWdZOTBrd3lIN0o0QllmYmRwWS11aWFpY2dhVEdvVkdkbzFYemtDOVhmbi1tcmZFeG5CQVJZN1RYd2drbw?oc=5">Tech Times</a> (04:26 KST)</li>
+</ul>
+<h2>주요 주가 동향</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>기업</td><td>국가</td><td>기준일</td><td>등락률</td><td>시가총액</td><td>변동 요인</td></tr>
+</table></div>
+<div style="overflow-x:auto"><table class="ptab hdr">
+<tr><td>Elbit Systems</td><td>이스라엘</td><td>11/17</td><td><span class="up">+5.85%</span></td><td>$33.8B</td><td>공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토</td></tr>
+<tr><td data-l="Elbit Systems">RTX</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="up">+1.59%</span></td><td data-l="$33.8B">$267.2B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">Northrop Grumman</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="up">+1.40%</span></td><td data-l="$33.8B">$78.6B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">Bushmaster 기관포 대드론 실사격 시험 성공 발표</td></tr>
+<tr><td data-l="Elbit Systems">Lockheed Martin</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="up">+0.86%</span></td><td data-l="$33.8B">$136.4B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">Renk</td><td data-l="이스라엘">독일</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="up">+0.43%</span></td><td data-l="$33.8B">€3.3B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">Leonardo</td><td data-l="이스라엘">이탈리아</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="up">+0.18%</span></td><td data-l="$33.8B">€29.2B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">Thales Alenia Space, 이탈리아 L밴드 위성 수주</td></tr>
+<tr><td data-l="Elbit Systems">Boeing</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-0.77%</span></td><td data-l="$33.8B">$129.9B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">연초 대비 <span class="down">-25%</span> 분석 기사</td></tr>
+<tr><td data-l="Elbit Systems">Thales</td><td data-l="이스라엘">프랑스</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-1.13%</span></td><td data-l="$33.8B">€46.6B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">Thales Alenia Space, 이탈리아 L밴드 위성 수주</td></tr>
+<tr><td data-l="Elbit Systems">Rheinmetall</td><td data-l="이스라엘">독일</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-1.14%</span></td><td data-l="$33.8B">€35.5B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">Babcock</td><td data-l="이스라엘">영국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-1.52%</span></td><td data-l="$33.8B">£481.6B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">Huntington Ingalls</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-1.55%</span></td><td data-l="$33.8B">$11.7B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">Hensoldt</td><td data-l="이스라엘">독일</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-2.05%</span></td><td data-l="$33.8B">€9.2B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">BAE Systems</td><td data-l="이스라엘">영국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-2.54%</span></td><td data-l="$33.8B">£5438.0B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">AeroVironment</td><td data-l="이스라엘">미국</td><td data-l="11/17">11/17</td><td data-l="+5.85%"><span class="down">-4.64%</span></td><td data-l="$33.8B">$5.3B</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">KAI</td><td data-l="이스라엘">한국</td><td data-l="11/17">11/16</td><td data-l="+5.85%"><span class="up">+2.98%</span></td><td data-l="$33.8B">₩9.9조</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">한화시스템</td><td data-l="이스라엘">한국</td><td data-l="11/17">11/16</td><td data-l="+5.85%"><span class="down">-2.97%</span></td><td data-l="$33.8B">₩9.2조</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">가와사키중공업</td><td data-l="이스라엘">일본</td><td data-l="11/17">11/16</td><td data-l="+5.85%"><span class="down">-3.14%</span></td><td data-l="$33.8B">¥1.5조</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td data-l="Elbit Systems">한화오션</td><td data-l="이스라엘">한국</td><td data-l="11/17">11/16</td><td data-l="+5.85%"><span class="down">-3.21%</span></td><td data-l="$33.8B">₩13.7조</td><td data-l="공중 레이저 무기 양산 근접 보도 · 체코 Arrow 3 도입 검토">관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+</table></div>
+<ul>
+<li>그 밖(11/17): GD <span class="down">-1.12%</span>·L3Harris <span class="down">-0.39%</span>·GE <span class="up">+0.36%</span>·HWM <span class="up">+1.12%</span>·TDG <span class="down">-1.36%</span>·Kratos <span class="down">-1.90%</span>·Textron <span class="down">-1.27%</span>·Rolls-Royce <span class="down">-0.81%</span>·Dassault <span class="down">-0.52%</span>·Airbus <span class="down">-1.49%</span>·Saab <span class="down">-1.72%</span>·Kongsberg <span class="down">-0.93%</span> / ITA <span class="down">-0.17%</span>·PPA <span class="down">-0.12%</span>·SHLD <span class="down">-0.39%</span>·EUAD <span class="down">-0.61%</span>·PLUS K방산 ETF <span class="down">-4.97%</span>.</li>
+<li>한국·일본 그 밖(11/16): 한화에어로스페이스 <span class="up">+1.25%</span>·LIG디펜스앤에어로스페이스(LIG D&amp;A) <span class="up">+1.42%</span>·현대로템 <span class="down">-1.82%</span>·HD현대중공업 <span class="down">-0.37%</span>·풍산 <span class="down">-0.39%</span>·미쓰비시중공업 <span class="down">-0.70%</span>·IHI <span class="down">-0.73%</span>.</li>
+</ul>
+<h2>큰 변동 분석</h2>
+<p>±10% 이상 변동 종목 없음. (±5% 이상: Elbit Systems <span class="up">+5.85%</span>. 수집 목록에는 실적 기사가 없고, 공중 레이저 무기가 양산에 가까워졌다는 보도와 체코의 Arrow 3 도입 검토, 독일 A400M 초기 생산분에 Elbit J-MUSIC 적외선 방어 장비가 없다는 기사가 있다 — 급등 원인으로 단정할 근거는 없다[미확인]. PLUS K방산 ETF는 11/17 <span class="down">-4.97%</span>인데 개별 종목 11/17 종가는 시세표에 없다.) <a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9nQVBsbk16V1lsZHZTMElGWnN3S2ZYcEJZYWRKOWstRGVXTmhpRTdhQlYzYUxnN1VKYVRkSWFpTExYQzk3VmpuWWY4VE1qYnQtWU5rSzJ5QzdxOWZOOUppOHpUbmRaMEE?oc=5">CTech</a> (04:11 KST) · <a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTFA0ZnZUMHhVTTRyZW9USExlV1JWSmxQbkZaeVB1dnBNczJnWFRiQlg0YnZORGY5aGlFd0RtSTYyVmVUZnRTc0tQVUM5WG9KdUZXdHNLVUxYcm1iSTVfNzNDYzl6OWVDc0U?oc=5">CTech</a> (03:48 KST) · <a href="https://news.google.com/rss/articles/CBMiigJBVV95cUxQZUMwUUsxNU5YQm5sTEdXMUplUW1ZMjFQWlN1aFhvT2RKU182VFE3WGFuVk51VXk0WkFoTENWTlRvWTZGQncxR2dsWHZzTThJR3AzNERfWXBLVFZ0UWJ5aXFzUjZ2Wk5oZGtKUnVWYTIzTmMwOFVEUUJDMmRrdHZIWWJPTldtU2NkcUMtREZqSEVwX2ZmNHptOXBXa2RrWVdVSTFkNTducjZJekdnbXhxb2wxb0E1MzRtMFo2ZklhWk9LVmF6NmhkdHdqUUp3clN3ZW5nMzNMd3NjSWRPX1UyVTJyQkpBZUNKNjAxMmNYN29JcWpnWWpTcFZ4WktQZTNTSEY2MWV5OTcyZw?oc=5">Defense Express</a> (05:27 KST)</p>
+<h2>섹터별 정리</h2>
+<ul>
+<li><b>항공우주</b>: 독일이 운용 15년이 안 된 A400M 16대를 교체한다 — 초기 생산분은 적외선 방어 장비가 없어 분쟁 공역을 날 수 없다는 보도다[사실 — 제목 기준]. Thales Alenia Space는 이탈리아 L밴드 위성을 만든다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMiigJBVV95cUxQZUMwUUsxNU5YQm5sTEdXMUplUW1ZMjFQWlN1aFhvT2RKU182VFE3WGFuVk51VXk0WkFoTENWTlRvWTZGQncxR2dsWHZzTThJR3AzNERfWXBLVFZ0UWJ5aXFzUjZ2Wk5oZGtKUnVWYTIzTmMwOFVEUUJDMmRrdHZIWWJPTldtU2NkcUMtREZqSEVwX2ZmNHptOXBXa2RrWVdVSTFkNTducjZJekdnbXhxb2wxb0E1MzRtMFo2ZklhWk9LVmF6NmhkdHdqUUp3clN3ZW5nMzNMd3NjSWRPX1UyVTJyQkpBZUNKNjAxMmNYN29JcWpnWWpTcFZ4WktQZTNTSEY2MWV5OTcyZw?oc=5">Defense Express</a> (05:27 KST) · <a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxPcFRjSW4wdVdPTUw5S0QyVGY2SS1WcV9lU1plTjN4NG1XQ2FEMWZ4Tk9LajV6b2NmR1dIcVBmZzVZQzFvSXI2ODl2YXNqVzBNUjIyTDIyUzlzMzBmbVRfRjJKbkdfMVZQQ3E1OEZ6V2VrWlBMaWgtbHd1SFg5clF6NWFoZ0pxU0NXSkQ4ckFhLUJzMURmV2Jr?oc=5">Aviation Week</a> (05:35 KST)</li>
+<li><b>지상무기</b>: Northrop Grumman은 Bushmaster 기관포가 M-ACE와 근접신관탄으로 여러 대의 드론을 격추했다고 밝혔다. 미 기갑부대가 수개월의 공백 뒤 리투아니아에 복귀했다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMi4gFBVV95cUxOSGhOclJyLVZrRnUtSTF5Q2xkRmtIRV9QdnZuYzZDMTNVNWZUMWVlakkyYWdXU1hCMVRDRUpka2FXempPTHpZaXRYb3dLbWtKekc0QTUyZjViQWtzZC0ybVZOV1NySGRJMEJRcHZOV1JJbmZyTjhCb0V4dWh5TlZoeXF1MWVIWVJfSDVTX1p5ajU3V053VERWOXpMa3BXMTc1T0p6RDJld2l2Q0drM3BRX184MFdIZHFXOGV3OHc4TXJpbzN4clJpb0ExM1R1TlZZUUJlNG9PZVVQbXNzeUc0NUxB?oc=5">Defence Industry Europe</a> (05:19 KST) · <a href="https://news.google.com/rss/articles/CBMid0FVX3lxTFBDMG04VWR3WEN6OWJqWi1CX2NhQ0dUNmFlNFFCM2VBTFI3N1FDQkNpQmN5eV9ZUWxyMHNoUzg2YXluTTBiN3l0LTc4UkE1RnlvOG1kMm9xQkVGRzdTdEpPSUliZW56Zy1oQzF6ZWJfZ2FRWm5OQkdn?oc=5">Latin Times</a> (05:38 KST)</li>
+<li><b>미사일·방공</b>: 체코가 이스라엘 Arrow 3 미사일 방어체계 구매를 검토한다. Elbit의 공중 레이저 무기는 양산에 가까워졌다[사실 — 제목 기준]. 워싱턴포스트 기고는 미국의 미사일 생산 속도 부족을 경쟁 도입으로 풀자고 주장했다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTFA0ZnZUMHhVTTRyZW9USExlV1JWSmxQbkZaeVB1dnBNczJnWFRiQlg0YnZORGY5aGlFd0RtSTYyVmVUZnRTc0tQVUM5WG9KdUZXdHNLVUxYcm1iSTVfNzNDYzl6OWVDc0U?oc=5">CTech</a> (03:48 KST) · <a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9nQVBsbk16V1lsZHZTMElGWnN3S2ZYcEJZYWRKOWstRGVXTmhpRTdhQlYzYUxnN1VKYVRkSWFpTExYQzk3VmpuWWY4VE1qYnQtWU5rSzJ5QzdxOWZOOUppOHpUbmRaMEE?oc=5">CTech</a> (04:11 KST) · <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxNdXZsWXBLLXZGSzRfLWoxVGJlZGdIUzNYdDZSSnRVZXdpZnRQN3Q1a3RETG11bkdqc1BIUnU0a3ZLcDUzZFRmYVVDejF1WW0zMTFQSzdiaXpXcDVYTzVuYVBIRWxweXg4Nmp1aXdmSk41T0w3X0dXZ1hid3owV2ljSGlFRHBPSHU4WW5ua3JXd1ZnOUJtTjNzQlU3YkxrN2RmclpycGpRVE0wMXZfN2FMeQ?oc=5">The Washington Post</a> (04:45 KST)</li>
+<li><b>해군·조선</b>: TKMS 수상함 수주·인도 잠수함 건(위). HD현대중공업의 페루 함정 4척(6,406억원) 현지 건조가 중남미 후속 수주의 시험대라는 분석이 나왔다[사실 — 제목 기준]. Eastern Shipbuilding은 미 해군 미사일 구축함의 구조 블록 제작을 추가로 맡는다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNU3FDZzJIZndCby1uYjh3d0IwT214M0hIaS04RHI5SkozMFZjcmtqeDFuQlZZangxYl9EZTRhOHppS1AwMzZ2aFdOSGxkZWNlMXlock1ZdGJlNHJ1ZG5zSjljeXByWVhzaWRtaFJWc0JiVXRubXhIN21ZQXRubHBNUUNmVklHTWdk?oc=5">글로벌이코노믹</a> (05:01 KST) · <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxOakhySjl3Q3JvbnJPMWZkVmZjY2l2UTJ0bE1iU2JZd3FIcFlWem5ocmFVUGpSNkVGYkp2Z082b0lSNFdTZ1FfblN4QVJTU0NWMnRPTEhKNWtJRmdycXE0ZVIwQTNBcWJxY0hwUzVvWThhaHJvSUJqODJfQ2NTTjRnSE16ZE9GUXlsWG5ScS15X0E3SWRMNURabk1uWVhlY2Vt?oc=5">WorkBoat</a> (04:52 KST) · <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTE1BX2lVOFY2TE5MTzNqQVEwbXY5a1pydlFoUUNzek5ES2dmNkFwWFNqUzJkbWxvSi1NLXhMN2xHU0Z0YWhzaURUSTd2SjFDZVk2TWdWcHI5UFZfdXg4WTR4UDBKR3J3RlBPRHlVZGJ5RXNwVEtvS1A4RmJUR3RiUQ?oc=5">Marine News Magazine</a></li>
+<li><b>전자·센서·C4ISR</b>: HawkEye 360이 룩셈부르크를 통해 나토 신호정보 계약을 따냈다. 나토는 OpenAI의 'Daybreak' 모델을 쓰기 시작했다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxNVFJRVF9taFdXZ1ZfSE1OYXQ4R2FGejd0TUlWZHJUeTFsLWNDcnpDVVZ5S3JVWE9lT2RqZjZPVTM0c0MxNDMzRy1EelgyZnBEQXFPODFwdjREanNjOTZDamFid2o4TF9FX1l3bGhBTWhQLXVpNFBmc3hEVDdtWWo2MmVEcXlvRW9IYzhhMXdoWENYZEIwUGFuS18wYW9WZmZGNVJjS1dpNExUR0NteTJfT1Vnc2tDcEZwcjBTR2FrMW9ZckU?oc=5">StreetInsider</a> (06:03 KST) · <a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxOYnN5alJCSm52UHZqeFVmV0dEZzQxVk16WEQzTEdTM2VwSFZsZlo4UnU1aTF1cGtmckxhbFFSUkticmdfSUJaNlVIcnV4RDRDdmZDa1luZjhCV1BzRmdMWFUyOEZVb29BYlhHaEJPUzBKLWk1WW55SVhsd18yVUdsVHdrdzg4T0IyYlIzZzJCM1diSklp?oc=5">The National Interest</a> (05:30 KST)</li>
+<li><b>정책·동맹</b>: 노르웨이 외무장관은 러시아가 나토의 군사 활동에 발언권을 가질 수 없다고 했다 — 러시아의 '1997년 선' 요구에 대한 반응이다[사실 — 제목 기준]. LaNeve가 미 육군참모총장에 공식 지명됐다[사실 — 제목 기준]. <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTE5XTzIzMkRRel9ZQWRVaVpCanBhRl9KTnF3MDJJMmNtYWlyQ0dWaHhiQmRSSGFfRm9rODlDMEczeWkxNDJFYXpWQnl2YXc3RHV1Ujl4UnNWenkybktOY0hiN0p0Yl9yMUlJMHM5bDEySXN3QWFxUkhLRUNVR3BFclE?oc=5">Yahoo News Singapore</a> (05:16 KST) · <a href="https://news.google.com/rss/articles/CBMiuwFBVV95cUxNTXJ1eHBpQTF0dzlRMWd4Mm9LcktfSUtFOVBKQlUzUWJaTjNsZ1JGRGQ2Y1RiaVNDMl9PQUQ1SzJfZzBHQ2VVWU1fVXBJQWJpMEUwTXpvbjZZLWZrUXM5dy1sYVU3LXZpZ0hMTXc1WlBrRXR3UXRrN0N1U2hDMzlWM1RVWHNHWGpQbjRoSWZTWTdNN3hDNE8wQTNaaklVQ21jcnpkbzdDelBfYUYwQ2pZTjNRaHpDbm9qakow?oc=5">Military Times</a> (04:33 KST)</li>
+</ul>
+<h2>투자 시사점</h2>
+<p>1. <b>(단기 촉매) 확전 뉴스에도 유럽 방산은 약세</b>: 케슘섬 타격과 크림대교 타격이 나온 날 BAE Systems <span class="down">-2.54%</span>·Hensoldt <span class="down">-2.05%</span>·Saab <span class="down">-1.72%</span>였다. 수집 목록에서 하락 원인 기사는 찾을 수 없다 — 관련 공시·뉴스 미확인 (수급 요인 추정)[해석].</p>
+<p>2. <b>(중기 업황) 요격탄·방공 수요의 지리적 확대</b>: 체코의 Arrow 3 검토, 젤렌스키의 요격탄 맞교환 제안, 걸프 요격전 지속은 방공 수요가 중동·동유럽에서 함께 커지고 있음을 보여 준다. 천궁-II를 수출하는 LIG디펜스앤에어로스페이스(LIG D&amp;A)·한화에 우호적인 환경이다[해석].</p>
+<p>3. <b>(관찰) 한국 방산의 해상·우주 확장</b>: 한화의 해상 천무 시험발사, 한국의 나토 스타리프트 재원 약정, HD현대중공업의 페루 현지 건조는 지상무기 중심에서 함정·우주로 넓어지는 흐름이다[해석]. PLUS K방산 ETF <span class="down">-4.97%</span>의 원인은 목록에서 확인되지 않는다[미확인].</p>
+<h2>향후 24~72시간 관전 포인트</h2>
+<ul>
+<li>추수감사절 전 미 상원의 국방 예산 처리 시도</li>
+<li>이란의 케슘섬 타격 대응 여부</li>
+<li>우크라이나 방위연락그룹 후속 발표, 종심 타격을 둘러싼 미·유럽 이견</li>
+</ul>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"light"}catch(e){return "light"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="light")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

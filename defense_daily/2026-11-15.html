@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="ko"><head><!--gs-theme--><style>
+:root{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+/* 사용자가 토글로 고른 값 */
+:root[data-gs-theme="light"]{color-scheme:light;--gs-bg:#fbfbfa;--gs-ink:#32322e;--gs-ink-strong:#1b1b19;--gs-muted:#6b6b66;
+--gs-line:#e3e3df;--gs-line-strong:#d5d5d0;--gs-line-soft:#eeeeea;
+--gs-panel:#ffffff;--gs-hover:#f3f3f1;--gs-card:#ffffff;
+--gs-accent:#7d6021;--gs-accent2:#8a6a26;--gs-link:#1a66b4;
+--gs-up:#c62828;--gs-down:#1457a8;--gs-mint:#1f7a5c;--gs-mint-line:#cfe3da;
+--gs-violet:#7b3fb0;--gs-note-bg:#f7f5ef;--gs-note-line:#e0d9c8}
+:root[data-gs-theme="dark"]{color-scheme:dark;--gs-bg:#161a21;--gs-ink:#c9d1dc;--gs-ink-strong:#e6ebf2;--gs-muted:#8e98a8;
+--gs-line:#232e3f;--gs-line-strong:#2e3a4e;--gs-line-soft:#1f2834;
+--gs-panel:#1c222c;--gs-hover:#1e2531;--gs-card:#1a2029;
+--gs-accent:#d6b27a;--gs-accent2:#e8b756;--gs-link:#89b9ff;
+--gs-up:#ff7b7b;--gs-down:#6ca6ff;--gs-mint:#7fd9b6;--gs-mint-line:#24443a;
+--gs-violet:#d9a7ff;--gs-note-bg:#1c222c;--gs-note-line:#2e3a4e}
+
+#gs-theme-btn{position:fixed;top:10px;right:12px;z-index:2147483646;
+  width:34px;height:34px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--gs-line-strong);background:var(--gs-panel);color:var(--gs-ink);
+  font:14px/1 'Pretendard','Apple SD Gothic Neo',sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  opacity:.5;transition:opacity .15s}
+#gs-theme-btn:hover{opacity:1}
+@media print{#gs-theme-btn{display:none}}
+</style><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",TH="466f2167513403c0b21bd9bc77f62789f19195656f686edba4adaede4ee93c80",OWNER=false,TEAMOK=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===TH?"team":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ // 팀 비번이 통하는 곳: 대시보드 본체를 수명 피드백 항목 링크로 연 집중 화면뿐.
+ function teamHere(){return TEAMOK&&/[?&]focus=/.test(location.search)&&/^#tasklist:/.test(location.hash)}
+ function pass(l){return l==="owner"||((l==="guest"||l==="team")&&!OWNER)||(l==="team"&&teamHere())}
+ var lv=level();
+ if(pass(lv)){window.__GS_LEVEL__=lv;return}   // app.js 가 등급을 읽어 팀 화면을 좁힌다
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ window.__GS_GATED__=1;                  // 아직 안 풀림 — app.js 가 서버 데이터를 받아 두지 않게
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?(teamHere()?"주인 또는 팀 비밀번호로 열립니다. ":"이 화면은 주인 비밀번호가 필요합니다. "):"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     var l=h===OH?"owner":h===TH?"team":h===GH?"guest":null;
+     if(pass(l)){set(h);location.reload();return}
+     msg.textContent=l==="guest"?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                    :l==="team"?"팀 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script><meta charset="utf-8"><base target="_blank">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>글로벌 방산 브리핑 2026-11-15</title><style>
+body{margin:0;padding:28px 24px 60px;background:var(--gs-bg,#161a21);color:var(--gs-ink,#c9d1dc);
+  font-family:'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;line-height:1.85;font-size:16.5px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:23px;color:var(--gs-ink-strong,#e6ebf2);margin:0 0 4px}
+.meta{color:var(--gs-muted,#8e98a8);font-size:13.5px;margin-bottom:22px}
+h2{font-size:18px;color:var(--gs-link,#89b9ff);margin:30px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--gs-line,#232e3f)}
+a{color:var(--gs-link,#89b9ff);text-decoration:none}a:hover{text-decoration:underline}
+b,strong{color:var(--gs-ink-strong,#e6ebf2)}
+ul{margin:10px 0;padding-left:24px}
+p{margin:11px 0}
+hr{border:none;border-top:1px solid var(--gs-line,#232e3f);margin:20px 0}
+table.ptab{border-collapse:collapse;width:100%;min-width:560px;margin:14px 0;font-size:14.5px}
+.ptab td{white-space:nowrap}.ptab td:first-child{white-space:normal;min-width:130px}.ptab td:last-child{white-space:normal;min-width:200px}
+.ptab td{border-bottom:1px solid var(--gs-line-soft,#1f2834);padding:7px 9px;text-align:left;vertical-align:top}
+.ptab tr:first-child td{color:var(--gs-muted,#8e98a8);font-size:13px;border-bottom:1px solid var(--gs-line-strong,#2e3a4e)}
+.ptab tr:hover td{background:var(--gs-hover,#1e2531)}
+.up{color:var(--gs-up,#ff7b7b);font-weight:600}
+.down{color:var(--gs-down,#6ca6ff);font-weight:600}
+</style></head>
+<body><div class="wrap">
+<h1>🌍 글로벌 방산 데일리 브리핑</h1>
+<div class="meta">기준: 2026-11-15 08:00 KST · 생성: Gemini(gemini-2.5-flash) + 구글뉴스 RSS + yfinance 확정 시세</div>
+<p>글로벌 방산 업종에서 지난 24시간 동안 발생한 주요 뉴스 및 상장 기업 동향을 정리해 드립니다. 업데이트 시간은 2026-11-15 08:00입니다.</p>
+<h2>오늘의 핵심 요약 — 시장에 가장 중요한 이슈 3~5개를 3~5줄로</h2>
+<ul>
+<li>  미국이 우크라이나에 돈바스 지역 할양을 조건으로 NATO 가입을 제안했다는 젤렌스키 대통령의 발언이 보도되며 지정학적 긴장이 고조되고 있습니다. 러시아는 NATO의 1997년 이전 병력 철수를 요구하는 등 강경한 입장을 보이고 있습니다.</li>
+<li>  한국 방산 기업들의 해외 시장 확장 소식이 이어졌습니다. 한화는 미국 현지법인에 1.5조 원을 투자하여 방산 및 조선 거점을 확대하고, 한화에어로스페이스는 K9 자주포의 미국 시장 침투 분석과 크로아티아 천무 수출 소식을 전했습니다. HD현대중공업은 미국 안두릴과 무인수상함(USV)을 진수하며 한미 협력을 강화했습니다.</li>
+<li>  독일의 Renk (R3NK.DE)는 76억 유로의 사상 최대 수주잔고를 기록했으나, 하청업체 지연으로 인한 생산 파이프라인 위협 가능성이 제기되었습니다.</li>
+<li>  미국 L3Harris (LHX)는 미 연방항공청(FAA) 항공 통신 시스템 업그레이드 작업의 70% 이상을 완료했으며, 미 해군 FleetLink 통신 시스템 테스트를 성공적으로 마쳤습니다.</li>
+</ul>
+<h2>주요 주가 동향 — 기업명 | 국가 | 종가 기준 등락률 | 시총 또는 업종 내 중요도 | 변동 요인</h2>
+<div style="overflow-x:auto"><table class="ptab">
+<tr><td>Lockheed Martin (LMT)</td><td>미국</td><td><span class="down">-1.33%</span></td><td>$137.7B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>RTX (RTX)</td><td>미국</td><td><span class="up">+0.11%</span></td><td>$268.0B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Northrop Grumman (NOC)</td><td>미국</td><td><span class="up">+0.24%</span></td><td>$78.2B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>General Dynamics (GD)</td><td>미국</td><td><span class="up">+0.11%</span></td><td>$98.2B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Boeing (BA)</td><td>미국</td><td><span class="down">-0.03%</span></td><td>$135.9B</td><td>영국 CH-47F Chinook Block II 초도기 비행 (긍정적)</td></tr>
+<tr><td>L3Harris (LHX)</td><td>미국</td><td><span class="up">+0.19%</span></td><td>$50.7B</td><td>FAA 항공 통신 시스템 업그레이드 70% 완료 및 미 해군 FleetLink 통신 테스트 완료 (긍정적)</td></tr>
+<tr><td>Huntington Ingalls (HII)</td><td>미국</td><td><span class="down">-0.68%</span></td><td>$12.1B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Howmet Aerospace (HWM)</td><td>미국</td><td><span class="down">-1.03%</span></td><td>$87.8B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>TransDigm (TDG)</td><td>미국</td><td><span class="up">+1.19%</span></td><td>$66.5B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Kratos Defense (KTOS)</td><td>미국</td><td><span class="down">-2.42%</span></td><td>$6.4B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>AeroVironment (AVAV)</td><td>미국</td><td><span class="down">-2.75%</span></td><td>$6.0B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Rolls-Royce (RR.L)</td><td>영국</td><td><span class="down">-1.39%</span></td><td>£11066.4B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Rheinmetall (RHM.DE)</td><td>독일</td><td><span class="down">-0.92%</span></td><td>€35.7B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Hensoldt (HAG.DE)</td><td>독일</td><td><span class="up">+1.21%</span></td><td>€9.3B</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>Renk (R3NK.DE)</td><td>독일</td><td><span class="down">-0.36%</span></td><td>€3.3B</td><td>76억 유로 수주잔고 기록, 하청업체 지연 위협 가능성 제기 (혼조)</td></tr>
+<tr><td>Elbit Systems (ESLT)</td><td>이스라엘</td><td><span class="down">-2.27%</span></td><td>$33.1B</td><td>PULS 로켓 포병 시스템 신규 계약 수주 (긍정적)</td></tr>
+<tr><td>미쓰비시중공업 (MHI)</td><td>일본</td><td><span class="down">-7.43%</span></td><td>¥9.8조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>가와사키중공업 (KHI)</td><td>일본</td><td><span class="down">-8.29%</span></td><td>¥1.6조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>IHI (IHI)</td><td>일본</td><td><span class="down">-6.14%</span></td><td>¥2.5조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>한화에어로스페이스 (Hanwha Aerospace)</td><td>한국</td><td><span class="down">-1.99%</span></td><td>₩33.0조</td><td>미국 현지법인 투자 및 K9, 천무 수출 관련 긍정적 분석 (긍정적)</td></tr>
+<tr><td>LIG넥스원 (LIG Nex1)</td><td>한국</td><td><span class="down">-3.70%</span></td><td>₩7.7조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>한국항공우주 (KAI)</td><td>한국</td><td><span class="down">-2.62%</span></td><td>₩10.2조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>한화시스템 (Hanwha Systems)</td><td>한국</td><td><span class="down">-2.71%</span></td><td>₩10.1조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>현대로템 (Hyundai Rotem)</td><td>한국</td><td><span class="down">-3.78%</span></td><td>₩7.8조</td><td>관련 공시·뉴스 미확인 (수급 요인 추정)</td></tr>
+<tr><td>한화오션 (Hanwha Ocean)</td><td>한국</td><td><span class="up">+0.62%</span></td><td>₩14.8조</td><td>미국 현지법인 투자 관련 긍정적 분석 (긍정적)</td></tr>
+<tr><td>HD현대중공업 (HD HHI)</td><td>한국</td><td><span class="up">+1.31%</span></td><td>₩28.4조</td><td>안두릴과 한미 합작 무인수상함(USV) 진수 (긍정적)</td></tr>
+</table></div>
+<h2>큰 변동 분석 — ±10% 이상 종목은 반드시 별도 표기하고 배경을 뉴스·실적·수급·정책 요인으로 구분해 구체적으로 설명. 해당 없으면 "±10% 이상 변동 종목 없음. (±5% 이상: ...)"으로 처리</h2>
+<p>±10% 이상 변동 종목 없음. (±5% 이상: 미쓰비시중공업 (MHI) <span class="down">-7.43%</span>, 가와사키중공업 (KHI) <span class="down">-8.29%</span>, IHI (IHI) <span class="down">-6.14%</span>)</p>
+<ul>
+<li>  <b>미쓰비시중공업 (MHI) | 일본 | <span class="down">-7.43%</span> |</b> 관련 공시·뉴스 미확인 (수급 요인 추정)</li>
+<li>  <b>가와사키중공업 (KHI) | 일본 | <span class="down">-8.29%</span> |</b> 관련 공시·뉴스 미확인 (수급 요인 추정)</li>
+<li>  <b>IHI (IHI) | 일본 | <span class="down">-6.14%</span> |</b> 관련 공시·뉴스 미확인 (수급 요인 추정)</li>
+</ul>
+<h2>섹터별 정리 — 항공우주 / 지상무기 / 미사일·방공 / 해군·조선 / 전자·센서 순으로 핵심 이슈</h2>
+<h2>항공우주</h2>
+<ul>
+<li>  <b>Boeing (BA) | 영국 CH-47F Chinook Block II 초도기 비행 (11/15)</b></li>
+</ul>
+<p>영국이 주문한 14대의 CH-47F Chinook Block II 중 첫 번째 헬리콥터가 필라델피아에서 비행 시험을 시작했습니다. 이는 노후 중수송 헬기 교체를 위한 것으로, Boeing에 긍정적인 소식입니다. <a href="https://news.google.com/rss/articles/CBMi6gFBVV95cUxQclNacjk4cjdMTTk2dWVQS044QVFORVdRWENiTms3Z1pNcmFPc1RaUUZQZWtoQnpQdjNXQk1YYnhVLUNlUkFDTnhBaW9uZTJwSWVHZUhIY3lrM2d0RW9QUy0wVHh4LWo2ZnBfSl9fcTcyT0V0eEpkMlMybHdTQTUtN201RDY5U0REaTQwYXlPdjRNR3ZPVUEwQUhfUTZzYXZJelhUdDdGVFAtSWVIX1FKSG44WEJJcVRxWWtocnA0M3pmVnpIOU9oMGFwWGxVdkI0NlBWZ0VjRklFdWFiMTdxdmY4Um53WHRBeHc?oc=5">Defence Industry Europe</a></p>
+<h2>지상무기</h2>
+<ul>
+<li>  <b>한화에어로스페이스 (Hanwha Aerospace) | K9 자주포 및 155mm 포탄 미국 시장 침투 분석 (11/15)</b></li>
+</ul>
+<p>한화에어로스페이스의 K9 자주포와 155mm 포탄이 미국 시장에 진출하는 전략과 함의에 대한 분석 기사가 보도되었습니다. 이는 한화의 미국 방산 시장 확대 가능성을 시사합니다. <a href="https://news.google.com/rss/articles/CBMidEFVX3lxTE1Td1VGQ0NRUG9IOWp3UmNpZWdtR25YRDYwem5VQ3owZVhobmdPZVhKelN3UlFaLTBCTU9hc0laTDZRVC1nekM3N2J3aVZWVHhNY2VGUHBhckVnLTRRTUFTRzhMZVlPdHMzZmNPMGlSdVM1QXFr?oc=5">파이낸셜포스트</a></p>
+<ul>
+<li>  <b>한화에어로스페이스 (Hanwha Aerospace) | 크로아티아 천무 18기 수출 (11/15)</b></li>
+</ul>
+<p>크로아티아가 한화에어로스페이스의 천무(Chunmo) 다연장로켓 시스템 18기를 도입하며 발칸반도 안보에 새로운 판을 짜고 있다는 소식입니다. 이는 한화에어로스페이스의 유럽 시장 확대를 의미합니다. <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNb2tnZnNLS3YyanNRQm5VM2ktLTdjZHA4cXlwdDB2cjhyUjl4S3NPVlI5ek0wNk9iRVJrY2NPSmpYQTBnS3RwVFNVNGE0Zk43dmFEdVpEZ0J1a29JTFFiMWJKcjFkempYUkY0Vk9CT3RyVDFFc0NHbE54SW1JNnZ5UF91OTVtMEtn?oc=5">글로벌이코노믹</a></p>
+<ul>
+<li>  <b>Renk (R3NK.DE) | 사상 최대 수주잔고 및 하청업체 지연 위협 (11/15)</b></li>
+</ul>
+<p>Renk는 2026년 3분기 실적 발표에서 76억 유로(약 11조 원)의 사상 최대 수주잔고를 기록했다고 밝혔습니다. 그러나 CEO는 하청업체 지연이 생산 파이프라인에 위협이 될 수 있다고 언급했습니다. 또한, David Brown 인수를 완료했습니다. <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPQWtWeFpGUnNRSnR6cHhqQURPX0tNczhaZTJ2d3lRbHdTV0FYWEYwdS1mQW1fc09xQm1ManFPdzQxMlpZOV95RkE3ZnNBQktET0RkZlRHdmpfOWxnZkVyYlZfQzJtSTYyV2VWclBxRzBZSFExZGp3Z01VODFqWUlUYXlKWFhWdy1jUXNUWE5UYlZ2dXg3SXB5azhGNGstMjFhM2xscHp3eEUwaGIzeTgtMVVXU0YxLXYyUXYtQkgzOA?oc=5">Seeking Alpha</a>, <a href="https://news.google.com/rss/articles/CBMi5wFBVV95cUxPRlBIOGpBWktwMUxzUEdUNDM0Z3hYRzJKMFEyR1c3dXZfV0JLSG8zd2FYNTZoUWNDblpaM01BWGpTdUVSQS1BckZ2dFoydlBXTGxtRUR1ZzdTV0lERU92VGFiLU96M280MDVNRzNHMndFZm9KckpqeUIwSE1NZGJVSExtN2k5MFdaMU0tRkY2dzA5LUFjZ1pLREtmbFFjai1GN29wYkg5SDNqQmpaUzUycHB0OGVlUXZXTmdaVHhWVmw3OVo2MWM2RVJfempkSi1TNktBNHFoSkthdmFFWkIxTzZTOXNaanc?oc=5">ad-hoc-news.de</a></p>
+<h2>미사일·방공</h2>
+<ul>
+<li>  <b>Lockheed Martin (LMT) | GMLRS 생산 이정표 달성 (11/15)</b></li>
+</ul>
+<p>Lockheed Martin이 GMLRS(Guided Multiple Launch Rocket System) 생산의 중요한 이정표를 달성했습니다. 이는 미사일 시스템의 안정적인 공급과 생산 능력을 보여줍니다. <a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxOZUZXMmJ4SXZrYUNHRWdSQWtNR2EzLWpHZldSVzUtdVlIeGdxNUtKeVV4eUM4Q1N6elpNRTcyTktuM1AtV0ZtVGhpMEMzbmNLUV94QldQcGFGUTR4Vmp4Yi0yV1RiLVhTZnZRc0ZSeWJIVDZEXzM5QnFpYjNZR19UcDhMWHY2N3pnM29JbEJ5OGhfUlZlYlZPMjJyOA?oc=5">Asia Pacific Defence Reporter</a></p>
+<ul>
+<li>  <b>Elbit Systems (ESLT) | PULS 로켓 포병 시스템 신규 계약 수주 (11/15)</b></li>
+</ul>
+<p>Elbit Systems가 PULS(Precise and Universal Launching System) 로켓 포병 시스템에 대한 새로운 계약을 수주했습니다. 이는 Elbit Systems의 미사일 및 포병 시스템 분야에서의 경쟁력을 강화합니다. <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxNZ2FPRDZpUXdDdGxPSndUSjNfYjgzMjhQR0dZZ3pUTFg0dlM0ZG9CZzl2ZmtiLWpSaDBUTlQzNEIwb1drdTR4YlRZTHlURVBablBFMXpZeWx0YWxuLWU0SGhIZjRTakg4d0gzM1p6ZnAySmZiY0MwUUs0MTQxd2Y0UkNla2p3c0V3emdaaEhyQ2ZwaS1sVlBYUnZWeG9jcGs?oc=5">Asia Pacific Defence Reporter</a></p>
+<h2>해군·조선</h2>
+<ul>
+<li>  <b>HD현대중공업 (HD HHI) | 안두릴과 한미 합작 무인수상함(USV) 진수 (11/15)</b></li>
+</ul>
+<p>HD현대중공업이 미국 방산기업 안두릴(Anduril)과 협력하여 첫 한미 합작 무인수상함(USV)을 진수했습니다. 이 USV는 내년 미국 해역에서 시험될 예정으로, 무인 함정 기술 및 한미 방산 협력 강화에 긍정적입니다. <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTE1VUlJiMTFuX0ZRczE5R3hZelpYdUJwNVJCUU5nd0dVRjgwY3RkYmY4WEFBSzRBRW5TQTJKdDJQOEdyWEZsb2E4RTFKWXBadGxQbXg0VUxEUk1zOEx4VXkzaWhYRQ?oc=5">더구루</a></p>
+<ul>
+<li>  <b>한화오션 (Hanwha Ocean) | 한화의 미국 현지법인 투자 (11/15)</b></li>
+</ul>
+<p>한화그룹이 미국 현지법인에 1.5조 원을 수혈하여 방산 및 조선 거점을 확대할 계획입니다. 이는 한화오션의 미국 시장 진출 및 사업 확장에 긍정적인 영향을 미칠 것으로 예상됩니다. <a href="https://news.google.com/rss/articles/CBMiYEFVX3lxTE5JTGJSU3V0VTA0a2ZzZWVSQW8yLVFUOE1qUkJLN1Z5a1pLWnhIQU1xcm1raWV4cFBzSnVuS3hTTWJfYWdOR1o0YWJXRWgyckozQXpaeGg2R3BycXQwYWRBZ9IBYEFVX3lxTE5JTGJSU3V0VTA0a2ZzZWVSQW8yLVFUOE1qUkJLN1Z5a1pLWnhIQU1xcm1raWV4cFBzSnVuS3hTTWJfYWdOR1o0YWJXRWgyckozQXpaeGg2R3BycXQwYWRBZw?oc=5">연합뉴스</a></p>
+<ul>
+<li>  <b>TKMS | 인도 잠수함 시장 진출 (11/15)</b></li>
+</ul>
+<p>독일 TKMS가 인도 잠수함 시장에서 입지를 다지고 있다는 분석이 나왔습니다. 이는 잠재적으로 한국 조선사들을 포함한 다른 경쟁사들에게는 부정적인 영향을 미칠 수 있습니다. <a href="https://news.google.com/rss/articles/CBMi7gFBVV95cUxQNXBaU3RFRllJQUF4RTNtNERCQkZhS1pjSnFuR0ZIc2RoXzAyYUtLajlYTHh1Uy1GbTYzRW5rSGhfQnFualUzdTR3akR4NUpzZVhyZFlCc29pMF9XNWNCMjN6QjJ3OUwtN0xGTDVOWXNXb0xQMHZQSzZFS1htTjA4VzlCZFJ1bVNHcDFPbUZ6UW41cHlreHBKZ2g1T0s0RVJrV2Q4MVBRbEN0N2JOUTdtSU9RYkhyWmlGWEI3UUpBUGFRVlIzM285TnNsbkNyTm9kcHVpNzFBV19lbEtvbS1BbFJ4S0hsSm5Wc3RLRExB?oc=5">ad-hoc-news.de</a></p>
+<h2>전자·센서</h2>
+<ul>
+<li>  <b>L3Harris (LHX) | FAA 항공 통신 시스템 업그레이드 및 미 해군 FleetLink 통신 테스트 완료 (11/15)</b></li>
+</ul>
+<p>L3Harris는 미 연방항공청(FAA)의 항공 통신 시스템 업그레이드 작업의 70% 이상을 완료했다고 밝혔습니다. 이 시스템은 최근 항공 교통 중단 사태의 원인으로 지목된 라우터와 관련이 있습니다. 또한, L3Harris는 미 해군의 FleetLink 통신 시스템 테스트를 성공적으로 완료했습니다. <a href="https://news.google.com/rss/articles/CBMicEFVV3lxTE9yOXU5b1dHZVlma295S1pOVWtPY0NQWG1ZYmxsUnhMWnpzaV9TamVoeGxUM0YxOEw1TGNuRFZEb0JfRFBTN1VxRVBxM2ZZQzc0RHl1Nl9IWDR0Uy1VUGtheUpkMHRKZWNRUzY5UWhpWXI?oc=5">The New York Times</a>, <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxOVHlOVHpUY21qQVpySThSeFFGc2pzb011TlBTQkd6TldZbFhVUjdnTkRsQTBrcEdaT0paUVJvV3lfZHJjUy14OVJnRUxKcGtycWNtM1F0WExwbVU0VU8wOFItejNTUHVVbDRRSi1SV3F6NkROS0VHeTJtck5HTmR3RC1GU01qRE5Qak1qOHJZbFpsX2I0bDJwamZ3ZUxYN29IRjJIREw0RU41OWNBbm9nRDV6eEpoSmlxT2xVUnV1QmU3cGZlTl94MG9wTQ?oc=5">Anadolu Ajansı</a>, <a href="https://news.google.com/rss/articles/CBMifkFVX3lxTFBMQmg5NE01OE1pNDNKelpud2FEMFNHbG9fbmtPdUtSQVlsVnRZd0hwZnJNR0N1M3NRVU4zQVhnWWNSM1NnNFgxQzd2b2tvbWllYTE1ampNZ19FbFJsclRHaFhPM2E4emFSeEdXampDZ180eC15dnRZanZ4a3VMUQ?oc=5">Envanter Medya</a></p>
+<h2>투자 시사점 — 단기 촉매와 중기 업황·수주잔고 관점 3개 이내</h2>
+<ul>
+<li>  <b>지정학적 긴장 고조 및 국방 예산 확대 기대:</b> 우크라이나의 NATO 가입 논의와 러시아의 강경한 요구는 유럽 및 전 세계적인 지정학적 긴장을 심화시키고 있습니다. 이는 단기적으로 방산 업종 전반에 대한 투자 심리를 강화하고, 중장기적으로 각국의 국방 예산 증액 및 무기 현대화 수요를 촉진할 수 있는 촉매로 작용할 것입니다.</li>
+<li>  <b>한국 방산 기업의 글로벌 시장 확장 가속화:</b> 한화그룹의 미국 현지 투자 확대, 한화에어로스페이스의 K9 자주포 및 천무 수출, HD현대중공업의 한미 무인수상함 협력 등 한국 방산 기업들이 북미 및 유럽 시장에서 입지를 강화하고 있습니다. 이는 한국 방산 기업들의 중장기 수주잔고 확대와 성장 동력 확보에 긍정적인 시사점을 제공합니다.</li>
+<li>  <b>공급망 안정화 및 생산 능력 확보 중요성 부각:</b> 독일 Renk의 사례에서 보듯이, 사상 최대 수주잔고에도 불구하고 하청업체 지연으로 인한 생산 파이프라인 위협은 글로벌 방산 공급망의 취약성을 보여줍니다. 향후 방산 기업들은 안정적인 공급망 관리와 생산 능력 확보가 핵심 경쟁력이 될 것이며, 이는 관련 부품 및 소재 기업들에게도 기회가 될 수 있습니다.</li>
+</ul>
+</div><script>
+(function(){
+ var K="gs_theme",ORDER=["light","dark"],
+     ICON={auto:"\u25D1",light:"\u2600",dark:"\u263D"},
+     NAME={auto:"\uC2DC\uC2A4\uD15C \uC124\uC815\uC744 \uB530\uB984",
+           light:"\uBC1D\uAC8C \uACE0\uC815",dark:"\uC5B4\uB461\uAC8C \uACE0\uC815"};
+ function get(){try{var v=localStorage.getItem(K);return ORDER.indexOf(v)>=0?v:"light"}catch(e){return "light"}}
+ function apply(v){
+   var de=document.documentElement;
+   if(v==="light")de.removeAttribute("data-gs-theme");else de.setAttribute("data-gs-theme",v);
+   var b=document.getElementById("gs-theme-btn");
+   if(b){b.textContent=ICON[v];b.title="\uD654\uBA74 \uBC1D\uAE30: "+NAME[v]+" (\uB20C\uB7EC\uC11C \uBC14\uAFC8)";}
+ }
+ apply(get());                       // 그려지기 전에 테마부터 맞춘다
+ // 다른 탭·부모 창에서 바꾸면 이 문서도 따라간다(iframe 포함)
+ window.addEventListener("storage",function(e){if(e.key===K)apply(get())});
+ function mount(){
+   if(window.self!==window.top)return;   // iframe 안에서는 버튼을 안 만든다
+   var b=document.createElement("button");
+   b.id="gs-theme-btn";b.type="button";b.setAttribute("aria-label","\uD654\uBA74 \uBC1D\uAE30 \uBC14\uAFC8");
+   b.onclick=function(){
+     var v=ORDER[(ORDER.indexOf(get())+1)%ORDER.length];
+     try{localStorage.setItem(K,v)}catch(e){}
+     apply(v);
+   };
+   document.body.appendChild(b);apply(get());
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount);
+ else mount();
+})();
+</script></body></html>

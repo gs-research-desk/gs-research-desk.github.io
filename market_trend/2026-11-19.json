@@ -1,0 +1,689 @@
+{
+ "date": "2026-11-19",
+ "meta": {
+  "window": "11-18 06:00~11-19 06:00 KST",
+  "engine": "Gemini(gemini-2.5-flash)",
+  "generated_at": "2026-11-19T06:30+09:00"
+ },
+ "stats": {
+  "channels": 93,
+  "messages": 1409,
+  "groups": 1281
+ },
+ "one_liner": "한한령 해제 기대감 속 엔비디아 호실적 발표, 그러나 젠슨 황 복귀 불확실성과 AI 투자 심리 냉각 우려가 교차하며 시장의 관심이 분산되는 하루.",
+ "themes": [
+  {
+   "name": "한한령 해제 및 한중 FTA 서비스·투자 협상 타결",
+   "narrative": "한중 정상회담에서 한한령 해제와 한중 FTA 서비스·투자 후속 협상이 8년 8개월 만에 실질적으로 타결되었다. 특히 영화, 게임 분야에 최혜국 대우와 비차별 원칙이 적용되며 K-콘텐츠 및 소비재 시장의 회복 기대감이 커지고 있다.",
+   "status": "new",
+   "strength": 5,
+   "keywords": [
+    "해제",
+    "한한령",
+    "한한령 해제",
+    "원칙",
+    "영화",
+    "한중",
+    "FTA",
+    "타결",
+    "영화 게임",
+    "개방"
+   ],
+   "evidence": [
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "💡 요약 AI 반도체(HBM)의 강력한 성장 기대감과 한한령 해제에 따른 K-콘텐츠 및 소비재 시장의 회복 기대감이 긍정적이지만, 전반적인 시장의 건전성과 일부 거시 경제 지표는 신중한 관점을 유지하게 합니다."
+    },
+    {
+     "channel": "NH투자증권 리서치",
+     "quote": "18일 진행된 3번째 한중 정상회담에서 FTA 서비스·투자 후속협상이 8년 8개월만에 실질적으로 타결됨. 영화·게임 등 분야에 최혜국대우가 약속되었고, 온라인게임과 영화 등의 사전심사에도 비차별 원칙이 적용됨."
+    },
+    {
+     "channel": "하나증권 리서치",
+     "quote": "11월 18일 한중 정상회담에서 양국이 한중 FTA 서비스/투자 후속협상에 대해 실질 타결을 선언했다. 주요 내용 중에는 “중국 아웃바운드 관광시장 진출 여건 조성”이 포함되어 있었는데, 중국 내 23개 지역(베이징/상하이 등)에서 국내 여행사가 중국인을 대상으로 해외여행을 주선하는 아웃바운드 관광업을 영위할 수 있게 된…"
+    }
+   ]
+  },
+  {
+   "name": "엔비디아 호실적 및 신제품(Vera Rubin) 출하",
+   "narrative": "엔비디아가 시장 예상치를 크게 상회하는 3분기 호실적과 긍정적인 4분기 가이던스를 발표하며 반도체 시장의 기대감을 높였다. 특히 Vera Rubin 플랫폼이 역사상 가장 빠른 제품 램프를 기록하며 Hyperscaler 시장에 빠르게 진입하고 있다. 다만, 미 국가안보국(NSA) 전산망 다운 소식 등 일부 불안 요인도 언급되었다.",
+   "status": "new",
+   "strength": 4,
+   "keywords": [
+    "엔비디아 호실적",
+    "역사상",
+    "Vera Rubin",
+    "가장 빠른",
+    "NSA"
+   ],
+   "evidence": [
+    {
+     "channel": "키움증권 리서치센터",
+     "quote": "오늘 국내 증시도 미국 반도체주의 장 후반 낙폭 축소, 호실적 및 양호한 컨콜에 따른 엔비디아의 시간외 주가 강세 등에 힘입어 반등에 나설 것으로 전망합니다."
+    },
+    {
+     "channel": "[ IT는 SK ]",
+     "quote": "Production Shipment 첫 분기에 약 $20B Revenue 발생하며 NVIDIA 역사상 가장 빠른 Product Ramp 기록. Hyperscaler Production 진입도 Grace Blackwell 대비 절반 수준인 약 1개월 소요."
+    },
+    {
+     "channel": "[신한 리서치본부] IT(반도체/전기전자/디스플레이)",
+     "quote": "Rubin 출하 첫 분기 200억달러 매출 기록. FY2028 성장률 가이던스 5%p 추가 상향"
+    }
+   ]
+  },
+  {
+   "name": "엔비디아 젠슨 황 CEO 복귀 불확실성",
+   "narrative": "엔비디아의 호실적 발표에도 불구하고, 이사회 의장이 젠슨 황 전 CEO를 최고경영자로 복귀시킬 의사가 없다고 표명하며 경영 불확실성에 대한 시장의 관심이 집중되고 있다.",
+   "status": "new",
+   "strength": 3,
+   "keywords": [
+    "복귀시킬",
+    "이사회"
+   ],
+   "evidence": [
+    {
+     "channel": "키움증권 리서치센터",
+     "quote": "우선 이사회에서는 젠슨황을 복귀시킬 의사가 없다고는 입장을 표명했는데, 시기상은 이르다는 판단이 개입된 듯 합니다."
+    },
+    {
+     "channel": "[다올 매크로/투자전략] 조병현/박영찬/정현하/홍록은",
+     "quote": "-엔비디아 의사회 의장, 실적발표에서 젠슨 황 전 엔비디아 CEO를 복귀시킬 의사가 없다고 발표"
+    }
+   ]
+  },
+  {
+   "name": "개별 기업 3분기 실적 발표 및 신사업 기대",
+   "narrative": "코리아써키트, 오킨스전자, 라온시큐어, 액트로, 쎄트렉아이 등 여러 기업들이 3분기 실적을 발표했다. 일부 기업은 시장 기대치를 하회했으나, 차세대 테스트 설비 투자 확대, AI 시대 보안 솔루션 강화, 전장부품 공급 본격화, 원가율 정상화 등 신사업 및 성장 방향에 대한 기대감이 이어지고 있다.",
+   "status": "ongoing",
+   "strength": 3,
+   "keywords": [
+    "코리아써키트",
+    "오킨스전자",
+    "삼천당제약",
+    "라온시큐어",
+    "액트로",
+    "쎄트렉아이",
+    "이엔에프테크놀로지",
+    "LG생활건강"
+   ],
+   "evidence": [
+    {
+     "channel": "메리츠증권 리서치",
+     "quote": "📮[메리츠증권 전기전자/IT부품 양승수] 코리아써키트(007810) : 이제 오르막길에 장애물은 없다 ▶ 3Q26 Review: 별도로는 선방"
+    },
+    {
+     "channel": "신한 리서치",
+     "quote": "[신한투자증권 혁신성장 김유민, 최승환] 오킨스전자(080580.KQ) - 흔들린 건 마진, 성장 방향은 그대로"
+    },
+    {
+     "channel": "유진투자증권 코스닥벤처팀",
+     "quote": "[라온시큐어(042510,KQ) / 유진투자증권 코스닥벤처팀 박종선 ☎02)368-6076] ★ 3Q26 Review: AI 시대, 진정한 보안 솔루션 강자"
+    }
+   ]
+  },
+  {
+   "name": "AI 투자 심리 변화 및 신규 서비스 출시",
+   "narrative": "최근 AI 투자 심리가 급랭했다는 설문 결과가 나오면서 기업들의 AI 과잉 투자에 대한 우려가 제기되었다. 한편, 오픈AI는 영업 전용 'ChatGPT for Sales'를 출시하며 AI 기술의 실제 비즈니스 적용 사례를 확대하고 있다.",
+   "status": "new",
+   "strength": 2,
+   "keywords": [
+    "AI",
+    "ChatGPT for Sales"
+   ],
+   "evidence": [
+    {
+     "channel": "여의도스토리 Ver2.0-习近平是个狗东西",
+     "quote": "<한화 임혜윤 오늘 개장전 꼭 알아야 할 5가지_11/18 Bloomberg> ① AI 투자 심리 급랭 - BofA 11월 설문에서 기술주 비중확대 순 12%로 10월 37%에서 급락해 2006년 이후 최대폭 감소 - 기업의 AI 과잉 투자 응답이 순 38%로 사상 최고였고 응답자 52%는 6개월 내 AI 하이퍼스케일러의…"
+    },
+    {
+     "channel": "[삼성 이영진] 글로벌 AI/SW",
+     "quote": "오픈AI, 영업 전용 ‘ChatGPT for Sales’ 출시, 30개 이상 파트너 플러그인 통합 : 오픈AI는 고객 발굴부터 영업 미팅 준비, 제안서 작성, 계약 체결 및 후속 관리까지 영업 프로세스 전반을 지원하는 ‘ChatGPT for Sales’ 공개."
+    }
+   ]
+  },
+  {
+   "name": "현대로템 방산/항공우주 사업 강화",
+   "narrative": "현대로템이 서산 항공우주추진시험센터 제2시험동을 준공하며 방산 및 항공우주 사업 역량을 강화하고 있다.",
+   "status": "new",
+   "strength": 1,
+   "keywords": [
+    "현대로템"
+   ],
+   "evidence": [
+    {
+     "channel": "다올투자증권 리서치센터",
+     "quote": "현대로템, 서산 항공우주추진시험센터 제2시험동 준공"
+    }
+   ]
+  }
+ ],
+ "community_mood": {
+  "score": -10,
+  "summary": "개미 투자자들은 엔비디아의 실적과 젠슨 황 CEO의 복귀 불확실성에 주목하며 반도체 섹터 전반에 대한 불안감을 드러내고 있다. 일부는 시장 바닥을 기대하는 반면, 국내 반도체 종목에 대한 우려가 크다.",
+  "hot_stocks": [
+   {
+    "name": "엔비디아",
+    "score": 0,
+    "reason": "호실적에도 불구하고 젠슨 황 CEO의 복귀 불확실성에 대한 관심이 높다."
+   },
+   {
+    "name": "삼닉",
+    "score": -50,
+    "reason": "국내 반도체 섹터 전반에 대한 부정적인 전망과 우려가 커지고 있다."
+   },
+   {
+    "name": "지코",
+    "score": -80,
+    "reason": "개인 투자자의 대규모 손실 소식이 전해지며 주목받고 있다."
+   }
+  ]
+ },
+ "signals": {
+  "spikes": [
+   {
+    "term": "kimuda",
+    "count": 34,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "by kimuda",
+    "count": 34,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "해제",
+    "count": 30,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "한한령",
+    "count": 28,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "한한령 해제",
+    "count": 21,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "원칙",
+    "count": 20,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "영화",
+    "count": 20,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "한중",
+    "count": 20,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "FTA",
+    "count": 22,
+    "burst": 65.77673692427791,
+    "base_daily": 0.3,
+    "new": false
+   },
+   {
+    "term": "역사상",
+    "count": 18,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "현대로템",
+    "count": 18,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "엔비디아 호실적",
+    "count": 18,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "kimuda 뉴욕증시",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "타결",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "NSA",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "Vera Rubin",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "영화 게임",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "뉴욕증시 속보",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "가장 빠른",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "개방",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "복귀시킬",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "div",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "div style",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "center figure",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "figure",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   }
+  ],
+  "top_posts": [
+   {
+    "channels": 5,
+    "channel": "메리츠증권 리서치",
+    "head": "📮[메리츠증권 전기전자/IT부품 양승수] 코리아써키트(007810) : 이제 오르막길에 장애물은 없다 ▶ 3Q26 Review: 별도로는 선방 - 3Q26 연결 실적은 매출액 4,561억원(+21.4% YoY), 영업이익 149억원(+21.4% YoY)을 기록, 영업이익 기준 시장 컨센서스(166억원)을 10.0% 하회…",
+    "url": "https://t.me/meritz_research/45196",
+    "time_kst": "11-18 08:32"
+   },
+   {
+    "channels": 4,
+    "channel": "신한 리서치",
+    "head": "[신한투자증권 혁신성장 김유민, 최승환] 오킨스전자(080580.KQ) - 흔들린 건 마진, 성장 방향은 그대로 ▶️ 신한생각: 흔들린 건 마진, 성장 방향은 그대로 - 3Q26 마진은 기대치를 하회했으나 성장성 훼손으로 판단하지 않음 - 2027년 차세대 테스트 설비 투자 확대에 따른 커넥터·번인소켓·프로브핀 실적 기여…",
+    "url": "https://t.me/shinhanresearch/53702",
+    "time_kst": "11-18 07:35"
+   },
+   {
+    "channels": 4,
+    "channel": "🗽엄브렐라(Umbrella Research) 리서치+ 네프콘 옆집부자형 since 2020",
+    "head": "삼천당제약 알려드립니다. 1. 자사의 아일리아 바이오시밀러(SCD411)은 미국 FDA에 허가 신청 후 실사를 받았습니다. 2. 실사 결과 중대한(Critical) 지적사항은 없었으며, 경미한 사항에 대한 보완요청 한 건을 수령하였습니다. 3. 이에 자사는 지난 11월 6일에 관련 사항을 보완하여 FDA에 제출하였고 FD…",
+    "url": "https://t.me/umbrellaresearch/43458",
+    "time_kst": "11-18 10:34"
+   },
+   {
+    "channels": 3,
+    "channel": "[ IT는 SK ]",
+    "head": "[SK증권 반도체 한동희, 손 건/해외주식 박제민] NVIDIA FY3Q27 컨퍼런스콜 ▶️ 주요 코멘트 FY3Q27 Revenue $116B — +103% YoY / +20% QoQ: Data Center Revenue $108B(+21% QoQ)로 성장 견인. Hyperscaler Revenue $60B(+23% Qo…",
+    "url": "https://t.me/skitteam/5026",
+    "time_kst": "11-18 07:52"
+   },
+   {
+    "channels": 3,
+    "channel": "키움증권 리서치센터",
+    "head": "[11/18, 장 시작 전 생각: 반등의 재료 찾기, 키움 한지영] - 다우 -1.6%, S&P500 -1.0%, 나스닥 -0.7% - 엔비디아 -0.5%(시간외 +3%대), 마이크론 -0.9%, AMD -0.2% - 미 10년물 금리 5.11%, 30년물 금리 5.46%, WTI 84.4달러 1. 미국 증시에서는 S&P…",
+    "url": "https://t.me/KiwoomResearch/24657",
+    "time_kst": "11-18 07:49"
+   },
+   {
+    "channels": 3,
+    "channel": "다올투자증권 리서치센터",
+    "head": "[다올투자증권 조선/기계/방산 최광식] 11/18(수) 데일리뉴스 🛳 조선 [TradeWinds] Chinese state shipowner splashes $1.6bn on order for 59 offshore ships Video shows VLGC engulfed in flames after Hormuz strik…",
+    "url": "https://t.me/daolresearch/15532",
+    "time_kst": "11-18 08:04"
+   },
+   {
+    "channels": 3,
+    "channel": "유진투자증권 코스닥벤처팀",
+    "head": "[라온시큐어(042510,KQ) / 유진투자증권 코스닥벤처팀 박종선 ☎02)368-6076] ★ 3Q26 Review: AI 시대, 진정한 보안 솔루션 강자 ☞ 3Q26 Review: 매출액 시장 기대치 하회, 영업이익은 어닝서프라이즈 - 3Q26 매출액 130억원(-18.6% YoY), 영업이익 10억원(-39.9% Y…",
+    "url": "https://t.me/SmallCap/9227",
+    "time_kst": "11-18 08:08"
+   },
+   {
+    "channels": 3,
+    "channel": "유진투자증권 코스닥벤처팀",
+    "head": "[액트로(290740,KQ) / 유진투자증권 코스닥벤처팀 박종선 ☎02)368-6076] ★ 3Q26 Review: 신사업 전장부품 공급 본격화 기대 ☞ 3Q26 Review: 당사 추정치 대비 매출액과 영업이익 유사 - 3Q26 매출액 502억원(-29.5% YoY), 영업이익 1억원(-95.5% YoY) - 당사 추정…",
+    "url": "https://t.me/SmallCap/9228",
+    "time_kst": "11-18 08:08"
+   },
+   {
+    "channels": 3,
+    "channel": "신한 리서치",
+    "head": "[신한투자증권 혁신성장 허성규, 최승환] 쎄트렉아이(099320.KQ) - 숫자로 설명되는 구간 ▶️ 신한생각: 원가율 정상화 확인, 27~28년은 수주 인식 증익 구간 - 상반기 충당금 등 원가 부담으로 영업적자 6억원을 기록했으나, 3Q26 영업이익 82억원으로 컨센서스(59억원) 39.6% 상회 - 매출원가율은 73…",
+    "url": "https://t.me/shinhanresearch/53705",
+    "time_kst": "11-18 07:50"
+   },
+   {
+    "channels": 3,
+    "channel": "여의도스토리 Ver2.0-习近平是个狗东西",
+    "head": "<한화 임혜윤 오늘 개장전 꼭 알아야 할 5가지_11/18 Bloomberg> ① AI 투자 심리 급랭 - BofA 11월 설문에서 기술주 비중확대 순 12%로 10월 37%에서 급락해 2006년 이후 최대폭 감소 - 기업의 AI 과잉 투자 응답이 순 38%로 사상 최고였고 응답자 52%는 6개월 내 AI 하이퍼스케일러의…",
+    "url": "https://t.me/YeouidoStory2/119942",
+    "time_kst": "11-18 07:41"
+   },
+   {
+    "channels": 3,
+    "channel": "[신한 리서치본부] IT(반도체/전기전자/디스플레이)",
+    "head": "[신한투자증권 반도체/글로벌IT 김형태, 송혜수] 엔비디아(NVDA.US); 불안감 완화 ▶️ FY2028 매출 성장 가이던스 +75%로 5%p 추가 상향 - Rubin 출하 첫 분기 200억달러 매출 기록. FY2028 성장률 가이던스 5%p 추가 상향 - 중국 판매 중단 감안하더라도 북미 대기 수요 풍부. 중국향 Ho…",
+    "url": "https://t.me/c/1355104422/7508",
+    "time_kst": "11-18 16:54"
+   },
+   {
+    "channels": 3,
+    "channel": "[신한 리서치본부] IT(반도체/전기전자/디스플레이)",
+    "head": "[신한투자증권 반도체/소부장 송혜수, 김형태] 이엔에프테크놀로지(102710.KQ); 성장의 시차를 견디는 시간 ▶️ 성장 스토리 고려 시 주가 업사이드는 충분 - 주가 재평가를 위해선 원가 부담을 이겨낼 이익 체력 확인이 필요 - 1) 불산계 식각액 원재료 내재화, 2) HSN 신규 공급 기대감, 3) 미국 법인 흑자…",
+    "url": "https://t.me/c/1355104422/7506",
+    "time_kst": "11-18 07:53"
+   },
+   {
+    "channels": 3,
+    "channel": "AWAKE - 52주 신고가 모니터링",
+    "head": "✅ 오늘 시장 한눈에 보기 코스피 4,960.81(-0.15%), 거래대금 8.0조 코스닥 648.64(-0.22%), 거래대금 3.7조 🇺🇸 나스닥 선물 +0.25% 🇯🇵 일본지수 -0.28% 🇨🇳 상해종합 -0.3% 🇭🇰 항셍지수 -0.8% 🇹🇼 대만가권 -0.76% - 달러환율 1,329.40원(-6.10원) - 유…",
+    "url": "https://t.me/awake_realtimeCheck/64735",
+    "time_kst": "11-18 11:56"
+   },
+   {
+    "channels": 3,
+    "channel": "[삼성 이영진] 글로벌 AI/SW",
+    "head": "오픈AI, 영업 전용 ‘ChatGPT for Sales’ 출시, 30개 이상 파트너 플러그인 통합 : 오픈AI는 고객 발굴부터 영업 미팅 준비, 제안서 작성, 계약 체결 및 후속 관리까지 영업 프로세스 전반을 지원하는 ‘ChatGPT for Sales’ 공개. 영업 전용 Sales 플러그인과 30개 이상의 신규 및 개선된…",
+    "url": "https://t.me/Samsung_Global_AI_SW/5106",
+    "time_kst": "11-18 15:37"
+   },
+   {
+    "channels": 3,
+    "channel": "AWAKE - 실시간 주식 공시 정리채널",
+    "head": "2026.11.18 17:25:44 기업명: LG생활건강(시가총액: 3조 8,188억) A051900 보고서명: 풍문또는보도에대한해명(미확정) 보도내용 : [한국경제] 음료 자회사 매각 관련 보도 발생일자 : 2025-08-28 해명내용 : 본 공시는 2025년 8월 28일자 한국경제에 보도된 \"K뷰티 황제자리 흔들리자……",
+    "url": "https://t.me/darthacking/159306",
+    "time_kst": "11-18 17:25"
+   }
+  ]
+ },
+ "community_dc": {
+  "source": "DC인사이드",
+  "galleries": [
+   {
+    "id": "krstock",
+    "name": "국내주식갤러리",
+    "posts": 1273,
+    "capped": true,
+    "burst": 1.4,
+    "base_daily": 941.7
+   },
+   {
+    "id": "stockus",
+    "name": "해외주식갤러리",
+    "posts": 5282,
+    "capped": true,
+    "burst": 1.6,
+    "base_daily": 3306.7
+   }
+  ],
+  "posts_sampled": 557,
+  "keywords": [
+   {
+    "term": "연준",
+    "count": 7,
+    "burst": 91.9,
+    "new": true
+   },
+   {
+    "term": "삼닉",
+    "count": 6,
+    "burst": 78.8,
+    "new": true
+   },
+   {
+    "term": "차트",
+    "count": 6,
+    "burst": 78.8,
+    "new": true
+   },
+   {
+    "term": "근황",
+    "count": 6,
+    "burst": 78.8,
+    "new": true
+   },
+   {
+    "term": "뭐냐",
+    "count": 5,
+    "burst": 65.7,
+    "new": true
+   },
+   {
+    "term": "아니",
+    "count": 5,
+    "burst": 65.7,
+    "new": true
+   },
+   {
+    "term": "앤트로픽",
+    "count": 13,
+    "burst": 9.0,
+    "new": false
+   },
+   {
+    "term": "이사회",
+    "count": 12,
+    "burst": 6.9,
+    "new": false
+   },
+   {
+    "term": "반도체",
+    "count": 14,
+    "burst": 6.3,
+    "new": false
+   },
+   {
+    "term": "엔비",
+    "count": 33,
+    "burst": 3.5,
+    "new": false
+   },
+   {
+    "term": "엔비디아",
+    "count": 23,
+    "burst": 3.4,
+    "new": false
+   },
+   {
+    "term": "수능",
+    "count": 7,
+    "burst": 6.1,
+    "new": false
+   },
+   {
+    "term": "지금",
+    "count": 17,
+    "burst": 3.4,
+    "new": false
+   },
+   {
+    "term": "진지하게",
+    "count": 5,
+    "burst": 5.1,
+    "new": false
+   },
+   {
+    "term": "씨발",
+    "count": 5,
+    "burst": 5.1,
+    "new": false
+   }
+  ],
+  "top_recommended": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "내년 용산이 젤웃기네",
+    "views": 15362,
+    "recommend": 234,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18439603&exception_mode=recommend&page=1",
+    "time_kst": "11-18 15:45"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "리트냥이 드리블실력 뭐임?",
+    "views": 13904,
+    "recommend": 175,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18439187&exception_mode=recommend&page=1",
+    "time_kst": "11-18 14:41"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "미국주식갤러리 ㅇㅈㄹ ㅋㅋㅋ",
+    "views": 9802,
+    "recommend": 168,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18442958&exception_mode=recommend&page=1",
+    "time_kst": "11-18 22:30"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "ㄷㄷ 큰거왔다 노무냥이 등장 ㄷㄷ",
+    "views": 12585,
+    "recommend": 167,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18439007&exception_mode=recommend&page=1",
+    "time_kst": "11-18 14:14"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "여기보면 젠슨황이 무슨 선의의 피해자인줄",
+    "views": 10826,
+    "recommend": 167,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18439255&exception_mode=recommend&page=1",
+    "time_kst": "11-18 14:49"
+   }
+  ],
+  "top_viewed": [
+   {
+    "gallery": "국내주식갤러리",
+    "title": "지코 90억 손실중",
+    "views": 696,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925737&page=2",
+    "time_kst": "11-19 03:23"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "오늘 나선 개웃기네 ㅋㅋ",
+    "views": 594,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925688&page=3",
+    "time_kst": "11-19 02:05"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "삼닉 좆됐노 ㅋㅋ",
+    "views": 526,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925788&page=1",
+    "time_kst": "11-19 05:35"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "나스닥 불장인데? ㅋㅋㅋㅋㅋㅋㅋ",
+    "views": 509,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925734&page=2",
+    "time_kst": "11-19 03:17"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "지금 자리가 바닥이라 확신하는 이유",
+    "views": 496,
+    "recommend": 1,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925722&page=3",
+    "time_kst": "11-19 02:43"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "반도체가 계속 안좋내",
+    "views": 487,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925750&page=2",
+    "time_kst": "11-19 04:00"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "주식 참 재밌다 오를때는 다사고싶었는데",
+    "views": 446,
+    "recommend": 1,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925753&page=2",
+    "time_kst": "11-19 04:04"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "엔비디아 이사회 의장, \"젠슨 황 복귀 없다\"",
+    "views": 437,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3925784&page=1",
+    "time_kst": "11-19 05:16"
+   }
+  ]
+ }
+}

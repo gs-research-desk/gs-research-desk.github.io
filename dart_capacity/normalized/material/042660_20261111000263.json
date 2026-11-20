@@ -1,0 +1,20 @@
+{
+ "meta": {
+  "company": "한화오션",
+  "sector": "조선",
+  "stock_code": "042660",
+  "corp_code": "00111704",
+  "rcept_no": "20261111000263",
+  "rcept_dt": "20261111",
+  "report_nm": "분기보고서 (2026.09)",
+  "report_type": "quarter",
+  "period": "2026-09",
+  "period_label": "2026.09 3Q",
+  "corrected": false,
+  "dart_url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111000263"
+ },
+ "topic": "material",
+ "rows": [],
+ "model": "gemini-flash-latest",
+ "normalized_at": "2026-11-20T03:23:52"
+}

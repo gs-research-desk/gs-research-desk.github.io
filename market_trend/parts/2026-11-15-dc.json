@@ -1,0 +1,222 @@
+{
+ "source": "DC인사이드",
+ "galleries": [
+  {
+   "id": "krstock",
+   "name": "국내주식갤러리",
+   "posts": 1136,
+   "capped": true,
+   "burst": 1.1,
+   "base_daily": 993.1
+  },
+  {
+   "id": "stockus",
+   "name": "해외주식갤러리",
+   "posts": 2831,
+   "capped": true,
+   "burst": 0.9,
+   "base_daily": 3290.0
+  }
+ ],
+ "posts_sampled": 567,
+ "keywords": [
+  {
+   "term": "비트",
+   "count": 12,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "안경",
+   "count": 10,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "젠지",
+   "count": 10,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "비트코인",
+   "count": 9,
+   "burst": 99.0,
+   "new": true
+  },
+  {
+   "term": "얘기",
+   "count": 7,
+   "burst": 91.1,
+   "new": true
+  },
+  {
+   "term": "바낸",
+   "count": 7,
+   "burst": 91.1,
+   "new": true
+  },
+  {
+   "term": "너네",
+   "count": 7,
+   "burst": 91.1,
+   "new": true
+  },
+  {
+   "term": "진지하게",
+   "count": 6,
+   "burst": 78.1,
+   "new": true
+  },
+  {
+   "term": "순환출자",
+   "count": 5,
+   "burst": 65.1,
+   "new": true
+  },
+  {
+   "term": "생각",
+   "count": 5,
+   "burst": 65.1,
+   "new": true
+  },
+  {
+   "term": "위캔나스닥",
+   "count": 5,
+   "burst": 65.1,
+   "new": true
+  },
+  {
+   "term": "미주갤",
+   "count": 5,
+   "burst": 65.1,
+   "new": true
+  },
+  {
+   "term": "일본",
+   "count": 5,
+   "burst": 65.1,
+   "new": true
+  },
+  {
+   "term": "코인",
+   "count": 27,
+   "burst": 23.4,
+   "new": false
+  },
+  {
+   "term": "지금",
+   "count": 20,
+   "burst": 3.5,
+   "new": false
+  }
+ ],
+ "top_recommended": [
+  {
+   "gallery": "해외주식갤러리",
+   "title": "대만 따거 젠슨황 사건 일침...jpg",
+   "views": 12977,
+   "recommend": 274,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18386111&exception_mode=recommend&page=1",
+   "time_kst": "11-14 07:08"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "데센주는 붕어빵장사 같은 거임",
+   "views": 13071,
+   "recommend": 211,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18386719&exception_mode=recommend&page=1",
+   "time_kst": "11-14 09:09"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "스팀 이제 ㅈ됨",
+   "views": 15964,
+   "recommend": 204,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18386232&exception_mode=recommend&page=1",
+   "time_kst": "11-14 07:33"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "비트코인 떨어지는 이유 ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ",
+   "views": 15110,
+   "recommend": 180,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18388280&exception_mode=recommend&page=1",
+   "time_kst": "11-14 12:39"
+  },
+  {
+   "gallery": "해외주식갤러리",
+   "title": "이걸 보고도 진짜 AI가 거품같음?",
+   "views": 11915,
+   "recommend": 177,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18390544&exception_mode=recommend&page=1",
+   "time_kst": "11-14 18:09"
+  }
+ ],
+ "top_viewed": [
+  {
+   "gallery": "해외주식갤러리",
+   "title": "엔비디아, 일부러 GPU 수요 부풀렸다 ㄷㄷ",
+   "views": 1149,
+   "recommend": 19,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18394858&page=5",
+   "time_kst": "11-15 05:19"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "코랩 황말올 ㅋㅋㅋㅋㅋㅋㅋ",
+   "views": 561,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3899725&page=6",
+   "time_kst": "11-15 00:13"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "실시간 코랩",
+   "views": 539,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3899926&page=2",
+   "time_kst": "11-15 02:30"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "실시간 코스피 대폭등...",
+   "views": 513,
+   "recommend": 1,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3899863&page=3",
+   "time_kst": "11-15 01:47"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "러우 전쟁 종전각 떴네. 다음주 대풀롱",
+   "views": 479,
+   "recommend": 2,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3899933&page=2",
+   "time_kst": "11-15 02:43"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "실시간 코랩 머고?",
+   "views": 468,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3899833&page=4",
+   "time_kst": "11-15 01:27"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "머스크, \"엔비디아 공급망 거래는 젠슨황과의 악수에 기반\"",
+   "views": 461,
+   "recommend": 1,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3899711&page=6",
+   "time_kst": "11-15 00:05"
+  },
+  {
+   "gallery": "국내주식갤러리",
+   "title": "다 끝났다....",
+   "views": 459,
+   "recommend": 0,
+   "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3899960&page=2",
+   "time_kst": "11-15 03:37"
+  }
+ ]
+}

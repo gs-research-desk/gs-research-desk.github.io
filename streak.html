@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!--
+  🔥 스트릭 — 매일 한 일(골프·혈압약·천국의 계단)과 피할 일(음주)을 날짜에 체크하고 연속·통계를 본다.
+  ★ 기록은 이 리포에 두지 않는다(리포가 공개라 음주·복약 기록이 GitHub 에 남는다).
+    - 이 브라우저 localStorage(hi_streak_v1) + TO-DO·인원 명부와 같은 GAS 저장소(TASK_ENDPOINT 번들의 streak 키)로 동기화.
+      app.js 의 taskBundle() 이 streak 키를 그대로 실어 보내므로 TO-DO 를 체크해도 지워지지 않는다.
+  데이터 = {items:[{id,name,emoji,bad,color}], log:{'YYYY-MM-DD':[id,…]}, updated}
+  가져오기 코드(구글 캘린더 초기 입력용) = 'S1|YYYY|id:MMDD.MMDD…|id:…' — 붙여넣기 칸 또는 주소 #import=<코드>.
+    가져오기는 합치기(기존 체크를 지우지 않는다). 주소의 코드는 읽자마자 지운다.
+  연속: 좋은 항목 = 오늘(또는 아직 안 했으면 어제)까지 이어진 날수, 피할 항목 = 마지막 기록 다음 날부터 오늘까지 '안 한' 날수.
+-->
+<html lang="ko">
+<head><!--gs-gate--><script>
+(function(){
+ var OH="4c9b36a88f5d4509867ff909411501386428b8785635c8d759e34742792dda86",GH="d17e494562f94f74f2a7d0397c1138f2524bd9ed47860e82f639334dab1b476a",TH="466f2167513403c0b21bd9bc77f62789f19195656f686edba4adaede4ee93c80",OWNER=true,TEAMOK=false,SALT="GS-DB2|",K="gs_gate_v1",MS=30*864e5;
+ // 저장된 값에서 등급을 읽는다: 주인이면 'owner', 친구면 'guest', 없거나 만료면 null.
+ function level(){try{var v=JSON.parse(localStorage.getItem(K)||"null");
+   if(!v||Date.now()-v.t>=MS)return null;
+   return v.h===OH?"owner":v.h===TH?"team":v.h===GH?"guest":null}catch(e){return null}}
+ function set(h){try{localStorage.setItem(K,JSON.stringify({h:h,t:Date.now()}))}catch(e){}}
+ async function digest(s){
+   var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+   return [].map.call(new Uint8Array(b),function(x){return x.toString(16).padStart(2,"0")}).join("")}
+ // 팀 비번이 통하는 곳: 대시보드 본체를 수명 피드백 항목 링크로 연 집중 화면뿐.
+ function teamHere(){return TEAMOK&&/[?&]focus=/.test(location.search)&&/^#tasklist:/.test(location.hash)}
+ function pass(l){return l==="owner"||((l==="guest"||l==="team")&&!OWNER)||(l==="team"&&teamHere())}
+ var lv=level();
+ if(pass(lv)){window.__GS_LEVEL__=lv;return}   // app.js 가 등급을 읽어 팀 화면을 좁힌다
+ // crypto.subtle 은 https/localhost 에서만 있다. 없으면(평문 http·file://) 대조가
+ // 불가능하므로 잠그지 않고 통과시킨다 — 못 들어가게 막는 것보다 낫다.
+ if(!(window.crypto&&crypto.subtle))return;
+ window.__GS_GATED__=1;                  // 아직 안 풀림 — app.js 가 서버 데이터를 받아 두지 않게
+ var de=document.documentElement;de.style.visibility="hidden";  // 그려지기 전에 가림
+ function show(){
+   // 문서는 계속 숨긴 채 가림막만 보이게 둔다(내용이 아예 안 그려진다).
+   var w=document.createElement("div");
+   w.setAttribute("style","visibility:visible;position:fixed;inset:0;z-index:2147483647;background:#f7f7f5;"+
+     "display:flex;align-items:center;justify-content:center;padding:24px;"+
+     "font-family:Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif");
+   w.innerHTML='<form style="background:#fff;border:1px solid #ededeb;border-radius:12px;'+
+     'padding:28px 26px;width:min(340px,100%);box-shadow:0 10px 40px rgba(17,24,39,.08)">'+
+     '<div style="font-size:13px;letter-spacing:.12em;color:#9ca3af;font-weight:700">GS RESEARCH DESK</div>'+
+     '<h1 style="margin:6px 0 6px;font-size:20px;font-weight:800;color:#111827">비밀번호를 넣어 주세요</h1>'+
+     '<p style="margin:0 0 15px;font-size:12.5px;color:#6b7280;line-height:1.5">'+
+     '비밀번호는 <b style="color:#374151">GS최</b> 님에게 문의하세요.</p>'+
+     '<input type="password" autocomplete="current-password" autofocus '+
+     'style="width:100%;box-sizing:border-box;border:1px solid #ededeb;border-radius:8px;'+
+     'padding:12px 13px;font-size:15px;font-family:inherit;color:#111827;background:#fff">'+
+     '<p data-err style="margin:9px 2px 0;min-height:18px;font-size:12.5px;color:#bd4335"></p>'+
+     '<button type="submit" style="margin-top:12px;width:100%;border:0;border-radius:8px;'+
+     'background:#2383e2;color:#fff;font:700 15px/1 inherit;padding:13px;cursor:pointer">들어가기</button>'+
+     '<p style="margin:14px 2px 0;font-size:11.5px;color:#9ca3af;line-height:1.5">'+
+     (OWNER?(teamHere()?"주인 또는 팀 비밀번호로 열립니다. ":"이 화면은 주인 비밀번호가 필요합니다. "):"")+
+     '이 기기에서는 30일 동안 다시 묻지 않습니다.</p></form>';
+   document.body.appendChild(w);
+   // 오류 문구는 반드시 data-err 로 집는다 — querySelector("p") 는 **첫 p** 라서
+   // 위에 안내문 p 를 하나 더 두면 오류가 안내문을 덮어쓴다.
+   var f=w.querySelector("form"),i=w.querySelector("input"),msg=w.querySelector("p[data-err]");
+   f.addEventListener("submit",async function(e){
+     e.preventDefault();
+     var h=await digest(SALT+i.value);
+     var l=h===OH?"owner":h===TH?"team":h===GH?"guest":null;
+     if(pass(l)){set(h);location.reload();return}
+     msg.textContent=l==="guest"?"공유용 비밀번호로는 이 화면을 볼 수 없습니다."
+                    :l==="team"?"팀 비밀번호로는 이 화면을 볼 수 없습니다."
+                           :"비밀번호가 맞지 않습니다.";
+     i.value="";i.focus()});
+   i.focus()}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",show);
+ else show();
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>스트릭</title>
+<style>
+:root{--bg:#fff;--fg:#1c2430;--muted:#6b7684;--line:#e5e8ec;--card:#f7f8fa;--hd:#eef0f3;
+  --good:#16a34a;--goodbg:#dcfce7;--bad:#e11d48;--badbg:#ffe4e6;--a:#2a78d6;--fire:#f97316}
+*{box-sizing:border-box}
+body{margin:0;padding:18px 16px 48px;background:var(--bg);color:var(--fg);font:14px/1.55 -apple-system,"Segoe UI","Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.wrap{max-width:1100px;margin:0 auto}
+h1{font-size:20px;margin:0}
+h2{font-size:15px;margin:0 0 10px}
+.top{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;justify-content:space-between;margin:0 0 14px}
+.sub{color:var(--muted);font-size:12.5px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 14px}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 10px;cursor:pointer;color:var(--fg)}
+.btn:hover{background:var(--card)}
+.btn.pri{background:#1f2937;color:#fff;border-color:#1f2937}
+/* 날짜 고르기 + 오늘 체크 */
+.daybar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.daybar .d{font-size:17px;font-weight:800;min-width:150px;text-align:center}
+.daybar .d small{display:block;font-size:11.5px;font-weight:600;color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.tile{position:relative;border:2px solid var(--line);border-radius:14px;padding:12px 14px;cursor:pointer;background:#fff;text-align:left;
+  transition:transform .08s,background .15s,border-color .15s;user-select:none}
+.tile:active{transform:scale(.98)}
+.tile .em{font-size:26px;line-height:1}
+.tile .nm{font-weight:800;font-size:14.5px;margin:6px 0 2px}
+.tile .st{font-size:12.5px;color:var(--muted)}
+.tile .st b{color:var(--fg)}
+.tile .ck{position:absolute;top:10px;right:12px;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:15px}
+.tile.on{border-color:var(--c);background:var(--cb)}
+.tile.on .ck{background:var(--c);border-color:var(--c)}
+.tile .nm{color:var(--c)}
+.fire{color:var(--fire);font-weight:900}
+.tile.lockt{border-style:dashed;background:#fafafa;text-align:center}
+.tile.lockt .em{font-size:30px}
+.tile.lockt .nm{color:#6b7684}
+/* 통계 표 */
+table{border-collapse:collapse;width:100%}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th{background:var(--hd);font-size:12.5px;font-weight:700}
+td:first-child,th:first-child{text-align:left}
+td .pc{color:var(--muted);font-size:11.5px;margin-left:4px}
+td .wk{display:block;color:var(--muted);font-size:11px}
+.scroll{overflow-x:auto}
+.ct{color:var(--c)}
+/* 월별 막대 */
+.mbar{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;align-items:end;height:74px;margin:6px 0 2px}
+.mbar div{background:var(--c);border-radius:3px 3px 0 0;min-height:2px;position:relative}
+.mbar div.fut{background:var(--line)}
+.mbar div span{position:absolute;top:-16px;left:0;right:0;text-align:center;font-size:10.5px;color:var(--muted)}
+.mlab{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;font-size:10.5px;color:var(--muted);text-align:center}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px 22px}
+.mgrid h3{font-size:13.5px;margin:0 0 14px}
+/* 달력 */
+.calhd{display:flex;align-items:center;gap:8px;margin:0 0 8px}
+.calhd b{font-size:15px;min-width:110px;text-align:center}
+.calf{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.calf button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 11px;cursor:pointer;font-size:12.5px;color:var(--fg)}
+.calf button em{font-style:normal;color:var(--muted);margin-left:4px;font-size:11.5px}
+.calf button.on{border-color:var(--c,#1f2937);background:var(--cb,#1f2937);color:var(--c,#fff);font-weight:700}
+.calf button.all.on{background:#1f2937;color:#fff;border-color:#1f2937}
+.calf button.on em{color:inherit}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal .wd{font-size:11.5px;color:var(--muted);text-align:center;padding:2px 0}
+.cal .wd:first-child{color:var(--bad)} .cal .wd:last-child{color:var(--a)}
+.day{min-height:62px;border:1px solid var(--line);border-radius:8px;padding:3px 5px;cursor:pointer;background:#fff;overflow:hidden}
+.day:hover{border-color:#9aa4b2}
+.day .n{font-size:11.5px;color:var(--muted);font-weight:700}
+.day.sun .n{color:var(--bad)} .day.sat .n{color:var(--a)}
+.day.out{visibility:hidden}
+.day.fut{background:#fafafa}
+.day.fut .es{opacity:.55}
+.day.fut.hasplan{border-style:dashed;border-color:#9aa4b2}
+.tile.plan.on{border-style:dashed}
+.heat i.plan{opacity:.4}
+.heat i.plan:not(.on){background:#f4f5f7}
+.day.today{box-shadow:inset 0 0 0 2px var(--fire)}
+.day.sel{background:#fff7ed;border-color:var(--fire)}
+.day.msel{background:#e0f2fe;border-color:#0284c7;box-shadow:inset 0 0 0 1px #0284c7}
+.day{user-select:none}
+.d small a{color:var(--a)}
+.day .es{font-size:15px;line-height:1.25;word-break:break-all}
+/* 연간 잔디 */
+.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,11px);gap:2px;margin:4px 0 0}
+.heat i{width:11px;height:11px;border-radius:2px;background:#eef0f3;cursor:pointer}
+.heat i.on{background:var(--c)}
+.heat i.fut{background:transparent;cursor:default} .heat i.nil{visibility:hidden}
+.heat i.t{outline:2px solid var(--fire);outline-offset:-1px}
+.hrow{margin:0 0 12px}
+.hrow .hl{font-size:12.5px;font-weight:700;margin:0 0 2px}
+/* 설정 */
+details summary{cursor:pointer;font-weight:700}
+.items-ed{display:grid;gap:6px;margin:10px 0}
+.items-ed .r{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.items-ed input[type=text]{border:1px solid var(--line);border-radius:6px;padding:4px 7px}
+.items-ed .e{width:52px;text-align:center}
+textarea{width:100%;min-height:70px;border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12.5px}
+.sync{font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#1f2937;color:#fff;padding:8px 14px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:.95}
+@media(max-width:560px){body{padding:12px 10px 40px}.day{min-height:48px;padding:2px 3px}.day .es{font-size:12.5px}.tiles{grid-template-columns:1fr 1fr}.tile{padding:10px}.tile .em{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><h1>🔥 스트릭</h1><div class="sub">매일 한 일을 날짜에 체크 — 항목마다 색(골프 초록 · 혈압약 회색 · 헬스장 청록 · 음주 빨강, ⚙️ 에서 변경). 기록은 GitHub 에 올리지 않고 브라우저·동기화 저장소에만 둡니다.</div></div>
+    <span class="sync" id="sync"></span>
+  </div>
+
+  <section class="card">
+    <div class="daybar">
+      <button class="btn" id="d-prev" title="전날">◀</button>
+      <div class="d" id="d-label"></div>
+      <button class="btn" id="d-next" title="다음날">▶</button>
+      <button class="btn" id="d-today">오늘</button>
+      <button class="btn" id="m-mode" title="달력에서 여러 날을 골라 한꺼번에 체크(PC는 Shift+클릭 = 구간, Ctrl/⌘+클릭 = 하루씩)">☑ 여러 날</button>
+      <input type="date" id="d-pick" class="btn" style="padding:4px 6px">
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <section class="card">
+    <h2>📊 통계</h2>
+    <div class="scroll"><table id="stats"></table></div>
+    <div class="sub" style="margin-top:6px">3개월 = 오늘 포함 최근 91일 · YTD = 올해 1월 1일~오늘 · 피할 일은 '안 한 날' 도 함께 적습니다. 주당 = 기간 일수 ÷ 7 로 나눈 평균 횟수.</div>
+  </section>
+
+  <section class="card">
+    <div class="calhd"><button class="btn" id="m-prev">◀</button><b id="m-label"></b><button class="btn" id="m-next">▶</button>
+      <span class="sub" style="margin-left:auto">날짜를 누르면 위 체크 칸이 그 날로 · Shift+클릭 = 여러 날(구간)</span></div>
+    <div class="calf" id="calf"></div>
+    <div class="cal" id="cal"></div>
+  </section>
+
+  <section class="card">
+    <h2 id="y-title">🗓 월별 횟수</h2>
+    <div class="mgrid" id="months"></div>
+  </section>
+
+  <section class="card">
+    <h2 id="h-title">🌱 한 해 잔디</h2>
+    <div class="scroll" id="heats"></div>
+  </section>
+
+  <section class="card">
+    <details id="set">
+      <summary>⚙️ 항목 · 가져오기</summary>
+      <div class="items-ed" id="items-ed"></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn" id="it-add">＋ 항목 추가</button><button class="btn pri" id="it-save">항목 저장</button></div>
+      <h3 style="font-size:13.5px;margin:16px 0 4px">📥 기록 가져오기(합치기)</h3>
+      <div class="sub">세션이 구글 캘린더에서 뽑아 준 코드(<code>S1|2026|golf:0221.0228|…</code>)를 붙여넣으세요. 기존 체크는 지우지 않고 더합니다.</div>
+      <textarea id="imp" placeholder="S1|2026|golf:…|gym:…|drink:…"></textarea>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"><button class="btn pri" id="imp-go">가져오기</button><button class="btn" id="exp">📋 내 기록 코드 복사</button></div>
+    </details>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+const KEY='hi_streak_v1';
+const ENDPOINT='https://script.google.com/macros/s/AKfycbwTX-Ld-ayqHgi97S0QiMYPsHfb2cjNwy66FyDYU6GBrS0kOgMH8KE220GPy3KRxcT3/exec'; // app.js TASK_ENDPOINT 와 같은 저장소
+const DEF_ITEMS=[
+  {id:'golf',name:'골프',emoji:'⛳',bad:false,color:'#16a34a'},
+  {id:'med',name:'약(혈압)',emoji:'💊',bad:false,color:'#475569'},
+  {id:'gym',name:'헬스장(천국의 계단)',emoji:'⛰️',bad:false,color:'#0891b2'},
+  {id:'drink',name:'음주',emoji:'🍺',bad:true,color:'#e11d48'}];
+// ❓ 잠긴 항목 — 비밀번호를 넣어야 화면에 나온다(이 탭을 닫으면 다시 잠김). 해시만 두고 비밀번호 원문은 소스에 적지 않는다.
+// 가림막일 뿐: 기록 자체는 다른 항목과 같은 저장소에 있다.
+const SECRET_DEF=[
+  {id:'love',name:'사랑',emoji:'❤️',bad:false,color:'#db2777',secret:true},
+  {id:'moon',name:'월',emoji:'🌙',bad:false,color:'#7c3aed',secret:true}];
+const SECRET_HASH='a3913c8d24d19490b6ea69552e4bc286f2ca61db16370f5f653855f156ba8e67';   // sha256('gs-streak:'+비밀번호)
+const SECRET_KEY='streak_secret_ok';
+let unlocked=(()=>{try{return sessionStorage.getItem(SECRET_KEY)===SECRET_HASH}catch(e){return false}})();
+const VIS=()=>D.items.filter(it=>!it.secret||unlocked);
+async function sha256(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+// 항목 색: 저장된 color → 기본 항목의 색 → 할 일 초록/피할 일 빨강. 옅은 바탕은 같은 색 13% 투명도.
+const colOf=it=>it.color||([...DEF_ITEMS,...SECRET_DEF].find(x=>x.id===it.id)||{}).color||(it.bad?'#e11d48':'#16a34a');
+const cv=it=>`--c:${colOf(it)};--cb:${colOf(it)}22`;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const kst=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'});
+const TODAY=kst.format(new Date());
+const WD='일월화수목금토';
+// 날짜 문자열 ↔ UTC 자정 (시간대 무관하게 날짜 산수만)
+const toT=s=>Date.UTC(+s.slice(0,4),+s.slice(5,7)-1,+s.slice(8,10));
+const toS=t=>new Date(t).toISOString().slice(0,10);
+const add=(s,n)=>toS(toT(s)+n*864e5);
+const diff=(a,b)=>Math.round((toT(b)-toT(a))/864e5);   // b - a (일)
+const wday=s=>new Date(toT(s)).getUTCDay();
+
+let D={items:[...DEF_ITEMS,...SECRET_DEF].map(x=>({...x})),log:{},updated:0,secretInit:true};
+let sel=TODAY, mon=TODAY.slice(0,7), yr=+TODAY.slice(0,4);
+// 미래 날짜도 체크(예정)할 수 있다 — 오늘 + 1년까지. 통계·연속은 오늘까지만 센다(예정은 아직 한 일이 아니므로).
+const MAXD=add(TODAY,365);
+// 여러 날 고르기: 달력에서 Shift+클릭 = 구간, Ctrl/⌘+클릭 = 하루씩 더하기·빼기, 폰은 '☑ 여러 날' 켜고 탭.
+// 고른 날이 2일 이상이면 위 체크 칸이 그 날들 전부에 한꺼번에 넣고/뺀다(전부 체크돼 있으면 빼고, 아니면 넣는다).
+let multi=new Set(), multiMode=false;
+const days=()=>multi.size>1?[...multi].sort():[sel];
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>e.classList.remove('on'),1800)}
+function clean(d){if(!d||typeof d!=='object')return null;
+  const items=Array.isArray(d.items)&&d.items.length?d.items:DEF_ITEMS.map(x=>({...x}));
+  const log={};if(d.log&&typeof d.log==='object')for(const[k,v]of Object.entries(d.log))if(/^\d{4}-\d\d-\d\d$/.test(k)&&Array.isArray(v)&&v.length)log[k]=[...new Set(v)];
+  const out={items,log,updated:+d.updated||0,secretInit:!!d.secretInit};
+  if(!out.secretInit){for(const x of SECRET_DEF)if(!items.some(it=>it.id===x.id))items.push({...x});out.secretInit=true}
+  return out}
+const load=()=>{try{return clean(JSON.parse(localStorage.getItem(KEY)))}catch(e){return null}};
+const has=(d,id)=>(D.log[d]||[]).includes(id);
+
+// ── 동기화(인원 명부와 같은 방식) ─────────────────────────
+const setSync=t=>{$('#sync').textContent=t};
+async function pull(){try{const r=await fetch(ENDPOINT,{cache:'no-store'});if(!r.ok)throw 0;return await r.json()||{}}catch(e){return null}}
+async function push(){
+  setSync('저장 중…');const b=await pull();
+  if(!b){setSync('⚠ 이 기기에만 저장 — 동기화 저장소 연결 실패');return}
+  try{await fetch(ENDPOINT,{method:'POST',body:JSON.stringify({...b,streak:D})})}catch(e){setSync('⚠ 이 기기에만 저장 — 올리기 실패');return}
+  const chk=await pull();
+  if(chk&&chk.streak&&chk.streak.updated===D.updated)setSync('☁ 동기화됨 · '+new Date(D.updated).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',hour12:false}).slice(0,-3));
+  else setSync('⚠ 이 기기에만 저장 — 동기화 저장소가 기록을 보관하지 않습니다');
+}
+let pushT=null;
+function commit(){D.updated=Date.now();try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}render();setSync('저장 대기…');clearTimeout(pushT);pushT=setTimeout(push,1200)}
+
+// ── 계산 ─────────────────────────────────────────────
+function firstDay(){const ks=Object.keys(D.log).sort();return ks[0]||TODAY}
+function streakNow(it){
+  if(!it.bad){let d=has(TODAY,it.id)?TODAY:add(TODAY,-1),n=0;while(has(d,it.id)){n++;d=add(d,-1)}return n}
+  // 피할 일: 마지막 기록 이후 안 한 날수(오늘 했으면 0)
+  const l=lastDone(it);if(!l)return diff(firstDay(),TODAY)+1;return diff(l,TODAY)}
+function lastDone(it,upto=TODAY){const ks=Object.keys(D.log).filter(k=>k<=upto&&D.log[k].includes(it.id)).sort();return ks[ks.length-1]||null}
+function best(it){
+  const f=firstDay();let b=0,c=0;
+  for(let d=f;d<=TODAY;d=add(d,1)){const on=has(d,it.id);if(it.bad?!on:on){c++;if(c>b)b=c}else c=0}
+  return b}
+function count(it,from,to){let n=0;for(const[k,v]of Object.entries(D.log))if(k>=from&&k<=to&&v.includes(it.id))n++;return n}
+
+// ── 그리기 ───────────────────────────────────────────
+function lbl(s){const t=s===TODAY?'오늘':s===add(TODAY,-1)?'어제':diff(s,TODAY)>0?diff(s,TODAY)+'일 전':diff(TODAY,s)+'일 뒤';
+  return `${+s.slice(5,7)}월 ${+s.slice(8,10)}일 (${WD[wday(s)]})<small>${s.slice(0,4)} · ${t}</small>`}
+function renderTiles(){
+  const ds=days(),many=ds.length>1;
+  $('#d-label').innerHTML=many?`☑ ${ds.length}일 선택<small>${+ds[0].slice(5,7)}/${+ds[0].slice(8)} ~ ${+ds[ds.length-1].slice(5,7)}/${+ds[ds.length-1].slice(8)} · <a href="#" id="m-clear">선택 해제</a></small>`:lbl(sel);
+  $('#d-pick').value=sel;$('#d-next').disabled=sel>=MAXD;
+  const mb=$('#m-mode');if(mb){mb.classList.toggle('pri',multiMode);mb.textContent=multiMode?'☑ 여러 날 고르는 중':'☑ 여러 날'}
+  const anySecret=D.items.some(it=>it.secret);
+  $('#tiles').innerHTML=VIS().map(it=>{
+    const k=ds.filter(d=>has(d,it.id)).length,on=k===ds.length,s=streakNow(it),l=lastDone(it),b=best(it);
+    let st;
+    if(it.bad)st=`${s?`<span class="fire">${s}일째</span> 안 함`:'오늘 했음'} · 최장 ${b}일`;
+    else st=`${s?`<span class="fire">🔥 ${s}일 연속</span>`:(l?`마지막 <b>${diff(l,TODAY)?diff(l,TODAY)+'일 전':'오늘'}</b>`:'기록 없음')} · 최장 ${b}일`;
+    if(many)st=`☑ 고른 ${ds.length}일 중 <b>${k}일</b> 체크 · 누르면 ${on?'모두 빼기':'모두 넣기'}`;
+    else if(sel>TODAY)st=on?`📅 <b>예정</b> · ${st}`:`📅 예정 없음 · ${st}`;
+    return `<div class="tile ${it.bad?'bad':'good'} ${on?'on':''} ${!many&&sel>TODAY?'plan':''}" style="${cv(it)}" data-id="${esc(it.id)}" role="button" tabindex="0">
+      <div class="ck">${on?'✓':many&&k?'–':''}</div><div class="em">${esc(it.emoji)}</div><div class="nm">${esc(it.name)}</div><div class="st">${st}${it.secret?' · 🔒':''}</div></div>`}).join('')
+    +(anySecret?(unlocked
+      ?`<div class="tile lockt" id="sec-lock" role="button" tabindex="0"><div class="em">🔒</div><div class="nm">잠그기</div><div class="st">❓ 항목을 다시 숨김</div></div>`
+      :`<div class="tile lockt" id="sec-open" role="button" tabindex="0"><div class="em">❓</div><div class="nm">?</div><div class="st">비밀번호를 넣으면 열립니다</div></div>`):'');
+}
+function renderStats(){
+  const y0=TODAY.slice(0,4)+'-01-01',r=[['이번 주',add(TODAY,-((wday(TODAY)+6)%7))],['최근 30일',add(TODAY,-29)],['3개월',add(TODAY,-90)],['YTD',y0]];
+  let h='<tr><th>항목</th>'+r.map(x=>`<th>${x[0]}<span class="wk" style="font-weight:400">${+x[1].slice(5,7)}/${+x[1].slice(8,10)}~</span></th>`).join('')+'<th>지금</th></tr>';
+  for(const it of VIS()){
+    h+=`<tr style="${cv(it)}"><td>${esc(it.emoji)} <b class="ct">${esc(it.name)}</b></td>`;
+    for(const[,from]of r){const days=diff(from,TODAY)+1,n=count(it,from,TODAY),pc=Math.round(n/days*100);
+      h+=`<td><b class="ct">${n}일</b><span class="pc">${pc}%</span><span class="wk">${it.bad?`안 한 날 ${days-n}일`:`주 ${(n/days*7).toFixed(1)}회`}</span></td>`}
+    const s=streakNow(it);
+    h+=`<td>${it.bad?(s?`<span class="fire">${s}일째 안 함</span>`:'오늘 했음'):(s?`<span class="fire">🔥${s}일</span>`:'–')}</td></tr>`}
+  $('#stats').innerHTML=h;
+}
+// 달력에 보일 항목 고르기 — 비면 전체. 고른 것은 이 기기에만 기억(localStorage).
+let calOnly=new Set((()=>{try{return JSON.parse(localStorage.getItem('streak_cal_only'))||[]}catch(e){return []}})());
+function saveCalOnly(){try{localStorage.setItem('streak_cal_only',JSON.stringify([...calOnly]))}catch(e){}}
+function renderCal(){
+  const [y,m]=mon.split('-').map(Number);$('#m-label').textContent=`${y}년 ${m}월`;
+  const vis=VIS();for(const id of [...calOnly])if(!vis.some(it=>it.id===id))calOnly.delete(id);   // 잠기거나 지운 항목은 빼고 본다
+  const shown=calOnly.size?vis.filter(it=>calOnly.has(it.id)):vis;
+  const mc=it=>{const a=count(it,`${mon}-01`,TODAY<`${mon}-31`?TODAY:`${mon}-31`),f=count(it,TODAY>=`${mon}-01`?add(TODAY,1):`${mon}-01`,`${mon}-31`);
+    return (`${mon}-01`>TODAY?'':a+'일')+(f?` +${f}예정`:'')||'0일'};
+  $('#calf').innerHTML=`<button class="all ${calOnly.size?'':'on'}" data-f="">전체</button>`+vis.map(it=>
+    `<button class="${calOnly.has(it.id)?'on':''}" style="${cv(it)}" data-f="${esc(it.id)}">${esc(it.emoji)} ${esc(it.name)}<em>${mc(it)}</em></button>`).join('');
+  $('#m-next').disabled=mon>=MAXD.slice(0,7);
+  const first=`${mon}-01`,last=toS(Date.UTC(y,m,0)),pad=wday(first);
+  let h=[...WD].map(w=>`<div class="wd">${w}</div>`).join('');
+  for(let i=0;i<pad;i++)h+='<div class="day out"></div>';
+  for(let d=first;d<=last;d=add(d,1)){const w=wday(d),hit=shown.filter(it=>has(d,it.id)),es=hit.map(it=>esc(it.emoji)).join('');
+    const tint=calOnly.size&&hit.length&&d!==sel?` style="background:${colOf(hit[0])}1f;border-color:${colOf(hit[0])}66"`:'';   // 고른 항목을 한 날은 그 색으로 칠해 연속이 눈에 띄게
+    h+=`<div class="day ${w===0?'sun':w===6?'sat':''} ${d>TODAY?'fut':''} ${d>TODAY&&hit.length?'hasplan':''} ${d===TODAY?'today':''} ${d===sel&&multi.size<2?'sel':''} ${multi.size>1&&multi.has(d)?'msel':''}"${tint} data-d="${d}"><div class="n">${+d.slice(8)}</div><div class="es">${es}</div></div>`}
+  $('#cal').innerHTML=h;
+}
+function renderMonths(){
+  $('#y-title').innerHTML=`🗓 ${yr}년 월별 횟수 <button class="btn" id="y-prev" style="margin-left:8px">◀</button> <button class="btn" id="y-next" ${yr>=+MAXD.slice(0,4)?'disabled':''}>▶</button>`;
+  const tm=TODAY.slice(0,7);
+  $('#months').innerHTML=VIS().map(it=>{
+    const c=Array.from({length:12},(_,i)=>{const mm=`${yr}-${String(i+1).padStart(2,'0')}`;return mm>tm?null:count(it,mm+'-01',mm===tm?TODAY:mm+'-31')});
+    const mx=Math.max(1,...c.filter(x=>x!=null)),tot=c.reduce((a,x)=>a+(x||0),0);
+    return `<div style="${cv(it)}"><h3>${esc(it.emoji)} ${esc(it.name)} <span class="sub">· ${yr}년 ${tot}일</span></h3><div class="mbar">${c.map(x=>x==null?'<div class="fut" style="height:2px"></div>':`<div class="${it.bad?'bad':''}" style="height:${Math.max(2,x/mx*58)}px"><span>${x||''}</span></div>`).join('')}</div><div class="mlab">${c.map((_,i)=>`<span>${i+1}</span>`).join('')}</div></div>`}).join('');
+  $('#y-prev').onclick=()=>{yr--;renderMonths();renderHeat()};$('#y-next').onclick=()=>{if(yr<+MAXD.slice(0,4)){yr++;renderMonths();renderHeat()}};
+}
+function renderHeat(){
+  $('#h-title').textContent=`🌱 ${yr}년 잔디`;
+  const s=`${yr}-01-01`,e=`${yr}-12-31`,pad=wday(s);
+  $('#heats').innerHTML=VIS().map(it=>{let h='';for(let i=0;i<pad;i++)h+='<i class="nil"></i>';
+    for(let d=s;d<=e;d=add(d,1)){const on=has(d,it.id);h+=d>MAXD?'<i class="fut"></i>':`<i class="${on?'on':''} ${d>TODAY?'plan':''} ${it.bad?'bad':''} ${d===TODAY?'t':''}" data-d="${d}" title="${d}${on?' ✓':''}"></i>`}
+    return `<div class="hrow" style="${cv(it)}"><div class="hl">${esc(it.emoji)} ${esc(it.name)}</div><div class="heat">${h}</div></div>`}).join('');
+}
+function renderItems(){
+  $('#items-ed').innerHTML=D.items.map((it,i)=>it.secret&&!unlocked?'':`<div class="r" data-i="${i}"><input type="text" class="e" value="${esc(it.emoji)}"><input type="text" class="nm" value="${esc(it.name)}" style="flex:1;min-width:140px">
+    <input type="color" class="co" value="${colOf(it)}" title="색" style="width:34px;height:28px;padding:0;border:1px solid var(--line);border-radius:6px"><label class="sub"><input type="checkbox" class="bd" ${it.bad?'checked':''}> 피할 일</label><button class="btn del" title="항목 삭제">🗑</button></div>`).join('');
+}
+function render(){renderTiles();renderStats();renderCal();renderMonths();renderHeat()}
+
+// ── 조작 ─────────────────────────────────────────────
+function toggle(d,id){if(d>MAXD){toast('1년 뒤까지만 넣을 수 있어요');return}
+  const v=new Set(D.log[d]||[]);v.has(id)?v.delete(id):v.add(id);if(v.size)D.log[d]=[...v];else delete D.log[d];commit()}
+function pick(d){if(!d)return;if(d>MAXD)d=MAXD;sel=d;mon=d.slice(0,7);if(!multiMode)multi.clear();render()}
+function toggleMany(id){const ds=days();if(ds.length===1)return toggle(ds[0],id);
+  const all=ds.every(d=>has(d,id));
+  for(const d of ds){if(d>MAXD)continue;const v=new Set(D.log[d]||[]);all?v.delete(id):v.add(id);if(v.size)D.log[d]=[...v];else delete D.log[d]}
+  const it=D.items.find(x=>x.id===id);commit();toast(`${it?it.emoji+' '+it.name:''} — ${ds.length}일 ${all?'뺐습니다':'넣었습니다'}`)}
+async function openSecret(){const pw=prompt('❓ 비밀번호');if(pw==null)return;
+  if(await sha256('gs-streak:'+pw.trim())!==SECRET_HASH){toast('비밀번호가 맞지 않습니다');return}
+  unlocked=true;try{sessionStorage.setItem(SECRET_KEY,SECRET_HASH)}catch(e){}render();if($('#set').open)renderItems();toast('❓ 항목을 열었습니다')}
+function lockSecret(){unlocked=false;try{sessionStorage.removeItem(SECRET_KEY)}catch(e){}render();if($('#set').open)renderItems();toast('다시 잠갔습니다')}
+$('#tiles').addEventListener('click',e=>{const t=e.target.closest('.tile');if(!t)return;if(t.id==='sec-open')return openSecret();if(t.id==='sec-lock')return lockSecret();toggleMany(t.dataset.id)});
+$('#tiles').addEventListener('keydown',e=>{const t=e.target.closest('.tile');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();t.click()}});
+$('#d-prev').onclick=()=>pick(add(sel,-1));$('#d-next').onclick=()=>pick(add(sel,1));$('#d-today').onclick=()=>pick(TODAY);
+$('#d-pick').onchange=e=>pick(e.target.value);
+$('#m-prev').onclick=()=>{const[y,m]=mon.split('-').map(Number);mon=toS(Date.UTC(y,m-2,1)).slice(0,7);renderCal()};
+$('#m-next').onclick=()=>{const[y,m]=mon.split('-').map(Number);const n=toS(Date.UTC(y,m,1)).slice(0,7);if(n<=MAXD.slice(0,7)){mon=n;renderCal()}};
+$('#calf').addEventListener('click',e=>{const b=e.target.closest('button[data-f]');if(!b)return;const id=b.dataset.f;
+  if(!id)calOnly.clear();else calOnly.has(id)?calOnly.delete(id):calOnly.add(id);saveCalOnly();renderCal()});
+$('#cal').addEventListener('click',e=>{const t=e.target.closest('.day[data-d]');if(!t||t.dataset.d>MAXD)return;const d=t.dataset.d;
+  if(e.shiftKey){const a=sel<d?sel:d,b=sel<d?d:sel;if(!(e.ctrlKey||e.metaKey)&&!multiMode)multi.clear();for(let x=a;x<=b;x=add(x,1))multi.add(x);render();return}
+  if(e.ctrlKey||e.metaKey||multiMode){if(!multi.size&&!multiMode)multi.add(sel);multi.has(d)?multi.delete(d):multi.add(d);sel=d;if(!multi.size)multi.add(d);render();return}
+  pick(d);window.scrollTo({top:0,behavior:'smooth'})});
+document.addEventListener('click',e=>{if(e.target.id==='m-clear'){e.preventDefault();multi.clear();multiMode=false;render()}});
+$('#m-mode').onclick=()=>{multiMode=!multiMode;multi.clear();if(multiMode){toast('달력에서 날짜를 눌러 여러 날을 고르세요')}render()};
+$('#heats').addEventListener('click',e=>{const t=e.target.closest('i[data-d]');if(t){pick(t.dataset.d);window.scrollTo({top:0,behavior:'smooth'})}});
+$('#set').addEventListener('toggle',()=>{if($('#set').open)renderItems()});
+$('#it-add').onclick=()=>{D.items.push({id:'i'+Date.now().toString(36),name:'새 항목',emoji:'⭐',bad:false});renderItems()};
+$('#items-ed').addEventListener('click',e=>{const b=e.target.closest('.del');if(!b)return;const i=+b.closest('.r').dataset.i,it=D.items[i];
+  const n=Object.values(D.log).filter(v=>v.includes(it.id)).length;
+  if(!confirm(`'${it.name}' 항목을 지울까요?${n?` 체크 ${n}일도 함께 지워집니다.`:''}`))return;
+  D.items.splice(i,1);for(const k of Object.keys(D.log)){D.log[k]=D.log[k].filter(x=>x!==it.id);if(!D.log[k].length)delete D.log[k]}commit();renderItems()});
+$('#it-save').onclick=()=>{document.querySelectorAll('#items-ed .r').forEach(r=>{const it=D.items[+r.dataset.i];it.emoji=r.querySelector('.e').value.trim()||'⭐';it.name=r.querySelector('.nm').value.trim()||'항목';it.bad=r.querySelector('.bd').checked;it.color=r.querySelector('.co').value});commit();toast('항목 저장됨')};
+
+// 가져오기 코드: S1|YYYY|id:MMDD.MMDD|… (여러 해는 |YYYY| 를 다시 적으면 그 뒤부터 그 해)
+function importCode(code){
+  const parts=String(code||'').trim().split('|');if(parts[0]!=='S1')return -1;
+  let y=null,n=0;
+  for(const p of parts.slice(1)){
+    if(/^\d{4}$/.test(p)){y=p;continue}
+    const m=p.match(/^([\w-]+):([\d.]*)$/);if(!m||!y)continue;
+    const id=m[1];if(!D.items.some(it=>it.id===id))continue;
+    for(const md of m[2].split('.').filter(Boolean)){if(!/^\d{4}$/.test(md))continue;const d=`${y}-${md.slice(0,2)}-${md.slice(2)}`;if(d>MAXD)continue;
+      const v=new Set(D.log[d]||[]);if(!v.has(id)){v.add(id);D.log[d]=[...v];n++}}}
+  return n}
+function exportCode(){const by={};for(const[k,v]of Object.entries(D.log)){const y=k.slice(0,4);by[y]=by[y]||{};for(const id of v)(by[y][id]=by[y][id]||[]).push(k.slice(5,7)+k.slice(8))}
+  return 'S1|'+Object.keys(by).sort().map(y=>y+'|'+Object.entries(by[y]).map(([id,a])=>id+':'+a.sort().join('.')).join('|')).join('|')}
+$('#imp-go').onclick=()=>{const n=importCode($('#imp').value);if(n<0){toast('코드 형식이 아닙니다 (S1|… 로 시작)');return}$('#imp').value='';commit();toast(`${n}건 더했습니다`)};
+$('#exp').onclick=async()=>{try{await navigator.clipboard.writeText(exportCode());toast('기록 코드를 복사했습니다')}catch(e){$('#imp').value=exportCode();toast('아래 칸에 코드를 넣었습니다 — 직접 복사하세요')}};
+
+async function boot(){
+  D=load()||D;
+  // 주소 #import=<코드> — 한 번 더하고 주소에서 지운다
+  const m=location.hash.match(/import=([^&]+)/);
+  if(m){const n=importCode(decodeURIComponent(m[1]));history.replaceState(null,'',location.pathname+location.search);if(n>=0){D.updated=Date.now();try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}setTimeout(()=>toast(`캘린더 기록 ${n}건을 더했습니다`),300);var imported=true}}
+  render();setSync('불러오는 중…');
+  const b=await pull();
+  if(!b){setSync('이 기기 저장본 (동기화 저장소 연결 실패)');return}
+  const R=clean(b.streak);
+  if(imported){if(R)for(const[k,v]of Object.entries(R.log))D.log[k]=[...new Set([...(D.log[k]||[]),...v])];D.updated=Date.now();try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}render();push();return}
+  if(R&&R.updated>(D.updated||0)){D=R;try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}render();setSync('☁ 동기화됨')}
+  else if(D.updated&&(!R||R.updated<D.updated))push();
+  else setSync('☁ 동기화됨');
+}
+// 자정이 지나면 '오늘'이 바뀐다 — 다시 열어 보면 되지만, 켜 둔 탭을 위해 1시간마다 새로 그림
+setInterval(()=>{if(kst.format(new Date())!==TODAY)location.reload()},36e5);
+boot();
+})();
+</script>
+</body>
+</html>

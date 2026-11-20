@@ -1,0 +1,718 @@
+{
+ "date": "2026-10-07",
+ "meta": {
+  "window": "10-06 06:00~10-07 06:00 KST",
+  "engine": "Gemini(gemini-2.5-flash)",
+  "generated_at": "2026-10-07T06:35+09:00"
+ },
+ "stats": {
+  "channels": 97,
+  "messages": 1919,
+  "groups": 1770
+ },
+ "one_liner": "AI/반도체와 전력기기 테마가 시장 상승을 주도하는 가운데, 3분기 실적 시즌을 맞아 기업별 희비가 엇갈리고 있으며, 시장의 기술적 지지선과 변동성에 대한 경계심도 공존합니다.",
+ "themes": [
+  {
+   "name": "AI/반도체 섹터 강세 및 시장 최고치 경신",
+   "narrative": "미국 증시에서 기술주가 주도하는 상승세가 이어지며 나스닥과 S&P 500 지수가 사상 최고치를 경신했습니다. 국내에서도 주성엔지니어링 등 반도체 소부장 종목의 강세가 두드러지며 AI 및 반도체 섹터의 성장 기대감이 확산되고 있습니다.",
+   "status": "ongoing",
+   "strength": 5,
+   "keywords": [
+    "주성엔지니어링",
+    "최고치 경신",
+    "전반적 상승세",
+    "확대되",
+    "본업"
+   ],
+   "evidence": [
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "나스닥 종합 지수는 27498.35포인트로 286.45포인트(1.05%) 상승하며 사상 최고치를 경신했습니다. S&P 500 지수 또한 51.23포인트(0.66%) 오른 7774.05포인트를 기록하며 견조…"
+    },
+    {
+     "channel": "epic AI - 투자 어시스턴트",
+     "quote": "업종별로는 반도체(+3.77%, 기여 +1.01%)가 주성엔지니어링(+17.51%), 두산테스나(+12.25%), HPSP(+5.04%) 등 소부장 종목의 강세에 힘입어 지수 상승을 가장 크게 견인했으며, 이차전지재료및장비(+7.22%, 기여 +0.57%)는 에코프로비엠(+11.41%)과 에코프로(+7.31%)의 강한 반…"
+    },
+    {
+     "channel": "김현석(자본주의 바이어스 있는 채널입니다)",
+     "quote": "대만 패키지기판 업체들이 일제히 신고가를 경신. 최근 3개월 Unimicron +48%, Nan Ya PCB +46%, Kinsus +40% 상승. 핵심 동인은 Agentic AI 확산에 따른 서버 CPU…"
+    }
+   ]
+  },
+  {
+   "name": "전력기기 및 에너지 인프라 투자 확대",
+   "narrative": "미국 내 전력 수요 증가와 노후 설비 교체 수요가 맞물리면서 전력기기 섹터의 질주가 예상됩니다. 특히 데이터센터 신규 수요와 함께 미 상원의 에너지 프로젝트 승인 촉진법 합의, 빅테크 기업들의 청정 전력 구매 움직임이 관련 산업의 성장을 견인하고 있습니다.",
+   "status": "ongoing",
+   "strength": 4,
+   "keywords": [
+    "결합",
+    "스피어",
+    "외형",
+    "유치"
+   ],
+   "evidence": [
+    {
+     "channel": "다올투자증권 리서치센터",
+     "quote": "미국 전력 수요가 장기 정체를 벗어나 증가 국면 진입. 데이터센터가 신규 수요를 촉발하는 가운데 1960~70년대 설치된 송전망·변압기 교체 수요까지 누적"
+    },
+    {
+     "channel": "유진투자증권 산업분석실 테크/인프라팀",
+     "quote": "미 상원, 에너지 프로젝트 승인 촉진법 합의 ☞ 상원에서 공화, 민주 위원회 초안 합의, 에너지 부족 문제 해결 핵심 법 미 상원, BAAJA 입법 절차 시작 합의"
+    },
+    {
+     "channel": "한투증권 미국/중국전략 정정영",
+     "quote": "구글 & Constellation, 10억달러 규모 원자력 발전 협정 논의. 빅테크의 청정 전력 구매 본격화"
+    }
+   ]
+  },
+  {
+   "name": "3분기 실적 시즌, 컨센서스 하회 우려 확산",
+   "narrative": "3분기 실적 발표 시즌이 다가오면서 주요 기업들의 실적 전망치가 하향 조정되고 있습니다. 마케팅 비용 증가, 생산 물량 감소, 환율 하락 등의 영향으로 다수의 기업이 컨센서스를 소폭 하회할 것으로 예상되며, 특히 삼성전자와 SK하이닉스 등 반도체 대형주도 실적 추정치 하향 조정이 나타나고 있습니다.",
+   "status": "ongoing",
+   "strength": 4,
+   "keywords": [
+    "YoY QoQ",
+    "본업",
+    "외형",
+    "훼손"
+   ],
+   "evidence": [
+    {
+     "channel": "다올투자증권 리서치센터",
+     "quote": "3Q26E 매출액 1.1조원(YoY +10%, QoQ -5%), 영업이익 1,082억원(YoY +18%, QoQ -8%)으로 컨센서스 하회 전망. OPM 9.7%(YoY +0.7%p)로 2Q26(10.0%)과 유사한 수준. 아마존 빅딜데이를 앞두고 AP 본업과 COSRX 모두 인플루언서 시딩 등 마케팅비를 3분기에 선제…"
+    },
+    {
+     "channel": "[DAOL퀀트 김경훈] 탑다운 전략",
+     "quote": "삼성전자: 최근 다수의 리포트 모두 하향되며 3Q26 OP 99조원 vs 컨센 108조원으로 컨센과의 괴리 -8%, 2주 전…"
+    },
+    {
+     "channel": "NH투자증권 리서치",
+     "quote": "현대모비스의 3분기 매출액은 15조7,440억원(+4.7% y-y, -3.6% q-q), 영업이익은 8,910억원(+14.2% y-y, -8.6% q-q)으로 컨센서스를 소폭 하회할 전망."
+    }
+   ]
+  },
+  {
+   "name": "시장의 기술적 지지선 테스트 및 변동성 확대",
+   "narrative": "현재 주가는 지지선과 저항선 사이에 위치하며 기술적 지표들이 혼합된 신호를 보내고 있습니다. 단기적으로 하락세가 지속될 가능성과 매도 압력이 강한 상황이지만, 일부 종목은 과매도 구간에 진입하여 반등의 가능성도 혼재되어 있어 신중한 접근이 요구됩니다.",
+   "status": "new",
+   "strength": 3,
+   "keywords": [
+    "단기적으로 지지선",
+    "있지 조정",
+    "조정 필요할",
+    "돌파 반등",
+    "값이 과매",
+    "혼재된 신호",
+    "매도하 것이"
+   ],
+   "evidence": [
+    {
+     "channel": "키움증권 해외선물 톡톡",
+     "quote": "현재 주가는 지지선과 저항선 사이에 위치하고 있으며, 기술적 지표들이 혼합된 신호를 보내고 있습니다. 단기적으로는 하락세가 지속되고 있으나, 거래량이 감소하고 있어 안정적인 시장 상황을 나타냅니다."
+    },
+    {
+     "channel": "Macro Trader",
+     "quote": "예상보다 약한 고용에 시장이 반영한 10월 긴축폭은 주초 약 17bp에서 4bp로…"
+    },
+    {
+     "channel": "epic AI - 투자 어시스턴트",
+     "quote": "[시황] 10월 6일 장마감 - 코스피 6,941선 약세 마감… 외국인 1조7천억 순매도, 코스닥은 920선 돌파 강세"
+    }
+   ]
+  },
+  {
+   "name": "제약/바이오 임상 및 규제 불확실성 지속",
+   "narrative": "9월에 이어 제약/바이오 섹터에서는 개별 기업의 임상 및 규제 관련 이벤트가 연달아 발생하며 불확실성이 지속되고 있습니다. 일부 개발 중단이나 임상 권고, 부분 임상 보류 등의 소식이 있었고, HLB의 제조시설 실사 결과도 '자발적 시정조치 권고'로 분류되는 등 업계 전반의 신중한 접근이 요구됩니다.",
+   "status": "ongoing",
+   "strength": 3,
+   "keywords": [
+    "훼손",
+    "정기"
+   ],
+   "evidence": [
+    {
+     "channel": "이지스스트레티지 리서치",
+     "quote": "9월은 개별 기업의 임상·규제 이벤트가 연달아 발생한 달이었다. BMS는 오름테라퓨틱으로부터 인수한 ORM-6151의 개발을 중단했고(9/17), FDA는 컴퍼스에 토베시미그 BLA 제출에 앞서 생존 혜택을 입증하는 임상을 권고했으며(9/22), SK바이오팜이 도입한 오파칼림은 부분 임상보류를 받았다(9/14)."
+    },
+    {
+     "channel": "허혜민의 제약/바이오 소식통",
+     "quote": "HLB는 FDA가 ‘리보세라닙’ 완제의약품 제조시설에 대한 정기 cGMP(미국 우수 의약품 제조 및 품질관리 기준) 실사를 ‘자발적 시정조치 권고(VAI)’로 분류했다고 밝혔습니다."
+    }
+   ]
+  },
+  {
+   "name": "해외 시장 기업 활동 및 자금 조달",
+   "narrative": "나스닥 상장 기업들의 합병, 상장 폐지, 사모 투자 유치 등 다양한 기업 활동 소식이 전해졌습니다. 특히 AI 데이터센터 수요에 힘입어 사상 최대 분기 실적을 기록한 기업도 있으며, 대규모 자금 조달 및 증권신고서 정정본 제출 등 활발한 움직임이 관찰됩니다.",
+   "status": "new",
+   "strength": 2,
+   "keywords": [
+    "Inc. NASDAQ",
+    "워런트",
+    "유치"
+   ],
+   "evidence": [
+    {
+     "channel": "키움증권 해외선물 톡톡",
+     "quote": "미국 미디어 기업 워너 브로스디스커버리(Warner Bros. Discovery, NASDAQ:WBD)가 스카이댄스 코퍼레이션(Skydance Corporation)에 인수돼 나스닥 상장 폐지 절차에 들어갔다."
+    },
+    {
+     "channel": "키움증권 해외선물 톡톡",
+     "quote": "인공지능(AI) 팩토리 플랫폼기업 펭귄 솔루션스(Penguin Solutions, Inc., NASDAQ:PENG)가 AI 데이터센터 수요에 힘입어 사상 최대 분기 실적을 내고 2027회계연도 연간전망을 상향 조정했다."
+    },
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "GPT-6 Astra·GPT-6.1 Sol 기본 속도 약 50% 향상, 300억 달러 규모 자금 조달 협의, UAE 펀드·블랙록과 40조원 투자유치 협상"
+    }
+   ]
+  }
+ ],
+ "community_mood": {
+  "score": -20,
+  "summary": "반도체 섹터에 대한 관심이 높지만, 실적 우려와 시장 전반의 하락 가능성에 대한 불안감이 공존하며 투자 심리는 다소 위축된 모습입니다. 해외 주식 시장의 부정적 소식에도 주목하고 있습니다.",
+  "hot_stocks": [
+   {
+    "name": "인텔",
+    "score": 0,
+    "reason": "커뮤니티 내에서 관심이 높으나 긍정적/부정적 의견이 혼재되어 있습니다."
+   },
+   {
+    "name": "삼성전자",
+    "score": 10,
+    "reason": "실적 발표를 앞두고 커뮤니티의 주목을 받고 있습니다."
+   },
+   {
+    "name": "SK하이닉스",
+    "score": -10,
+    "reason": "주가 하락 우려와 ADR 관련 논의가 활발합니다."
+   },
+   {
+    "name": "알테오젠",
+    "score": 20,
+    "reason": "'알상무 요즘 폼 좋네'와 같은 긍정적 언급이 있습니다."
+   },
+   {
+    "name": "테슬라",
+    "score": -10,
+    "reason": "국내 보호무역 논란에 대한 언급이 있습니다."
+   },
+   {
+    "name": "룰루레몬",
+    "score": -20,
+    "reason": "마이클 버리의 청산 언급으로 부정적인 시선이 있습니다."
+   },
+   {
+    "name": "휴머노이드 관련주",
+    "score": -20,
+    "reason": "'휴머노이드에 몰빵한 놈들 좆된 이유'와 같은 부정적 언급이 있습니다."
+   }
+  ]
+ },
+ "signals": {
+  "spikes": [
+   {
+    "term": "지분공시 국민연금공단",
+    "count": 32,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "YoY QoQ",
+    "count": 24,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "단기적으로 지지선",
+    "count": 23,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "조희대",
+    "count": 22,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "주성엔지니어링",
+    "count": 22,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "Inc. NASDAQ",
+    "count": 22,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "있지 조정",
+    "count": 20,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "유치",
+    "count": 19,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "조정 필요할",
+    "count": 18,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "돌파 반등",
+    "count": 18,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "워런트",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "최고치 경신",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "훼손",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "확대되",
+    "count": 17,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "메리츠",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "결합",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "스피어",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "값이 과매",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "전반적 상승세",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "혼재된 신호",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "매도하 것이",
+    "count": 16,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "본업",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "외형",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "존재함",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "정기",
+    "count": 15,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   }
+  ],
+  "top_posts": [
+   {
+    "channels": 5,
+    "channel": "키움증권 전략/시황 한지영",
+    "head": "[10/6, Kiwoom Weekly, 키움 전략 한지영] \"금리와 실적을 둘러싼 시장의 시선 이동\" ------ <Weekly Three Points> a. 국내 휴장 기간(3일~5일) 미국 증시는 시장 금리 상승에도, 엔비디아 신고가 경신 속 실적시즌 기대감, 연준 긴축 우려 완화, 유가 하락 등으로 2거래일 연속 강…",
+    "url": "https://t.me/hedgecat0301/2957",
+    "time_kst": "10-06 07:33"
+   },
+   {
+    "channels": 5,
+    "channel": "AWAKE - 실시간 주식 공시 정리채널",
+    "head": "2026.10.06 11:14:53 기업명: 삼성전기(시가총액: 125조 1,119억) A009150 보고서명: 단일판매ㆍ공급계약체결 계약상대 : 글로벌 대형기업 계약내용 : ( 기타 판매ㆍ공급계약 ) MLCC(Multilayer Ceramic Capacitor) 공급계약 공급지역 : - 계약금액 : 2,856억 계약시작…",
+    "url": "https://t.me/darthacking/154221",
+    "time_kst": "10-06 11:14"
+   },
+   {
+    "channels": 4,
+    "channel": "이지스스트레티지 리서치",
+    "head": "[미래에셋 김승민] 제약/바이오 F/W 시즌, 빅파마의 쇼핑 ▶️악재는 9월에 먼저 반영됐다 9월은 개별 기업의 임상·규제 이벤트가 연달아 발생한 달이었다. BMS는 오름테라퓨틱으로부터 인수한 ORM-6151의 개발을 중단했고(9/17), FDA는 컴퍼스에 토베시미그 BLA 제출에 앞서 생존 혜택을 입증하는 임상을 권고했…",
+    "url": "https://t.me/jeilstock/46766",
+    "time_kst": "10-06 14:53"
+   },
+   {
+    "channels": 4,
+    "channel": "메리츠증권 리서치",
+    "head": "📮[메리츠증권 전기전자/IT부품 양승수] 덕산하이메탈(077360) : 전방위로 좋아지는 그림 ▶ 3Q26 Preview: 잠깐의 숨 고르기, 방향성은 유효 - 3Q26 별도 실적은 매출액 630억원(+75.8% YoY), 영업이익 82억원(+61.7% YoY, OPM 13.8%)으로 영업이익 기준 시장 컨센서스(100억…",
+    "url": "https://t.me/meritz_research/44748",
+    "time_kst": "10-06 07:31"
+   },
+   {
+    "channels": 4,
+    "channel": "김현석(자본주의 바이어스 있는 채널입니다)",
+    "head": "[iM증권 고의영(전기전자)] [전기전자/Overweight] ★대만 패키지기판 업체들 신고가 → 국내 캐치업 기대 대만 패키지기판 업체들이 일제히 신고가를 경신. 최근 3개월 Unimicron +48%, Nan Ya PCB +46%, Kinsus +40% 상승. 핵심 동인은 Agentic AI 확산에 따른 서버 CPU…",
+    "url": "https://t.me/kimu_nim/46424",
+    "time_kst": "10-06 07:57"
+   },
+   {
+    "channels": 4,
+    "channel": "[DAOL퀀트 김경훈] 탑다운 전략",
+    "head": "[DAOL퀀트 김경훈] 3분기 전종목 실적발표 스케줄 3Q26 Earnings Calendar - 10/6 업데이트 ■ 실적발표 예정 - (10/13) 삼성전자 106.9조원 (+779%y / +20%q) - (10/29) SK하이닉스 77.2조원 (+578%y / +28%q) - (10/30) 현대차 3조원 (+19%y…",
+    "url": "https://t.me/toptownquant/13787",
+    "time_kst": "10-06 08:39"
+   },
+   {
+    "channels": 4,
+    "channel": "AWAKE - 실시간 주식 공시 정리채널",
+    "head": "2026.10.06 16:15:52 기업명: 알테오젠(시가총액: 18조 1,103억) A196170 보고서명: 주요사항보고서(유상증자결정) 보통주 : 우선주 : 174,066주(발행가격 : 287,246원) 발행비율 : 0% * 투자자 스카이알트 유한회사 발표일자 : 2026-10-06 납입일자 : 2026-10-14 상…",
+    "url": "https://t.me/darthacking/154259",
+    "time_kst": "10-06 16:15"
+   },
+   {
+    "channels": 3,
+    "channel": "메리츠증권 리서치",
+    "head": "📮[메리츠증권 전기전자/IT부품 양승수] LG전자(066570): 이제는 K-Vertiv ▶ 3Q26 Preview: 별도 기준 컨센서스 소폭 하회 전망 - 3Q26 연결 기준 실적은 매출액 24.2조원(+10.6% YoY), 영업이익 8,817억원(+28.0% YoY)로, 영업이익 기준 시장 컨센서스 1조 479억원을…",
+    "url": "https://t.me/meritz_research/44749",
+    "time_kst": "10-06 07:31"
+   },
+   {
+    "channels": 3,
+    "channel": "이지스스트레티지 리서치",
+    "head": "[재생에너지 / 유진투자증권 코스닥벤처팀 / 그린산업&ESG 한병화 ☎️02)368-6171] ★ 미 상원, 에너지 프로젝트 승인 촉진법 합의 ☞ 상원에서 공화, 민주 위원회 초안 합의, 에너지 부족 문제 해결 핵심 법 미 상원, BAAJA 입법 절차 시작 합의 1) 연방 기관의 환경평가 및 인허가 검토 절차에 법적 시한…",
+    "url": "https://t.me/jeilstock/46755",
+    "time_kst": "10-06 09:42"
+   },
+   {
+    "channels": 3,
+    "channel": "[DAOL퀀트 김경훈] 탑다운 전략",
+    "head": "[DAOL퀀트 김경훈] Active Quant의 定石 - 10/6 \"실적시즌 전 강하게 압축되는 추정치 향방\" 3Q26분기 4번째 업데이트 (10.6 ~ 10.16) ■ 시총 TOP3 실적 현황 * 삼성전자: 최근 다수의 리포트 모두 하향되며 3Q26 OP 99조원 vs 컨센 108조원으로 컨센과의 괴리 -8%, 2주 전…",
+    "url": "https://t.me/toptownquant/13789",
+    "time_kst": "10-06 09:50"
+   },
+   {
+    "channels": 3,
+    "channel": "다올투자증권 리서치센터",
+    "head": "[전력기기(Overweight) | 다올 전력기기/철강금속 이정우] ★ 전력, 질주 ▶ 전력기기 현 주소 점검 - 미국 전력 수요가 장기 정체를 벗어나 증가 국면 진입. 데이터센터가 신규 수요를 촉발하는 가운데 1960~70년대 설치된 송전망·변압기 교체 수요까지 누적 - 지난 사이클이 노후 설비 교체였다면 이번은 송전·…",
+    "url": "https://t.me/daolresearch/15167",
+    "time_kst": "10-06 07:38"
+   },
+   {
+    "channels": 3,
+    "channel": "[ IT는 SK ]",
+    "head": "[SK증권 반도체 한동희, 손 건] 현저한 저평가 3Q26 영업이익 106 조원 예상 기존 전망치 111조원 대비 4.5% 하향 원/달러 기존 1,450 원에서 1,400 원으로 3.4% 하향, MX/NW 사업부 전망 변경 (-0.5 조원 -> -1.4 조원) 메모리 판가 DRAM +17%, NAND +15%. 오히려 예…",
+    "url": "https://t.me/skitteam/4685",
+    "time_kst": "10-06 08:25"
+   },
+   {
+    "channels": 3,
+    "channel": "AWAKE - 실시간 주식 공시 정리채널",
+    "head": "2026.10.06 08:01:27 기업명: 한미반도체(시가총액: 25조 9,249억) A042700 보고서명: 단일판매ㆍ공급계약체결(자율공시) 계약상대 : 삼성전기 (SAMSUNG ELECTRO-MECHANICS CO., LTD.) 계약내용 : ( 기타 판매ㆍ공급계약 ) AI 반도체 기판 제조용 대면적 micro SAW…",
+    "url": "https://t.me/darthacking/154211",
+    "time_kst": "10-06 08:01"
+   },
+   {
+    "channels": 3,
+    "channel": "한투증권 미국/중국전략 정정영",
+    "head": "구글 & Constellation, 10억달러 규모 원자력 발전 협정 논의. 빅테크의 청정 전력 구매 본격화 • 아마존은 지난주 Constellation과 비슷한 계약 체결 • 구글과의 합의가 예정대로 발표되면 Constellation은 2주 안에 두 빅테크 기업과 잇따라 계약 체결 • 신규 원자로 건설 승인은 10년 이…",
+    "url": "https://t.me/G2strategy/33542",
+    "time_kst": "10-06 11:42"
+   },
+   {
+    "channels": 3,
+    "channel": "AWAKE - 실시간 주식 공시 정리채널",
+    "head": "2026.10.06 14:53:03 기업명: 산일전기(시가총액: 7조 1,091억) A062040 보고서명: 단일판매ㆍ공급계약체결 계약상대 : - 계약내용 : ( 기타 판매ㆍ공급계약 ) 미국 BESS Project Pad Mount transformer 공급지역 : 미국 계약금액 : 351억 계약시작 : 2026-09-2…",
+    "url": "https://t.me/darthacking/154241",
+    "time_kst": "10-06 14:53"
+   }
+  ]
+ },
+ "community_dc": {
+  "source": "DC인사이드",
+  "galleries": [
+   {
+    "id": "krstock",
+    "name": "국내주식갤러리",
+    "posts": 1319,
+    "capped": true,
+    "burst": 1.0,
+    "base_daily": 1273.1
+   },
+   {
+    "id": "stockus",
+    "name": "해외주식갤러리",
+    "posts": 2771,
+    "capped": true,
+    "burst": 0.9,
+    "base_daily": 3029.3
+   }
+  ],
+  "posts_sampled": 558,
+  "keywords": [
+   {
+    "term": "인텔",
+    "count": 32,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "삼성전자",
+    "count": 10,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "adr",
+    "count": 9,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "소부장",
+    "count": 6,
+    "burst": 82.3,
+    "new": true
+   },
+   {
+    "term": "대만",
+    "count": 6,
+    "burst": 82.3,
+    "new": true
+   },
+   {
+    "term": "펭귄",
+    "count": 5,
+    "burst": 68.5,
+    "new": true
+   },
+   {
+    "term": "슬슬",
+    "count": 5,
+    "burst": 68.5,
+    "new": true
+   },
+   {
+    "term": "보면",
+    "count": 5,
+    "burst": 68.5,
+    "new": true
+   },
+   {
+    "term": "미붕이들",
+    "count": 5,
+    "burst": 68.5,
+    "new": true
+   },
+   {
+    "term": "SK하이닉스",
+    "count": 37,
+    "burst": 15.4,
+    "new": false
+   },
+   {
+    "term": "양닉",
+    "count": 15,
+    "burst": 13.7,
+    "new": false
+   },
+   {
+    "term": "속슬",
+    "count": 15,
+    "burst": 13.7,
+    "new": false
+   },
+   {
+    "term": "국장",
+    "count": 19,
+    "burst": 6.7,
+    "new": false
+   },
+   {
+    "term": "펩시코",
+    "count": 9,
+    "burst": 8.2,
+    "new": false
+   },
+   {
+    "term": "삼닉",
+    "count": 15,
+    "burst": 5.0,
+    "new": false
+   }
+  ],
+  "top_recommended": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "빚탕감 받았던사람들 근황.jpg",
+    "views": 10095,
+    "recommend": 176,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17914720&exception_mode=recommend&page=1",
+    "time_kst": "10-06 12:40"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "마이클버리 \" 룰루레몬 청산 \"",
+    "views": 10026,
+    "recommend": 113,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17915455&exception_mode=recommend&page=1",
+    "time_kst": "10-06 14:59"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "테슬라 국내에서 보호무역 당했노ㅋㅋㅋㅋㅋㅋㅋㅋ",
+    "views": 8753,
+    "recommend": 113,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17914789&exception_mode=recommend&page=1",
+    "time_kst": "10-06 12:53"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "휴머노이드에 몰빵한 놈들 좆된 이유",
+    "views": 8569,
+    "recommend": 112,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17914143&exception_mode=recommend&page=1",
+    "time_kst": "10-06 10:38"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "파월 이새낀 진짜 악질이였네",
+    "views": 9013,
+    "recommend": 100,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17913672&exception_mode=recommend&page=1",
+    "time_kst": "10-06 08:53"
+   }
+  ],
+  "top_viewed": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "인텔 빠는 새기 필독",
+    "views": 938,
+    "recommend": 14,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=17920302&page=6",
+    "time_kst": "10-07 04:07"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "머임 반도치 대풀롱아니었나",
+    "views": 465,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3596655&page=4",
+    "time_kst": "10-07 02:38"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "알상무 요즘 폼 좋네",
+    "views": 404,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3596643&page=4",
+    "time_kst": "10-07 02:29"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "하닉 떨어지는거 이거 때문이에요?",
+    "views": 394,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3596737&page=3",
+    "time_kst": "10-07 04:41"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "내일 반도체 떨어지면 추세이탈아닌가",
+    "views": 382,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3596585&page=5",
+    "time_kst": "10-07 01:38"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "하닉 adr 금액 자체가 말이 안되긴 함",
+    "views": 353,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3596773&page=2",
+    "time_kst": "10-07 05:06"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "마이클버리 말이 점점 현실화되는중",
+    "views": 344,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3596779&page=2",
+    "time_kst": "10-07 05:09"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "삼전 실적발표 낼 몇시냐",
+    "views": 336,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3596617&page=5",
+    "time_kst": "10-07 02:03"
+   }
+  ]
+ }
+}

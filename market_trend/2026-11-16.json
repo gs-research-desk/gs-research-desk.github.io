@@ -1,0 +1,669 @@
+{
+ "date": "2026-11-16",
+ "meta": {
+  "window": "11-15 06:00~11-16 06:00 KST",
+  "engine": "Gemini(gemini-2.5-flash)",
+  "generated_at": "2026-11-16T06:35+09:00"
+ },
+ "stats": {
+  "channels": 43,
+  "messages": 349,
+  "groups": 324
+ },
+ "one_liner": "세무사 AI 부정행위 논란 확산 속 스페이스X 스타십 성공, HD현대 무인수상함 美 시장 진출 등 긍정적 소식과 AI 산업 리스크, 거시경제 불확실성이 교차하는 하루.",
+ "themes": [
+  {
+   "name": "AI 부정행위 논란 및 시험 관리 강화",
+   "narrative": "세무사 시험 수석 합격자의 AI 안경을 이용한 부정행위가 자백되면서 AI 기술을 활용한 시험 부정행위가 사회적 논란으로 부상하고 있다. 이에 따라 수능 등 국가자격시험 전반에 대한 AI 활용 부정행위 예방 및 전수조사 필요성이 제기되며 관련 기술 및 관리 방안에 대한 관심이 높아지고 있다.",
+   "status": "new",
+   "strength": 5,
+   "keywords": [
+    "부정행위",
+    "세무사",
+    "AI 부정행위",
+    "수석",
+    "세무사 수석",
+    "합격자",
+    "카메라",
+    "AI 커닝",
+    "커닝",
+    "세무사 시험",
+    "초소형",
+    "자백",
+    "초소형 카메라",
+    "AI 안경",
+    "시험"
+   ],
+   "evidence": [
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "AI안경을 통한 세무사 시험 부정행위로 AI 기술력 입증, AI의 산업 전반 적용 및 미래 필수재 전망, AI 발전 속도에 대한 놀라움과 기대감"
+    },
+    {
+     "channel": "main news",
+     "quote": "[조선일보] 세무사 수석 'AI 컨닝' 파문에 靑 \"국가자격시험 전수조사\"청와대는 15일 세무사 자격증 시험 수석 합격자의 인공지능(AI) 부정행위와 관련해 국가자격시험 전체에 대한 AI 활용 부정행위 의심 사례를 전수 조사하기로 했다."
+    },
+    {
+     "channel": "main news",
+     "quote": "[동아일보] 안경에 귓속까지 봐야 하나...‘55만 응시’ 수능 ‘AI 커닝’ 비상"
+    }
+   ]
+  },
+  {
+   "name": "스페이스X 스타십 시험 성공",
+   "narrative": "스페이스X의 스타십이 궤도 비행 및 재사용 로켓 시험에 완벽하게 성공하며 우주 산업 기술 발전에 대한 기대감을 높이고 있다.",
+   "status": "ongoing",
+   "strength": 4,
+   "keywords": [
+    "스타십",
+    "궤도",
+    "재사용",
+    "비행",
+    "시험"
+   ],
+   "evidence": [
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "스타십 궤도 비행 및 재사용 로켓 시험 완벽 성공"
+    },
+    {
+     "channel": "AI MASTERS",
+     "quote": "스페이스X 스타십, 궤도 비행 후 발사대 복귀 성공… 재사용 로켓 시험 완벽 통과"
+    }
+   ]
+  },
+  {
+   "name": "HD현대 무인수상함, 美 방산 시장 진출",
+   "narrative": "HD현대가 무인수상함 '알파'를 통해 미국 해양 방산 시장 진출을 정조준하고 있으며, K-조선 데이터에 AI를 장착한 무인함정으로 글로벌 수주에 도전하는 등 방산 부문의 성장이 기대된다.",
+   "status": "new",
+   "strength": 3,
+   "keywords": [
+    "무인수상함"
+   ],
+   "evidence": [
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "한미 합작 무인수상함 진수 및 미국 시장 진출, 특수선 매출 목표 상향"
+    },
+    {
+     "channel": "GS의 조선/기계/방산 「바담」",
+     "quote": "⚓ ‘先개발·後수주’ 승부수…HD현대, 무인수상함 ‘알파’로 美 해양방산 시장 정조준"
+    }
+   ]
+  },
+  {
+   "name": "AI 산업의 기대와 리스크 공존",
+   "narrative": "AI 기술 발전과 일부 기업의 호실적, AI 글라스 및 HBM 투자 확대에 대한 기대감이 높은 반면, 엔비디아 CEO 관련 불확실성, 수출 규제, 그리고 AI 열풍에 따른 자산 고평가 및 데이터센터 빚투 자금의 불안정성 등 리스크 요인도 상존하며 시장의 관망세가 짙어지고 있다.",
+   "status": "ongoing",
+   "strength": 4,
+   "keywords": [
+    "NVIDIA CEO 리스크",
+    "AI",
+    "AI 글라스",
+    "HBM",
+    "반도체 대형주",
+    "빚투",
+    "가상자산",
+    "엔비디아"
+   ],
+   "evidence": [
+    {
+     "channel": "서화백의 AI놀이🚀",
+     "quote": "💡 요약 전반적으로 NVIDIA CEO 리스크 및 공급망 불안정, AI 부정행위 논란 확산, 중동 지정학적 불안정 및 유가 변동성 등 하방 압력이 존재하나. 일부 기업의 호실적, AI 기술 및 사업 발전, 우주/방산 신기술 개발, ICT 수출 호조에 대한 긍정적 기대감도 상존합니다."
+    },
+    {
+     "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+     "quote": "* 美 연준 \"AI 열풍에 자산 고평가\"…3조달러 인프라 빚 폭탄 '경고' - 14일(현지시간) 연준은 전날 발간한 반기 금융안정보고서를 통해 \"자산 가치 평가에 대한 압박이 여전히 높은 수준을 유지하고 있다\"며 \"주식 가치 평가 지표들은 높은 상태인데 이는 부분적으로 '초지능(superintelligence·SI)'에…"
+    },
+    {
+     "channel": "하나 중국/신흥국 전략 김경환",
+     "quote": ">>젠슨 황 퇴임 이후 메모리 업체도 변화 : NVIDIA 우선 생산 배정에서 벗어날 가능성 (중국언론) •젠슨 황의 NVIDIA CEO 퇴임으로 AI 산업 공급망 전반의 기존 협력 관계가 재평가될 가능성이 있음."
+    }
+   ]
+  },
+  {
+   "name": "거시 경제 지표 및 지정학적 리스크",
+   "narrative": "다음 주 미국 산업생산 발표 등 주요 경제 지표 발표를 앞두고 있으며, 중동 지정학적 불안정과 유가 변동성, 그리고 우크라이나의 NATO 가입 관련 논의 등 대외 리스크 요인이 시장 전반의 하방 압력으로 작용하고 있다.",
+   "status": "ongoing",
+   "strength": 3,
+   "keywords": [
+    "산업생산",
+    "원유",
+    "가입"
+   ],
+   "evidence": [
+    {
+     "channel": "김현석(자본주의 바이어스 있는 채널입니다)",
+     "quote": "- 다음 주 일정: 11. 16. 뉴욕 제조업지수(예상 17.6, 직전 25.5), 워시 연준 의장 연설(11. 16. 12:00 EST) / 11. 17. 10월 소매판매(예상 0.0%, 직전 +0.8%)·산업생산 / 11. 18. FOMC 의사록·10월 주택착공 / 11. 20. 미시간대 소비자심리 확정치"
+    },
+    {
+     "channel": "한투증권 미국/중국전략 정정영",
+     "quote": "원유 시장 공급과잉 콜 22 ======================== ~ 영국 가디언(The Guardian)에 따르면 IEA는 걸프 지역의 석유 수출이 세계 석유 수요보다 훨씬 빠르게 회복되면서 지난달 석유 공급량이 하루 약 200만 배럴만큼 수요를 웃돌았다고 밝혔다 ~ IEA는 “이란 전쟁 발발 이후 처음으로 세계…"
+    },
+    {
+     "channel": "미국 주식 인사이더 🇺🇸 (US Stocks Insider)",
+     "quote": "• 젤렌스키 우크라이나 대통령은 미국이 우크라이나의 돈바스 철수와 연계해 NATO 가입 방안을 제시했다고 밝혔다고 FT가 보도."
+    }
+   ]
+  }
+ ],
+ "community_mood": {
+  "score": -50,
+  "summary": "개미 투자자들은 나스닥 급락에 대한 강한 공포와 비관적인 정서를 보이지만, 젠슨 황 CEO의 복귀 가능성 등 특정 이슈에 대한 기대감으로 반등을 모색하는 투기적인 움직임도 관찰된다.",
+  "hot_stocks": [
+   {
+    "name": "칼시",
+    "score": 80,
+    "reason": "젠슨 황 CEO의 복귀 가능성 보도 후 20% 급등하며 기대감을 모으고 있다."
+   }
+  ]
+ },
+ "signals": {
+  "spikes": [
+   {
+    "term": "부정행위",
+    "count": 29,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "세무사",
+    "count": 22,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "AI 부정행위",
+    "count": 19,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "수석",
+    "count": 18,
+    "burst": 71.15555555555555,
+    "base_daily": 1.0,
+    "new": false
+   },
+   {
+    "term": "세무사 수석",
+    "count": 12,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "스타십",
+    "count": 11,
+    "burst": 93.17989417989418,
+    "base_daily": 0.4,
+    "new": false
+   },
+   {
+    "term": "합격자",
+    "count": 10,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "카메라",
+    "count": 10,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "코인",
+    "count": 9,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "수석 합격자",
+    "count": 9,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "AI 커닝",
+    "count": 9,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "커닝",
+    "count": 9,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "재사용",
+    "count": 8,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "세무사 시험",
+    "count": 8,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "초소형",
+    "count": 8,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "자백",
+    "count": 8,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "궤도",
+    "count": 8,
+    "burst": 94.87407407407406,
+    "base_daily": 0.3,
+    "new": false
+   },
+   {
+    "term": "시험",
+    "count": 24,
+    "burst": 11.570009033423668,
+    "base_daily": 8.7,
+    "new": false
+   },
+   {
+    "term": "산업생산",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "빚투",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "가입",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "비행",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "초소형 카메라",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "AI 안경",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   },
+   {
+    "term": "무인수상함",
+    "count": 7,
+    "burst": 99.0,
+    "base_daily": 0.0,
+    "new": true
+   }
+  ],
+  "top_posts": [
+   {
+    "channels": 3,
+    "channel": "한투증권 미국/중국전략 정정영",
+    "head": "원유 시장 공급과잉 콜 22 ======================== ~ 영국 가디언(The Guardian)에 따르면 IEA는 걸프 지역의 석유 수출이 세계 석유 수요보다 훨씬 빠르게 회복되면서 지난달 석유 공급량이 하루 약 200만 배럴만큼 수요를 웃돌았다고 밝혔다 ~ IEA는 “이란 전쟁 발발 이후 처음으로 세계…",
+    "url": "https://t.me/G2strategy/34464",
+    "time_kst": "11-15 08:32"
+   },
+   {
+    "channels": 2,
+    "channel": "하나증권 리서치",
+    "head": "[Battery Weekly 이배속 - 하나증권 2차전지 김현수/김희제] '소재 기업 매출 온도차 뚜렷' 자료 링크 : https://vo.la/Wfepqna ▶ 데이터 포인트 해석 및 투자 전략 : 셀 메이커 위주 비중 확대 속 일부 소재 기업 조정 시 매수 -메탈 가격과 환율 하락으로 소재 기업들 3분기 영업이익은 대…",
+    "url": "https://t.me/HanaResearch/20984",
+    "time_kst": "11-15 18:00"
+   },
+   {
+    "channels": 2,
+    "channel": "하나증권 리서치",
+    "head": "[하나증권 반도체 김록호/박규연] Industry Research 보고서 링크: https://vo.la/YXVZK0Z 반도체/소부장(Overweight): 여전히 밸류 부담 없는 구간 ■ 데이터 포인트 및 주간 리뷰: 과도한 낙폭 일부 만회 11월 10일까지 영업일 평균 메모리 반도체 수출금액은 전년 동월 대비 215%…",
+    "url": "https://t.me/HanaResearch/20992",
+    "time_kst": "11-15 22:31"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (15시 07분) 기준 🌡️ 센티먼트 관망 (-10) 💡 요약 전반적으로 NVIDIA CEO 리스크 및 공급망 불안정, AI 부정행위 논란 확산, 중동 지정학적 불안정 및 유가 변동성 등 하방 압력이 존재하나. 일부 기업의 호실적, AI 기술 및 사업 발전, 우주/방산 신기술 개발, I…",
+    "url": "https://t.me/easobi_ai/28347",
+    "time_kst": "11-15 15:07"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (11시 04분) 기준 🌡️ 센티먼트 공포 (-40) 💡 요약 가상자산 시장의 급락, 국내 반도체 대형주 빚투 자금의 불안정성, 중동발 지정학적 리스크 심화, 그리고 엔비디아 CEO 관련 불확실성으로 인해 시장 전반의 공포 심리가 확산되고 있습니다. 🗣️ Top 키워드: 원유(1188)…",
+    "url": "https://t.me/easobi_ai/28345",
+    "time_kst": "11-15 11:04"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (23시 05분) 기준 🌡️ 센티먼트 환호 (+75) 💡 요약 주요 빅테크 기업의 AI 글라스 및 HBM 투자 확대와 GPU 수요 견고로 AI 산업 전반에 대한 기대감이 높지만, NVDA의 수출 규제, 스캔들 및 D램 반독점 소송 리스크가 시장 변동성을 키우고 있습니다. 🗣️ Top 키…",
+    "url": "https://t.me/easobi_ai/28357",
+    "time_kst": "11-15 23:05"
+   },
+   {
+    "channels": 2,
+    "channel": "서화백의 AI놀이🚀",
+    "head": "📝 텔레그램 심층 분석 Report (19시 05분) 기준 🌡️ 센티먼트 관망 (+20) 💡 요약 AI 산업의 혁신 기대감과 일부 기업의 긍정적 실적/전략에도 불구하고, 젠슨 황 관련 불확실성, 금리 인상 전망, 지정학적 리스크, 그리고 데이터센터 투자 위축으로 전반적인 시장 분위기는 관망세입니다. 🗣️ Top 키워드:…",
+    "url": "https://t.me/easobi_ai/28355",
+    "time_kst": "11-15 19:05"
+   },
+   {
+    "channels": 2,
+    "channel": "하나 중국/신흥국 전략 김경환",
+    "head": "하나증권 중국/신흥국전략 김경환(T.02-3771-7616) *텔레그램 채널 : https://t.me/HANAchina ◈[김경환의 China Weekly] 중국 증시는 왜 실패했나? : 세가지 시간차와 2027년 돌파구 ▶자료: https://bit.ly/4C2fY2X • 중국 정책의 시간과 사이클은 너무 길고, 증시…",
+    "url": "https://t.me/HANAchina/72155",
+    "time_kst": "11-15 15:49"
+   },
+   {
+    "channels": 2,
+    "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+    "head": "* ‘D램 대부’의 경고…“중국 CXMT 증설에 2년 뒤 메모리 넘친다” - 15일 트렌드포스에 따르면 대만 난야테크놀로지 전 회장인 가오치취안(Charles Kau)은 중국 CXMT의 공격적인 생산시설 확장이 글로벌 메모리 시장의 공급 과잉을 초래할 수 있다고 경고했다. ‘D램 대부’로 불리는 가오 전 회장은 대만 반도…",
+    "url": "https://t.me/INSIGHTVALUELEE/11336",
+    "time_kst": "11-15 10:51"
+   },
+   {
+    "channels": 2,
+    "channel": "하나증권/에너지화학/윤재성",
+    "head": "[하나/에너지화학/윤재성] Weekly Monitor: 아시아 원유 도입가가 미국보다 싸다 ▶ 보고서: https://bit.ly/48T7MEH [총평] ▶ WTI 88.6$(-3%), Dubai 92.0$ (-4%). 정제마진 36.3$(WoW -0.6$). 석유화학 혼조세 ▶ Top Picks: S-Oil, 효성티앤씨…",
+    "url": "https://t.me/energy_youn/3407",
+    "time_kst": "11-15 18:42"
+   },
+   {
+    "channels": 2,
+    "channel": "하나 중국/신흥국 전략 김경환",
+    "head": ">>젠슨 황 퇴임 이후 메모리 업체도 변화 : NVIDIA 우선 생산 배정에서 벗어날 가능성 (중국언론) •젠슨 황의 NVIDIA CEO 퇴임으로 AI 산업 공급망 전반의 기존 협력 관계가 재평가될 가능성이 있음. 특히 메모리 업계는 NVIDIA가 최대 고객인 만큼 변화가 클 수 있다는 분석임. •NVIDIA의 글로벌 H…",
+    "url": "https://t.me/HANAchina/72140",
+    "time_kst": "11-15 08:03"
+   },
+   {
+    "channels": 2,
+    "channel": "이상헌 부장 iM 지주/ESG/중소형주",
+    "head": "* 美 연준 \"AI 열풍에 자산 고평가\"…3조달러 인프라 빚 폭탄 '경고' - 14일(현지시간) 연준은 전날 발간한 반기 금융안정보고서를 통해 \"자산 가치 평가에 대한 압박이 여전히 높은 수준을 유지하고 있다\"며 \"주식 가치 평가 지표들은 높은 상태인데 이는 부분적으로 '초지능(superintelligence·SI)'에…",
+    "url": "https://t.me/INSIGHTVALUELEE/11337",
+    "time_kst": "11-15 19:08"
+   },
+   {
+    "channels": 2,
+    "channel": "GS의 조선/기계/방산 「바담」",
+    "head": "⚓ ‘先개발·後수주’ 승부수…HD현대, 무인수상함 ‘알파’로 美 해양방산 시장 정조준 ⚓ “K조선 데이터에 안두릴 AI 장착”…HD현대重, 무인함정으로 글로벌 수주 ‘도전’ 출처: 데일리안·문화일보 (2026.11.15) 링크① https://m.dailian.co.kr/news/view/1714895 링크② https:…",
+    "url": "https://t.me/c/1405984327/8563",
+    "time_kst": "11-15 17:51"
+   },
+   {
+    "channels": 2,
+    "channel": "GS의 조선/기계/방산 「바담」",
+    "head": "[K9 자주포에 155㎜ 포탄까지…미국 안방 파고든 한화] • 한화 방산 3사(한화에어로스페이스·한화오션·한화시스템)가 올해 미국 법인 유상증자 등에 총 1조5060억원 출자 결정 • 미 육군 기동전술포(MTC) 사업 K9 차륜형 자주포(K9MH) 시제품 공급 계약 체결 및 아칸소주 155㎜ 포탄·추진장약 생산시설 조성에…",
+    "url": "https://t.me/c/1405984327/8561",
+    "time_kst": "11-15 08:10"
+   },
+   {
+    "channels": 2,
+    "channel": "GS의 조선/기계/방산 「바담」",
+    "head": "✈️ [단독] KAI, 인도네시아 PTDI와 차세대 중형 민항기 개발 파트너십 체결 출처: 더구루 링크: https://www.theguru.co.kr/news/article.html?no=109677 KAI·PTDI, 차세대 중형 민항기 공동개발 가능성 검토 MOU 체결 시장성·기술성 검토부터 기체 설계·핵심 엔지니어링…",
+    "url": "https://t.me/c/1405984327/8562",
+    "time_kst": "11-15 08:11"
+   }
+  ]
+ },
+ "community_dc": {
+  "source": "DC인사이드",
+  "galleries": [
+   {
+    "id": "krstock",
+    "name": "국내주식갤러리",
+    "posts": 1171,
+    "capped": true,
+    "burst": 1.2,
+    "base_daily": 972.6
+   },
+   {
+    "id": "stockus",
+    "name": "해외주식갤러리",
+    "posts": 1045,
+    "capped": true,
+    "burst": 0.3,
+    "base_daily": 3281.1
+   }
+  ],
+  "posts_sampled": 501,
+  "keywords": [
+   {
+    "term": "복귀",
+    "count": 21,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "황어게인",
+    "count": 9,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "베센트",
+    "count": 8,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "수능",
+    "count": 7,
+    "burst": 99.0,
+    "new": true
+   },
+   {
+    "term": "세무사",
+    "count": 5,
+    "burst": 73.5,
+    "new": true
+   },
+   {
+    "term": "그래",
+    "count": 5,
+    "burst": 73.5,
+    "new": true
+   },
+   {
+    "term": "카더라",
+    "count": 5,
+    "burst": 73.5,
+    "new": true
+   },
+   {
+    "term": "어떻게",
+    "count": 5,
+    "burst": 73.5,
+    "new": true
+   },
+   {
+    "term": "트럼프",
+    "count": 5,
+    "burst": 73.5,
+    "new": true
+   },
+   {
+    "term": "ai",
+    "count": 28,
+    "burst": 10.0,
+    "new": false
+   },
+   {
+    "term": "젠슨황",
+    "count": 30,
+    "burst": 9.4,
+    "new": false
+   },
+   {
+    "term": "AI",
+    "count": 16,
+    "burst": 10.2,
+    "new": false
+   },
+   {
+    "term": "안경",
+    "count": 14,
+    "burst": 9.8,
+    "new": false
+   },
+   {
+    "term": "국장",
+    "count": 13,
+    "burst": 8.3,
+    "new": false
+   },
+   {
+    "term": "삼성전자",
+    "count": 10,
+    "burst": 8.6,
+    "new": false
+   }
+  ],
+  "top_recommended": [
+   {
+    "gallery": "해외주식갤러리",
+    "title": "세무사 수석 자수한 이유",
+    "views": 14896,
+    "recommend": 280,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18399079&exception_mode=recommend&page=1",
+    "time_kst": "11-15 15:19"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "세무냥이 <- 애때메 지금 피해자들 존니 많다 ㅠㅠ",
+    "views": 8553,
+    "recommend": 204,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18401310&exception_mode=recommend&page=1",
+    "time_kst": "11-15 21:07"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "내일 나스닥 30% 빠졌으면 좋겠으면 개추",
+    "views": 8561,
+    "recommend": 163,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18398493&exception_mode=recommend&page=1",
+    "time_kst": "11-15 13:57"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "모두들 그동안 고마웠습니다...",
+    "views": 12476,
+    "recommend": 152,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18397123&exception_mode=recommend&page=1",
+    "time_kst": "11-15 11:30"
+   },
+   {
+    "gallery": "해외주식갤러리",
+    "title": "다시 보니 진짜 현명한 새끼들...jpg",
+    "views": 12189,
+    "recommend": 142,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=stockus&no=18396208&exception_mode=recommend&page=1",
+    "time_kst": "11-15 10:06"
+   }
+  ],
+  "top_viewed": [
+   {
+    "gallery": "국내주식갤러리",
+    "title": "[속보] 베센트 \"다음달 인플레이션 큰폭으로 떨어질것\"",
+    "views": 694,
+    "recommend": 6,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902012&page=6",
+    "time_kst": "11-16 00:45"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "(카더라) 젠슨황 CEO 복귀 논의",
+    "views": 591,
+    "recommend": 2,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902194&page=2",
+    "time_kst": "11-16 04:12"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "반등 절대 없을 것 같아도",
+    "views": 528,
+    "recommend": 2,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902020&page=6",
+    "time_kst": "11-16 00:48"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "와 존나 소름돋는 사진봄",
+    "views": 521,
+    "recommend": 2,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902166&page=3",
+    "time_kst": "11-16 03:09"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "월요일부터 상한가뭐냐 미친ㄷㄷㄷ",
+    "views": 506,
+    "recommend": 2,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902000&page=6",
+    "time_kst": "11-16 00:40"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "내일 국장 동호가  예상",
+    "views": 490,
+    "recommend": 3,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902148&page=3",
+    "time_kst": "11-16 02:32"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "젠슨황 복귀가능성, FT보도후 칼시에서 20% 급등",
+    "views": 476,
+    "recommend": 2,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902216&page=2",
+    "time_kst": "11-16 04:46"
+   },
+   {
+    "gallery": "국내주식갤러리",
+    "title": "실시간 코랩",
+    "views": 469,
+    "recommend": 0,
+    "url": "https://gall.dcinside.com/mgallery/board/view/?id=krstock&no=3902077&page=4",
+    "time_kst": "11-16 01:31"
+   }
+  ]
+ }
+}
